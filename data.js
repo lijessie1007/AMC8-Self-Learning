@@ -167,10 +167,10 @@ const TOPICS = [
       { term: '倒数 (Reciprocal)', def: '把一个分数的分子和分母互换得到的数。如 2/3 的倒数是 3/2。一个数和它的倒数相乘等于1。' }
     ],
     videosCn: [
-      { title: '洋葱学园 - 分数的意义(动画入门)', url: 'https://www.bilibili.com/video/BV1Wb411H7GE/' },
-      { title: '分数乘法为什么分子乘分子？(画格子法)', url: 'https://www.bilibili.com/video/BV1dT4y1c7Fb/' },
-      { title: '分数除法：为什么颠倒相乘？(原理讲透)', url: 'https://www.bilibili.com/video/BV1uZ4y1M7Vx/' },
-      { title: '3Blue1Brown - 分数的直觉理解(中文配音)', url: 'https://www.bilibili.com/video/BV1ys411472E/' }
+      { title: '洋葱学园 - 分数的意义(动画入门)', url: 'https://www.bilibili.com/video/BV1Wb411H7GE/', searchUrl: 'https://search.bilibili.com/all?keyword=分数的意义+小学+动画讲解&order=click' },
+      { title: '分数乘法为什么分子乘分子？(画格子法)', url: 'https://www.bilibili.com/video/BV1dT4y1c7Fb/', searchUrl: 'https://search.bilibili.com/all?keyword=分数乘法+原理+画格子&order=click' },
+      { title: '分数除法：为什么颠倒相乘？(原理讲透)', url: 'https://www.bilibili.com/video/BV1uZ4y1M7Vx/', searchUrl: 'https://search.bilibili.com/all?keyword=分数除法+颠倒相乘+原理&order=click' },
+      { title: '3Blue1Brown - 分数的直觉理解(中文配音)', url: 'https://www.bilibili.com/video/BV1ys411472E/', searchUrl: 'https://search.bilibili.com/all?keyword=分数+直觉理解+3blue1brown+中文&order=click' }
     ],
     videosEn: [
       { title: 'Math Antics - What Are Fractions?(入门动画)', url: 'https://www.youtube.com/watch?v=n0FZhQ_GkKw' },
@@ -182,22 +182,115 @@ const TOPICS = [
       {
         title: '第1课：分数的含义与约分',
         story: '一个大披萨切成8片🍕，你吃了3片——你吃了 <strong>3/8</strong>！\n\n分数回答的问题是：整体被分成了几份(分母)，你拿了其中几份(分子)？\n\n<strong>约分</strong>就是"换个说法但大小不变"：2/4 和 1/2 是一样大的——就像说"半个苹果"和"2个四分之一苹果"是同一个意思。',
-        keyPoints: ['分数 = 部分÷整体', '分母=总份数，分子=取几份', '约分：分子分母同除以最大公因数', '1/2 = 2/4 = 3/6 = 50/100（等值分数）']
+        keyPoints: ['分数 = 部分÷整体', '分母=总份数，分子=取几份', '约分：分子分母同除以最大公因数', '1/2 = 2/4 = 3/6 = 50/100（等值分数）'],
+        visual: `<div style="font-weight:700;margin-bottom:12px;color:var(--p)">🖼️ 图解：3/8 是什么意思？</div>
+<div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px">
+${[1,2,3,4,5,6,7,8].map(i=>`<div style="width:44px;height:44px;border-radius:6px;background:${i<=3?'#4f46e5':'#e2e8f0'};display:flex;align-items:center;justify-content:center;color:${i<=3?'#fff':'#94a3b8'};font-weight:700">${i}</div>`).join('')}
+</div>
+<div style="font-size:13px;color:var(--text2)">8片中取3片 = <strong style="color:var(--p)">3/8</strong>（蓝色格=分子3，总格=分母8）</div>
+<hr style="margin:12px 0;border:none;border-top:1px solid var(--border)">
+<div style="font-weight:700;margin-bottom:8px;color:var(--g)">🖼️ 等值分数：形状不同，大小相同</div>
+<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+  <div style="text-align:center"><div style="display:flex;gap:2px">${[1,2].map(i=>`<div style="width:30px;height:30px;background:${i<=1?'#10b981':'#e2e8f0'};border-radius:4px"></div>`).join('')}</div><div style="font-size:12px;margin-top:4px">1/2</div></div>
+  <div style="font-size:20px;color:var(--text2)">=</div>
+  <div style="text-align:center"><div style="display:flex;gap:2px">${[1,2,3,4].map(i=>`<div style="width:30px;height:30px;background:${i<=2?'#10b981':'#e2e8f0'};border-radius:4px"></div>`).join('')}</div><div style="font-size:12px;margin-top:4px">2/4</div></div>
+  <div style="font-size:20px;color:var(--text2)">=</div>
+  <div style="text-align:center"><div style="display:flex;gap:2px">${[1,2,3,4,5,6].map(i=>`<div style="width:20px;height:30px;background:${i<=3?'#10b981':'#e2e8f0'};border-radius:4px"></div>`).join('')}</div><div style="font-size:12px;margin-top:4px">3/6</div></div>
+</div>`
       },
       {
         title: '第2课：加减法——为什么要通分？',
         story: '1/3 + 1/4 能直接加吗？❌ 不能！因为1/3的"一份"和1/4的"一份"<strong>大小不同</strong>！\n\n解决：把两块都<strong>重新切成一样大的小块</strong>！\n1/3 = 4/12, 1/4 = 3/12\n现在：4/12 + 3/12 = <strong>7/12</strong> ✅\n\n这就是<strong>通分</strong>的意义！',
-        keyPoints: ['同分母直接加减分子', '不同分母→找最小公倍数→通分→再加减', '💡 通分的本质：统一"每份的大小"']
+        keyPoints: ['同分母直接加减分子', '不同分母→找最小公倍数→通分→再加减', '💡 通分的本质：统一"每份的大小"'],
+        visual: `<div style="font-weight:700;margin-bottom:12px;color:var(--p)">🖼️ 图解：为什么 1/3 + 1/4 ≠ 2/7？</div>
+<div style="display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap">
+  <div style="text-align:center">
+    <div style="display:flex;gap:2px">${[1,2,3].map(i=>`<div style="width:36px;height:36px;background:${i<=1?'#4f46e5':'#e2e8f0'};border-radius:4px"></div>`).join('')}</div>
+    <div style="font-size:13px;margin-top:4px;font-weight:700">1/3</div>
+    <div style="font-size:11px;color:var(--text2)">每块很大</div>
+  </div>
+  <div style="font-size:24px;padding-top:6px">+</div>
+  <div style="text-align:center">
+    <div style="display:flex;gap:2px">${[1,2,3,4].map(i=>`<div style="width:27px;height:36px;background:${i<=1?'#ef4444':'#e2e8f0'};border-radius:4px"></div>`).join('')}</div>
+    <div style="font-size:13px;margin-top:4px;font-weight:700">1/4</div>
+    <div style="font-size:11px;color:var(--text2)">每块稍小</div>
+  </div>
+  <div style="font-size:24px;padding-top:6px">=</div>
+  <div style="font-size:13px;color:var(--r);padding-top:6px">❌ 不能直接加<br>因为每块大小不同！</div>
+</div>
+<div style="margin-top:12px;padding:10px;background:#ecfdf5;border-radius:8px;font-weight:700;color:var(--g)">✅ 正确做法：通分（统一成12等份）</div>
+<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px">
+  <div style="text-align:center">
+    <div style="display:flex;gap:2px">${[1,2,3,4,5,6,7,8,9,10,11,12].map(i=>`<div style="width:16px;height:28px;background:${i<=4?'#4f46e5':'#e2e8f0'};border-radius:3px"></div>`).join('')}</div>
+    <div style="font-size:12px;margin-top:3px">1/3 = <strong>4/12</strong></div>
+  </div>
+  <div>+</div>
+  <div style="text-align:center">
+    <div style="display:flex;gap:2px">${[1,2,3,4,5,6,7,8,9,10,11,12].map(i=>`<div style="width:16px;height:28px;background:${i<=3?'#ef4444':'#e2e8f0'};border-radius:3px"></div>`).join('')}</div>
+    <div style="font-size:12px;margin-top:3px">1/4 = <strong>3/12</strong></div>
+  </div>
+  <div>=</div>
+  <div style="text-align:center">
+    <div style="display:flex;gap:2px">${[1,2,3,4,5,6,7,8,9,10,11,12].map(i=>`<div style="width:16px;height:28px;background:${i<=7?'#7c3aed':'#e2e8f0'};border-radius:3px"></div>`).join('')}</div>
+    <div style="font-size:12px;margin-top:3px;font-weight:700;color:var(--p)">= <strong>7/12</strong></div>
+  </div>
+</div>`
       },
       {
         title: '第3课：乘法——画格子秒懂',
         story: '1/2 × 1/3 = ？想象一块巧克力🍫：\n\n① 横着切1刀 → 2行，取1行 = 1/2\n② 竖着切2刀 → 3列，在蓝色里取1列\n\n巧克力变成 2×3=<strong>6小格</strong>，你拿了<strong>1格</strong> → 答案 <strong>1/6</strong>\n\n所以分子×分子(1×1=1)，分母×分母(2×3=6)。\n\n<strong>生活应用</strong>：超市打7折再打8折 = 0.7×0.8 = 0.56 = 打5.6折！',
-        keyPoints: ['a/b × c/d = (a×c)/(b×d)', '画格子法：横切×竖切=总格数，选中区域=分子之积', '"的"就是"乘"：1/2的1/3 = 1/2 × 1/3', '乘以<1的数→结果变小']
+        keyPoints: ['a/b × c/d = (a×c)/(b×d)', '画格子法：横切×竖切=总格数，选中区域=分子之积', '"的"就是"乘"：1/2的1/3 = 1/2 × 1/3', '乘以<1的数→结果变小'],
+        visual: `<div style="font-weight:700;margin-bottom:12px;color:var(--p)">🖼️ 画格子法理解 1/2 × 1/3</div>
+<div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap">
+  <div>
+    <div style="font-size:12px;color:var(--text2);margin-bottom:4px">① 横切：取1/2（上面1行蓝色）</div>
+    <div style="display:grid;grid-template-columns:repeat(3,48px);gap:3px">
+      ${['蓝','蓝','蓝','白','白','白'].map((c,i)=>`<div style="height:40px;background:${c==='蓝'?'#bfdbfe':'#f1f5f9'};border-radius:4px;border:1px solid #e2e8f0"></div>`).join('')}
+    </div>
+  </div>
+  <div style="font-size:24px;padding-top:24px;color:var(--text2)">→</div>
+  <div>
+    <div style="font-size:12px;color:var(--text2);margin-bottom:4px">② 竖切：在蓝色里取1/3（左1列深色）</div>
+    <div style="display:grid;grid-template-columns:repeat(3,48px);gap:3px">
+      <div style="height:40px;background:#4f46e5;border-radius:4px;border:2px solid #312e81"></div>
+      <div style="height:40px;background:#bfdbfe;border-radius:4px;border:1px solid #e2e8f0"></div>
+      <div style="height:40px;background:#bfdbfe;border-radius:4px;border:1px solid #e2e8f0"></div>
+      <div style="height:40px;background:#f1f5f9;border-radius:4px;border:1px solid #e2e8f0"></div>
+      <div style="height:40px;background:#f1f5f9;border-radius:4px;border:1px solid #e2e8f0"></div>
+      <div style="height:40px;background:#f1f5f9;border-radius:4px;border:1px solid #e2e8f0"></div>
+    </div>
+  </div>
+</div>
+<div style="margin-top:12px;padding:10px;background:var(--p3);border-radius:8px;font-size:14px">
+  总格数 = 2行 × 3列 = <strong>6格</strong>（分母相乘）<br>
+  深色格 = 1行 × 1列 = <strong>1格</strong>（分子相乘）<br>
+  答案 = <strong style="color:var(--p);font-size:16px">1/6</strong>
+</div>`
       },
       {
         title: '第4课：除法——为什么翻转相乘？',
         story: '3块披萨🍕，每盘放1/2块，能装几盘？\n\n3 ÷ 1/2 = ？每块切半，3块→6份 → <strong>6盘</strong>！\n\n3 ÷ 1/2 = 3 × 2 = 6\n\n<strong>原理</strong>：除以1/2 = "有几个1/2" = 每个整体里有2个1/2 → 乘以2',
-        keyPoints: ['倒数：分子分母互换，如2/3↔3/2', '除以分数 = 乘以倒数', '口诀：除号变乘号，后面翻个身', '÷小于1的数→结果变大']
+        keyPoints: ['倒数：分子分母互换，如2/3↔3/2', '除以分数 = 乘以倒数', '口诀：除号变乘号，后面翻个身', '÷小于1的数→结果变大'],
+        visual: `<div style="font-weight:700;margin-bottom:12px;color:var(--p)">🖼️ 图解：3 ÷ 1/2 = 6</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+  ${[1,2,3].map(i=>`<div style="display:flex;gap:3px"><div style="width:36px;height:52px;background:#4f46e5;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700">${i}A</div><div style="width:36px;height:52px;background:#7c3aed;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700">${i}B</div></div>`).join('<div style="font-size:20px;padding-top:12px;color:var(--text2)"> </div>')}
+</div>
+<div style="font-size:13px;color:var(--text2);margin-bottom:12px">每块披萨切成2份 → 3块变成 <strong>6份</strong> → 能装 <strong>6盘</strong></div>
+<div style="padding:10px;background:#fffbeb;border-radius:8px;border-left:3px solid var(--o)">
+  <div style="font-weight:700;margin-bottom:6px">步骤对比</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px">
+    <div style="padding:8px;background:#fee2e2;border-radius:6px;text-align:center">
+      <div style="color:var(--r);font-weight:700">❌ 错误</div>
+      <div>3 ÷ 1/2 = 3/2</div>
+      <div style="font-size:11px">直接套公式</div>
+    </div>
+    <div style="padding:8px;background:#dcfce7;border-radius:6px;text-align:center">
+      <div style="color:var(--g);font-weight:700">✅ 正确</div>
+      <div>3 ÷ 1/2 = 3 × <span style="text-decoration:underline;color:var(--p)">2/1</span> = 6</div>
+      <div style="font-size:11px">翻转后相乘</div>
+    </div>
+  </div>
+</div>`
       }
     ],
     practice: {
@@ -246,15 +339,24 @@ const TOPICS = [
       { term: '利润率 (Profit Margin)', def: '利润占成本的比例。利润率 = (售价-成本)/成本 × 100%。注意分母是成本不是售价。' }
     ],
     videosCn: [
-      { title: '洋葱学园 - 百分数的认识(动画)', url: 'https://www.bilibili.com/video/BV1y5411c7fo/' },
-      { title: '李永乐老师 - 折扣和利润率(生活数学)', url: 'https://www.bilibili.com/video/BV1UE411M7Gc/' }
+      { title: '洋葱学园 - 百分数的认识(动画)', url: 'https://www.bilibili.com/video/BV1y5411c7fo/', searchUrl: 'https://search.bilibili.com/all?keyword=百分数+小学+动画讲解&order=click' },
+      { title: '李永乐老师 - 折扣和利润率(生活数学)', url: 'https://www.bilibili.com/video/BV1UE411M7Gc/', searchUrl: 'https://search.bilibili.com/all?keyword=折扣+利润率+李永乐&order=click' }
     ],
     videosEn: [
       { title: 'Math Antics - What Are Percentages?', url: 'https://www.youtube.com/watch?v=JeVSmq1Nrpw' },
       { title: 'Math Antics - Finding A Percent Of A Number', url: 'https://www.youtube.com/watch?v=rR95Cbcjzus' }
     ],
     lessons: [
-      { title: '百分数与生活', story: '商场写着"全场8折"——原价100元只要付80元！\n百分数就是"以100为分母的分数"：80% = 80/100 = 0.8', keyPoints: ['百分数=分母为100的分数','折扣：8折=×0.8','利润率=(售价-成本)/成本×100%'] }
+      { title: '百分数与生活', story: '商场写着"全场8折"——原价100元只要付80元！\n百分数就是"以100为分母的分数"：80% = 80/100 = 0.8', keyPoints: ['百分数=分母为100的分数','折扣：8折=×0.8','利润率=(售价-成本)/成本×100%'],
+        visual: `<div style="font-weight:700;margin-bottom:12px;color:var(--p)">🖼️ 图解：百分数就是100格里取几格</div>
+<div style="display:grid;grid-template-columns:repeat(10,1fr);gap:2px;max-width:220px">
+  ${Array.from({length:100},(_,i)=>`<div style="aspect-ratio:1;background:${i<75?'#4f46e5':'#e2e8f0'};border-radius:2px"></div>`).join('')}
+</div>
+<div style="margin-top:8px;font-size:13px;color:var(--text2)">蓝色75格 = <strong style="color:var(--p)">75%</strong>（如考试75分）</div>
+<div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px">
+  <div style="padding:8px;background:var(--p3);border-radius:8px;text-align:center"><div style="font-weight:700">8折</div><div>= 80% = ×0.8</div></div>
+  <div style="padding:8px;background:#dcfce7;border-radius:8px;text-align:center"><div style="font-weight:700">利润率</div><div>= 利润/成本×100%</div></div>
+</div>` }
     ],
     practice: {
       basic: [
@@ -295,9 +397,9 @@ const TOPICS = [
       { term: 'LCM 最小公倍数', def: '两个数共有倍数中最小的那个。如 LCM(4,6)=12。' }
     ],
     videosCn: [
-      { title: '乐乐课堂 - 因数和倍数(动画3分钟)', url: 'https://www.bilibili.com/video/BV1Vb411H7cS/' },
-      { title: '整除判断技巧大全(2/3/4/5/8/9/11)', url: 'https://www.bilibili.com/video/BV1gJ411D7cN/' },
-      { title: '最大公因数和最小公倍数(动画)', url: 'https://www.bilibili.com/video/BV1WE411A7fK/' }
+      { title: '乐乐课堂 - 因数和倍数(动画3分钟)', url: 'https://www.bilibili.com/video/BV1Vb411H7cS/', searchUrl: 'https://search.bilibili.com/all?keyword=因数倍数+小学+动画&order=click' },
+      { title: '整除判断技巧大全(2/3/4/5/8/9/11)', url: 'https://www.bilibili.com/video/BV1gJ411D7cN/', searchUrl: 'https://search.bilibili.com/all?keyword=整除判断规则+技巧+小学&order=click' },
+      { title: '最大公因数和最小公倍数(动画)', url: 'https://www.bilibili.com/video/BV1WE411A7fK/', searchUrl: 'https://search.bilibili.com/all?keyword=最大公因数+最小公倍数+动画讲解&order=click' }
     ],
     videosEn: [
       { title: 'Math Antics - Factors and Multiples', url: 'https://www.youtube.com/watch?v=vcn2ruTOwFo' },
@@ -305,8 +407,28 @@ const TOPICS = [
       { title: 'Khan Academy - Divisibility Rules', url: 'https://www.youtube.com/watch?v=M5VGKRTnfkE' }
     ],
     lessons: [
-      { title: '因数和倍数', story: '12个糖果分人：1×12, 2×6, 3×4... 这些1,2,3,4,6,12就是12的<strong>因数</strong>。\n\n为什么一小时60分钟？因为60的因数特别多！方便分成2份、3份、4份、5份、6份...', keyPoints: ['a÷b=整数 → b是a的因数','整除口诀: 2看末位, 3看各位和, 5看末位0/5','GCD=最大公因数, LCM=最小公倍数'] },
-      { title: '整除判断规则详解', story: '怎么快速判断372能不能被3整除？\n\n把各位数字加起来：3+7+2=12→12÷3=4→能整除！\n\n为什么有效？因为10÷3余1, 100÷3余1...所以372和3+7+2除以3余数相同！', keyPoints: ['2:末位偶数','3:各位和÷3','4:末两位÷4','9:各位和÷9','11:奇位和-偶位和÷11'] }
+      { title: '因数和倍数', story: '12个糖果分人：1×12, 2×6, 3×4... 这些1,2,3,4,6,12就是12的<strong>因数</strong>。\n\n为什么一小时60分钟？因为60的因数特别多！方便分成2份、3份、4份、5份、6份...', keyPoints: ['a÷b=整数 → b是a的因数','整除口诀: 2看末位, 3看各位和, 5看末位0/5','GCD=最大公因数, LCM=最小公倍数'],
+        visual: `<div style="font-weight:700;margin-bottom:12px;color:var(--p)">🖼️ 整除规则速查卡</div>
+<div style="display:flex;flex-direction:column;gap:6px;font-size:13px">
+  ${[['÷2','末位是偶数(0,2,4,6,8)','如 34✓ 35✗','#dbeafe'],['÷3','各位数字之和能被3整除','如 372: 3+7+2=12✓','#dcfce7'],['÷4','末两位能被4整除','如 1324: 24÷4=6✓','#fef3c7'],['÷5','末位是0或5','如 35✓ 37✗','#fce7f3'],['÷9','各位数字之和能被9整除','如 729: 7+2+9=18✓','#ede9fe']].map(([rule,tip,ex,bg])=>`<div style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:${bg};border-radius:8px"><span style="font-weight:800;font-size:15px;min-width:28px">${rule}</span><div><div style="font-weight:600">${tip}</div><div style="font-size:11px;color:var(--text2)">${ex}</div></div></div>`).join('')}
+</div>` },
+      { title: '整除判断规则详解', story: '怎么快速判断372能不能被3整除？\n\n把各位数字加起来：3+7+2=12→12÷3=4→能整除！\n\n为什么有效？因为10÷3余1, 100÷3余1...所以372和3+7+2除以3余数相同！', keyPoints: ['2:末位偶数','3:各位和÷3','4:末两位÷4','9:各位和÷9','11:奇位和-偶位和÷11'],
+        visual: `<div style="font-weight:700;margin-bottom:12px;color:var(--p)">🖼️ GCD与LCM的区别</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+  <div style="padding:12px;background:#dbeafe;border-radius:8px;text-align:center">
+    <div style="font-size:20px;font-weight:800;color:#1e40af">GCD</div>
+    <div style="font-size:12px;color:#1e40af;margin-bottom:8px">最大公因数</div>
+    <div style="font-size:13px">GCD(12,18)=<strong>6</strong></div>
+    <div style="font-size:11px;color:var(--text2);margin-top:4px">12=2²×3<br>18=2×3²<br>公共部分: 2×3=6</div>
+  </div>
+  <div style="padding:12px;background:#dcfce7;border-radius:8px;text-align:center">
+    <div style="font-size:20px;font-weight:800;color:#166534">LCM</div>
+    <div style="font-size:12px;color:#166534;margin-bottom:8px">最小公倍数</div>
+    <div style="font-size:13px">LCM(4,6)=<strong>12</strong></div>
+    <div style="font-size:11px;color:var(--text2);margin-top:4px">4=2²<br>6=2×3<br>所有因子: 2²×3=12</div>
+  </div>
+</div>
+<div style="margin-top:8px;padding:8px;background:var(--p3);border-radius:8px;font-size:13px;text-align:center"><strong>GCD × LCM = 两数之积</strong><br><span style="font-size:11px">如 GCD(4,6)×LCM(4,6) = 2×12 = 24 = 4×6 ✓</span></div>` }
     ],
     practice: {
       basic: [
@@ -348,16 +470,22 @@ const TOPICS = [
       { term: '质因数分解 (Prime Factorization)', def: '把一个合数写成质数乘积的形式。如 60=2²×3×5。每个合数的分解方式唯一(唯一分解定理)。' }
     ],
     videosCn: [
-      { title: '李永乐 - 质数有什么用？(RSA加密)', url: 'https://www.bilibili.com/video/BV1V4411U7sN/' },
-      { title: '妈咪说 - 蝉为什么选质数年份繁殖？', url: 'https://www.bilibili.com/video/BV1Mx411G7kR/' },
-      { title: '质因数分解方法详解(小学奥数)', url: 'https://www.bilibili.com/video/BV1gE411T7NC/' }
+      { title: '李永乐 - 质数有什么用？(RSA加密)', url: 'https://www.bilibili.com/video/BV1V4411U7sN/', searchUrl: 'https://search.bilibili.com/all?keyword=质数+用途+RSA加密+李永乐&order=click' },
+      { title: '妈咪说 - 蝉为什么选质数年份繁殖？', url: 'https://www.bilibili.com/video/BV1Mx411G7kR/', searchUrl: 'https://search.bilibili.com/all?keyword=蝉+质数+周期+生物数学&order=click' },
+      { title: '质因数分解方法详解(小学奥数)', url: 'https://www.bilibili.com/video/BV1gE411T7NC/', searchUrl: 'https://search.bilibili.com/all?keyword=质因数分解+小学奥数+方法&order=click' }
     ],
     videosEn: [
       { title: 'Math Antics - Prime Factorization', url: 'https://www.youtube.com/watch?v=ZKhRkxB_NG0' },
       { title: 'Numberphile - Primes are like atoms', url: 'https://www.youtube.com/watch?v=M7kEpw1tn50' }
     ],
     lessons: [
-      { title: '质数——数学的原子', story: '万物由原子构成，所有整数由质数"拼"出来！\n\n60 = 2²×3×5\n\n100以内25个质数要背熟：2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97', keyPoints: ['质数：只有1和自身两个因数','2是唯一偶数质数','质因数分解：写成质数乘积','判质：试除到√n'] }
+      { title: '质数——数学的原子', story: '万物由原子构成，所有整数由质数"拼"出来！\n\n60 = 2²×3×5\n\n100以内25个质数要背熟：2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97', keyPoints: ['质数：只有1和自身两个因数','2是唯一偶数质数','质因数分解：写成质数乘积','判质：试除到√n'],
+        visual: `<div style="font-weight:700;margin-bottom:10px;color:var(--p)">🖼️ 100以内质数筛（蓝色=质数，共25个）</div>
+<div style="display:grid;grid-template-columns:repeat(10,1fr);gap:2px;font-size:11px">
+  ${Array.from({length:100},(_,i)=>{const n=i+1;const primes=[2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97];const isPrime=primes.includes(n);const isOne=n===1;return `<div style="aspect-ratio:1;background:${isPrime?'#4f46e5':isOne?'#fef3c7':'#f1f5f9'};border-radius:3px;display:flex;align-items:center;justify-content:center;color:${isPrime?'#fff':isOne?'#92400e':'#94a3b8'};font-weight:${isPrime?'700':'400'}">${n}</div>`;}).join('')}
+</div>
+<div style="margin-top:8px;font-size:12px;color:var(--text2)"><span style="display:inline-block;width:12px;height:12px;background:#4f46e5;border-radius:2px;margin-right:4px;vertical-align:middle"></span>质数（25个）&nbsp;&nbsp;<span style="display:inline-block;width:12px;height:12px;background:#fef3c7;border-radius:2px;margin-right:4px;vertical-align:middle"></span>1（特殊，不是质数也不是合数）</div>
+<div style="margin-top:10px;padding:8px;background:#fffbeb;border-radius:8px;font-size:13px"><strong>质因数分解例子：</strong><br>60 = 2 × 30 = 2 × 2 × 15 = 2 × 2 × 3 × 5 = <strong style="color:var(--p)">2² × 3 × 5</strong></div>` }
     ],
     practice: {
       basic: [
@@ -387,14 +515,23 @@ const TOPICS = [
       { term: '尾数规律', def: '一个数的幂次的个位数字会周期性重复。如2的幂次尾数：2,4,8,6,2,4,8,6...周期为4。' }
     ],
     videosCn: [
-      { title: '奇偶性分析秒解难题(竞赛技巧)', url: 'https://www.bilibili.com/video/BV1VE411n7uh/' },
-      { title: '尾数规律与周期(幂次末位数)', url: 'https://www.bilibili.com/video/BV1CE411F7nP/' }
+      { title: '奇偶性分析秒解难题(竞赛技巧)', url: 'https://www.bilibili.com/video/BV1VE411n7uh/', searchUrl: 'https://search.bilibili.com/all?keyword=奇偶性+数学竞赛+技巧&order=click' },
+      { title: '尾数规律与周期(幂次末位数)', url: 'https://www.bilibili.com/video/BV1CE411F7nP/', searchUrl: 'https://search.bilibili.com/all?keyword=尾数规律+幂次+末位数字&order=click' }
     ],
     videosEn: [
       { title: 'Art of Problem Solving - Parity', url: 'https://www.youtube.com/watch?v=ycLqNjBRnOU' }
     ],
     lessons: [
-      { title: '奇偶分析与尾数', story: '奇+奇=偶, 奇×奇=奇, 有偶因子→结果偶\n\n2的幂次尾数：2→4→8→6→2→4...(周期4)', keyPoints: ['奇偶分析快速排除','尾数周期性','完全平方尾数只能0,1,4,5,6,9'] }
+      { title: '奇偶分析与尾数', story: '奇+奇=偶, 奇×奇=奇, 有偶因子→结果偶\n\n2的幂次尾数：2→4→8→6→2→4...(周期4)', keyPoints: ['奇偶分析快速排除','尾数周期性','完全平方尾数只能0,1,4,5,6,9'],
+        visual: `<div style="font-weight:700;margin-bottom:10px;color:var(--p)">🖼️ 奇偶规律速查</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px;margin-bottom:12px">
+  ${[['奇+奇','偶','#dcfce7'],['奇+偶','奇','#fef3c7'],['偶+偶','偶','#dcfce7'],['奇×奇','奇','#fef3c7'],['奇×偶','偶','#dcfce7'],['偶×偶','偶','#dcfce7']].map(([op,res,bg])=>`<div style="padding:6px 10px;background:${bg};border-radius:6px;display:flex;justify-content:space-between"><span>${op}</span><strong>=&nbsp;${res}</strong></div>`).join('')}
+</div>
+<div style="font-weight:700;margin-bottom:8px;color:var(--p)">🖼️ 尾数周期表</div>
+<div style="overflow-x:auto"><table style="font-size:12px;border-collapse:collapse;width:100%">
+<tr style="background:var(--p);color:#fff">${['底数','1次','2次','3次','4次','5次(回到起点)'].map(h=>`<th style="padding:4px 8px">${h}</th>`).join('')}</tr>
+${[[2,'2','4','8','6','2↻'],[3,'3','9','7','1','3↻'],[7,'7','9','3','1','7↻'],[8,'8','4','2','6','8↻']].map(([base,...vals])=>`<tr>${[base,...vals].map((v,i)=>`<td style="padding:4px 8px;text-align:center;background:${i===0?'var(--bg)':i===5?'var(--p3)':'#fff'};border:1px solid var(--border);font-weight:${i===0||i===5?'700':'400'}">${v}</td>`).join('')}</tr>`).join('')}
+</table></div>` }
     ],
     practice: {
       basic: [{ q: '奇+奇+奇=?', options: ['一定奇','一定偶','不确定','0'], answer: 0, explain: '奇+奇=偶,偶+奇=奇' }],
@@ -420,15 +557,33 @@ const TOPICS = [
       { term: '比例 (Proportion)', def: '两个比相等的等式。a:b = c:d，等价于 ad = bc（交叉相乘）。' }
     ],
     videosCn: [
-      { title: '乐乐课堂 - 比和比例(动画)', url: 'https://www.bilibili.com/video/BV1R54y1Q7La/' },
-      { title: '按比例分配应用题详解', url: 'https://www.bilibili.com/video/BV1rE411c7XT/' }
+      { title: '乐乐课堂 - 比和比例(动画)', url: 'https://www.bilibili.com/video/BV1R54y1Q7La/', searchUrl: 'https://search.bilibili.com/all?keyword=比和比例+小学+动画讲解&order=click' },
+      { title: '按比例分配应用题详解', url: 'https://www.bilibili.com/video/BV1rE411c7XT/', searchUrl: 'https://search.bilibili.com/all?keyword=按比例分配+应用题+小学&order=click' }
     ],
     videosEn: [
       { title: 'Math Antics - Ratios and Rates', url: 'https://www.youtube.com/watch?v=USmit5zUGas' },
       { title: 'Math Antics - Proportions', url: 'https://www.youtube.com/watch?v=USmit5zUGas' }
     ],
     lessons: [
-      { title: '比例的魔力', story: '做奶茶🧋：茶:奶=2:3。200ml茶需要多少奶？\n2:3=200:x → x=300ml\n\n<strong>捕获再捕获法</strong>：抓鱼标记放回→再抓→按比例估计总数', keyPoints: ['比a:b=分数a/b','交叉相乘:a:b=c:d→ad=bc','按比分配:总量×份数/总份数'] }
+      { title: '比例的魔力', story: '做奶茶🧋：茶:奶=2:3。200ml茶需要多少奶？\n2:3=200:x → x=300ml\n\n<strong>捕获再捕获法</strong>：抓鱼标记放回→再抓→按比例估计总数', keyPoints: ['比a:b=分数a/b','交叉相乘:a:b=c:d→ad=bc','按比分配:总量×份数/总份数'],
+        visual: `<div style="font-weight:700;margin-bottom:12px;color:var(--p)">🖼️ 比例的天平模型</div>
+<div style="text-align:center;margin-bottom:12px">
+  <div style="display:flex;justify-content:center;align-items:flex-end;gap:0">
+    <div style="width:80px;height:60px;background:#dbeafe;border-radius:8px 0 0 8px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#1e40af;font-size:18px">a</div>
+    <div style="width:4px;height:60px;background:#4f46e5"></div>
+    <div style="width:80px;height:60px;background:#dcfce7;border-radius:0 8px 8px 0;display:flex;align-items:center;justify-content:center;font-weight:700;color:#166534;font-size:18px">b</div>
+  </div>
+  <div style="width:164px;height:8px;background:var(--p);margin:0 auto;border-radius:2px"></div>
+  <div style="width:4px;height:20px;background:var(--p);margin:0 auto"></div>
+  <div style="font-size:12px;color:var(--text2)">a : b = 左 : 右</div>
+</div>
+<div style="padding:10px;background:#fffbeb;border-radius:8px;font-size:13px">
+  <strong>交叉相乘法：</strong><br>
+  a : b = c : d<br>
+  ↓<br>
+  <strong style="color:var(--p)">a × d = b × c</strong><br>
+  <span style="font-size:11px;color:var(--text2)">例：2:3 = x:9 → 3x = 18 → x = 6</span>
+</div>` }
     ],
     practice: {
       basic: [
@@ -457,15 +612,40 @@ const TOPICS = [
       { term: '解 (Solution)', def: '使方程成立的未知数的值。如 3x+7=22 的解是 x=5。' }
     ],
     videosCn: [
-      { title: '洋葱学园 - 一元一次方程(动画入门)', url: 'https://www.bilibili.com/video/BV1R54y1Q7tf/' },
-      { title: '鸡兔同笼问题详解(经典应用题)', url: 'https://www.bilibili.com/video/BV1fx411v7WZ/' }
+      { title: '洋葱学园 - 一元一次方程(动画入门)', url: 'https://www.bilibili.com/video/BV1R54y1Q7tf/', searchUrl: 'https://search.bilibili.com/all?keyword=一元一次方程+小学+动画&order=click' },
+      { title: '鸡兔同笼问题详解(经典应用题)', url: 'https://www.bilibili.com/video/BV1fx411v7WZ/', searchUrl: 'https://search.bilibili.com/all?keyword=鸡兔同笼+列方程+小学&order=click' }
     ],
     videosEn: [
       { title: 'Math Antics - Solving Basic Equations', url: 'https://www.youtube.com/watch?v=Qyd_v3DGzTM' },
       { title: 'Khan Academy - One-step Equations', url: 'https://www.youtube.com/watch?v=kbqO0YTUyAY' }
     ],
     lessons: [
-      { title: '方程——找到未知数', story: '方程像天平⚖️：左=右。找让天平平衡的x。', keyPoints: ['等式两边同时加减乘除','移项变号','三步：设x→找等量→解'] }
+      { title: '方程——找到未知数', story: '方程像天平⚖️：左=右。找让天平平衡的x。', keyPoints: ['等式两边同时加减乘除','移项变号','三步：设x→找等量→解'],
+        visual: `<div style="font-weight:700;margin-bottom:12px;color:var(--p)">🖼️ 天平模型：方程就是保持平衡</div>
+<div style="display:flex;justify-content:center;align-items:center;gap:0;margin-bottom:8px">
+  <div style="display:flex;flex-direction:column;align-items:center">
+    <div style="display:flex;gap:6px;margin-bottom:4px">
+      <div style="width:40px;height:40px;background:#4f46e5;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700">3x</div>
+      <div style="width:40px;height:40px;background:#7c3aed;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700">+7</div>
+    </div>
+    <div style="width:86px;height:6px;background:#4f46e5;border-radius:2px"></div>
+  </div>
+  <div style="font-size:24px;font-weight:700;padding:0 12px;color:var(--p)">=</div>
+  <div style="display:flex;flex-direction:column;align-items:center">
+    <div style="margin-bottom:4px">
+      <div style="width:40px;height:40px;background:#10b981;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700">22</div>
+    </div>
+    <div style="width:40px;height:6px;background:#10b981;border-radius:2px"></div>
+  </div>
+</div>
+<div style="padding:10px;background:#ecfdf5;border-radius:8px;font-size:13px">
+  <strong>解题步骤：</strong><br>
+  3x + 7 = 22<br>
+  3x = 22 - 7 &nbsp;&nbsp;<span style="color:var(--text2)">（两边同减7）</span><br>
+  3x = 15<br>
+  x = 15 ÷ 3 &nbsp;&nbsp;&nbsp;<span style="color:var(--text2)">（两边同除3）</span><br>
+  <strong style="color:var(--g)">x = 5 ✓</strong>
+</div>` }
     ],
     practice: {
       basic: [
@@ -494,15 +674,28 @@ const TOPICS = [
       { term: '高斯求和', def: '1+2+3+...+n = n(n+1)/2。发现者高斯10岁时用"首尾配对法"秒算出 1+2+...+100=5050。' }
     ],
     videosCn: [
-      { title: '高斯的故事：10岁秒算1+2+...+100', url: 'https://www.bilibili.com/video/BV1xE411N7HS/' },
-      { title: '等差数列求和(小学奥数)', url: 'https://www.bilibili.com/video/BV1PE411A7Fv/' }
+      { title: '高斯的故事：10岁秒算1+2+...+100', url: 'https://www.bilibili.com/video/BV1xE411N7HS/', searchUrl: 'https://search.bilibili.com/all?keyword=高斯求和+故事+数学&order=click' },
+      { title: '等差数列求和(小学奥数)', url: 'https://www.bilibili.com/video/BV1PE411A7Fv/', searchUrl: 'https://search.bilibili.com/all?keyword=等差数列求和+小学奥数&order=click' }
     ],
     videosEn: [
       { title: 'Math Antics - Arithmetic Sequences', url: 'https://www.youtube.com/watch?v=dSmSrLmCGOw' },
       { title: 'Khan Academy - Sum of Arithmetic Series', url: 'https://www.youtube.com/watch?v=Dj1JZIdIwwo' }
     ],
     lessons: [
-      { title: '数列——数字的规律', story: '1,3,5,7,9...每个+2！高斯10岁时秒算1+2+...+100=<strong>5050</strong>: 首尾配对(1+100)×50=5050', keyPoints: ['通项aₙ=a₁+(n-1)d','求和S=n(a₁+aₙ)/2','高斯: 1+2+...+n=n(n+1)/2'] }
+      { title: '数列——数字的规律', story: '1,3,5,7,9...每个+2！高斯10岁时秒算1+2+...+100=<strong>5050</strong>: 首尾配对(1+100)×50=5050', keyPoints: ['通项aₙ=a₁+(n-1)d','求和S=n(a₁+aₙ)/2','高斯: 1+2+...+n=n(n+1)/2'],
+        visual: `<div style="font-weight:700;margin-bottom:12px;color:var(--p)">🖼️ 高斯配对法图解：1+2+...+100</div>
+<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px">
+  ${[[1,100],[2,99],[3,98],[4,97],[5,96]].map(([a,b])=>`<div style="display:flex;align-items:center;gap:3px;padding:4px 8px;background:var(--p3);border-radius:20px;font-size:12px"><span style="color:var(--p);font-weight:700">${a}</span><span>+</span><span style="color:var(--p);font-weight:700">${b}</span><span style="color:var(--g);font-weight:700">=101</span></div>`).join('')}
+  <div style="padding:4px 8px;background:#f1f5f9;border-radius:20px;font-size:12px;color:var(--text2)">... 共50对</div>
+</div>
+<div style="padding:10px;background:#ecfdf5;border-radius:8px;font-size:13px">
+  每对和 = 101<br>
+  共 50 对<br>
+  <strong style="color:var(--g)">总和 = 101 × 50 = 5050 ✓</strong>
+</div>
+<div style="margin-top:8px;padding:8px;background:var(--p3);border-radius:8px;font-size:13px;text-align:center">
+  <strong>公式：S = (首项 + 末项) × 项数 ÷ 2</strong>
+</div>` }
     ],
     practice: {
       basic: [
@@ -530,14 +723,36 @@ const TOPICS = [
       { term: '速度 (Speed)', def: '单位时间内走过的距离。速度=距离÷时间。单位如 km/h(千米每小时)、m/s(米每秒)。' }
     ],
     videosCn: [
-      { title: '行程问题三大类型(相遇/追及/流水)', url: 'https://www.bilibili.com/video/BV1hE411T7Sm/' },
-      { title: '生活中的速度计算', url: 'https://www.bilibili.com/video/BV1fE411w7cD/' }
+      { title: '行程问题三大类型(相遇/追及/流水)', url: 'https://www.bilibili.com/video/BV1hE411T7Sm/', searchUrl: 'https://search.bilibili.com/all?keyword=行程问题+相遇追及+小学&order=click' },
+      { title: '生活中的速度计算', url: 'https://www.bilibili.com/video/BV1fE411w7cD/', searchUrl: 'https://search.bilibili.com/all?keyword=速度时间距离+生活数学&order=click' }
     ],
     videosEn: [
       { title: 'Math Antics - Distance, Rate and Time', url: 'https://www.youtube.com/watch?v=1UcCHNNsVaU' }
     ],
     lessons: [
-      { title: '追上你——行程问题', story: '距离=速度×时间。相遇时间=距离÷速度和。追及时间=距离差÷速度差。', keyPoints: ['距离=速度×时间','相遇:÷速度和','追及:÷速度差'] }
+      { title: '追上你——行程问题', story: '距离=速度×时间。相遇时间=距离÷速度和。追及时间=距离差÷速度差。', keyPoints: ['距离=速度×时间','相遇:÷速度和','追及:÷速度差'],
+        visual: `<div style="font-weight:700;margin-bottom:12px;color:var(--p)">🖼️ 三种行程问题图解</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+  <div style="padding:10px;background:#dbeafe;border-radius:8px">
+    <div style="font-weight:700;color:#1e40af;margin-bottom:6px">① 相遇问题（相向而行）</div>
+    <div style="display:flex;align-items:center;gap:0;font-size:13px">
+      <div style="background:#1e40af;color:#fff;padding:4px 8px;border-radius:4px">甲→</div>
+      <div style="flex:1;height:4px;background:repeating-linear-gradient(90deg,#93c5fd 0,#93c5fd 8px,transparent 8px,transparent 16px)"></div>
+      <div style="background:#dc2626;color:#fff;padding:4px 8px;border-radius:4px">←乙</div>
+    </div>
+    <div style="font-size:12px;color:#1e40af;margin-top:4px">时间 = 距离 ÷ (甲速 + 乙速)</div>
+  </div>
+  <div style="padding:10px;background:#dcfce7;border-radius:8px">
+    <div style="font-weight:700;color:#166534;margin-bottom:6px">② 追及问题（同向而行）</div>
+    <div style="display:flex;align-items:center;gap:0;font-size:13px">
+      <div style="background:#166534;color:#fff;padding:4px 8px;border-radius:4px">甲→</div>
+      <div style="width:40px;height:4px;background:#86efac"></div>
+      <div style="background:#16a34a;color:#fff;padding:4px 8px;border-radius:4px">乙→</div>
+      <div style="flex:1;height:4px;background:repeating-linear-gradient(90deg,#86efac 0,#86efac 8px,transparent 8px,transparent 16px)"></div>
+    </div>
+    <div style="font-size:12px;color:#166534;margin-top:4px">时间 = 距离差 ÷ (甲速 - 乙速)</div>
+  </div>
+</div>` }
     ],
     practice: {
       basic: [
@@ -567,15 +782,34 @@ const TOPICS = [
       { term: '割补法', def: '通过"切割"和"拼补"把不规则图形变成规则图形来计算面积。AMC8最常用技巧之一。' }
     ],
     videosCn: [
-      { title: '洋葱学园 - 三角形面积(为什么÷2)', url: 'https://www.bilibili.com/video/BV1U64y1c7h1/' },
-      { title: '割补法求面积(小学奥数经典)', url: 'https://www.bilibili.com/video/BV1F7411x7Tt/' }
+      { title: '洋葱学园 - 三角形面积(为什么÷2)', url: 'https://www.bilibili.com/video/BV1U64y1c7h1/', searchUrl: 'https://search.bilibili.com/all?keyword=三角形面积公式+为什么除以2&order=click' },
+      { title: '割补法求面积(小学奥数经典)', url: 'https://www.bilibili.com/video/BV1F7411x7Tt/', searchUrl: 'https://search.bilibili.com/all?keyword=割补法+面积+小学奥数&order=click' }
     ],
     videosEn: [
       { title: 'Math Antics - Area', url: 'https://www.youtube.com/watch?v=PF26xbR7OIQ' },
       { title: 'Khan Academy - Area of Triangles', url: 'https://www.youtube.com/watch?v=_JJFTMf5pRo' }
     ],
     lessons: [
-      { title: '面积的本质', story: '面积="铺几个小方格"。长方形=长×宽。三角形=长方形一半！割补法：复杂图形=大图形-挖洞', keyPoints: ['长方形=长×宽','三角形=底×高÷2','梯形=(上底+下底)×高÷2','割补法'] }
+      { title: '面积的本质', story: '面积="铺几个小方格"。长方形=长×宽。三角形=长方形一半！割补法：复杂图形=大图形-挖洞', keyPoints: ['长方形=长×宽','三角形=底×高÷2','梯形=(上底+下底)×高÷2','割补法'],
+        visual: `<div style="font-weight:700;margin-bottom:12px;color:var(--p)">🖼️ 三角形 = 长方形的一半</div>
+<div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:12px">
+  <div style="position:relative;width:120px;height:80px">
+    <div style="position:absolute;inset:0;background:#dbeafe;border-radius:4px"></div>
+    <div style="position:absolute;top:0;left:0;width:0;height:0;border-style:solid;border-width:0 0 80px 120px;border-color:transparent transparent #4f46e5 transparent"></div>
+    <div style="position:absolute;bottom:4px;left:50%;transform:translateX(-50%);font-size:11px;color:#fff;font-weight:700">三角形</div>
+  </div>
+  <div style="font-size:20px;color:var(--text2)">=</div>
+  <div style="display:flex;flex-direction:column;align-items:center">
+    <div style="width:120px;height:80px;background:#dbeafe;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#1e40af;font-weight:700">长方形</div>
+    <div style="font-size:12px;margin-top:4px">÷ 2</div>
+  </div>
+</div>
+<div style="padding:10px;background:#fffbeb;border-radius:8px;font-size:13px">
+  <strong>割补法示例：</strong><br>
+  不规则图形 = 大正方形(10×10=100) - 4个角的三角形<br>
+  每个角三角形面积 = 底×高÷2<br>
+  <strong style="color:var(--g)">中间图形 = 100 - 4×(三角形面积)</strong>
+</div>` }
     ],
     practice: {
       basic: [
@@ -601,15 +835,37 @@ const TOPICS = [
       { term: 'π (Pi)', def: '圆周长与直径的比值，约等于3.14159...是一个无限不循环小数(无理数)。' }
     ],
     videosCn: [
-      { title: '3Blue1Brown - 圆面积为什么是πr²(中文)', url: 'https://www.bilibili.com/video/BV1Cx411m78Y/' },
-      { title: '洋葱学园 - 圆的面积(动画推导)', url: 'https://www.bilibili.com/video/BV1p64y1c7YE/' }
+      { title: '3Blue1Brown - 圆面积为什么是πr²(中文)', url: 'https://www.bilibili.com/video/BV1Cx411m78Y/', searchUrl: 'https://search.bilibili.com/all?keyword=圆面积公式+推导+3blue1brown+中文&order=click' },
+      { title: '洋葱学园 - 圆的面积(动画推导)', url: 'https://www.bilibili.com/video/BV1p64y1c7YE/', searchUrl: 'https://search.bilibili.com/all?keyword=圆的面积公式+动画推导+小学&order=click' }
     ],
     videosEn: [
       { title: '3Blue1Brown - But WHY is a circle\'s area πr²?', url: 'https://www.youtube.com/watch?v=YokKp3pwVFc' },
       { title: 'Math Antics - Circles, Circumference And Area', url: 'https://www.youtube.com/watch?v=O-cawByg2aA' }
     ],
     lessons: [
-      { title: '完美的圆', story: '车轮🚲为何是圆的？每点到中心距离相等才平稳！\n\nπ≈3.14是周长与直径的比。面积πr²的由来：切成薄三角拼成长方形→长πr×宽r=πr²', keyPoints: ['C=2πr=πd','S=πr²','扇形=πr²×角度/360','环形=π(R²-r²)'] }
+      { title: '完美的圆', story: '车轮🚲为何是圆的？每点到中心距离相等才平稳！\n\nπ≈3.14是周长与直径的比。面积πr²的由来：切成薄三角拼成长方形→长πr×宽r=πr²', keyPoints: ['C=2πr=πd','S=πr²','扇形=πr²×角度/360','环形=π(R²-r²)'],
+        visual: `<div style="font-weight:700;margin-bottom:12px;color:var(--p)">🖼️ 为什么圆面积 = πr²？</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+  <div style="padding:10px;background:#dbeafe;border-radius:8px;font-size:13px">
+    <strong>切片拼矩形法：</strong><br>
+    把圆切成很多很细的扇形片<br>
+    ↓ 展开拼在一起<br>
+    近似一个长方形：<br>
+    • 长 = 半周长 = <strong>πr</strong><br>
+    • 宽 = 半径 = <strong>r</strong><br>
+    • 面积 = πr × r = <strong style="color:var(--p)">πr²</strong>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px">
+    <div style="padding:8px;background:#dcfce7;border-radius:8px;text-align:center">
+      <div style="font-weight:700">半径2的圆</div>
+      <div>S = π×2² = <strong>4π ≈ 12.6</strong></div>
+    </div>
+    <div style="padding:8px;background:#fef3c7;border-radius:8px;text-align:center">
+      <div style="font-weight:700">直径扩大2倍</div>
+      <div>面积扩大 <strong>4倍！</strong></div>
+    </div>
+  </div>
+</div>` }
     ],
     practice: {
       basic: [
@@ -634,13 +890,26 @@ const TOPICS = [
       { term: '平面直角坐标系', def: '由两条互相垂直的数轴(x轴和y轴)组成，交点为原点(0,0)。平面上每个点用(x,y)唯一表示。' }
     ],
     videosCn: [
-      { title: '平面直角坐标系入门(洋葱学园)', url: 'https://www.bilibili.com/video/BV1K7411n7FJ/' }
+      { title: '平面直角坐标系入门(洋葱学园)', url: 'https://www.bilibili.com/video/BV1K7411n7FJ/', searchUrl: 'https://search.bilibili.com/all?keyword=平面直角坐标系+入门+初中&order=click' }
     ],
     videosEn: [
       { title: 'Math Antics - Graphing on the Coordinate Plane', url: 'https://www.youtube.com/watch?v=9Uc62CUSvLo' }
     ],
     lessons: [
-      { title: '给点起地址', story: '(3,4)=右3上4。到原点距离=√(9+16)=5(勾股定理!)', keyPoints: ['坐标(x,y)','距离=√(Δx²+Δy²)','中点=(两x平均,两y平均)'] }
+      { title: '给点起地址', story: '(3,4)=右3上4。到原点距离=√(9+16)=5(勾股定理!)', keyPoints: ['坐标(x,y)','距离=√(Δx²+Δy²)','中点=(两x平均,两y平均)'],
+        visual: `<div style="font-weight:700;margin-bottom:12px;color:var(--p)">🖼️ 坐标系：给每个点一个地址</div>
+<div style="position:relative;width:100%;max-width:280px;height:200px;background:#f8fafc;border:1px solid var(--border);border-radius:8px;overflow:hidden">
+  <div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--text2);opacity:0.4"></div>
+  <div style="position:absolute;top:50%;left:0;right:0;height:1px;background:var(--text2);opacity:0.4"></div>
+  ${[[3,4,'#4f46e5','(3,4)'],[-2,3,'#10b981','(-2,3)'],[2,-3,'#ef4444','(2,-3)']].map(([x,y,color,label])=>`
+  <div style="position:absolute;left:calc(50% + ${x*25}px - 6px);top:calc(50% - ${y*25}px - 6px);width:12px;height:12px;background:${color};border-radius:50%"></div>
+  <div style="position:absolute;left:calc(50% + ${x*25}px + 8px);top:calc(50% - ${y*25}px - 8px);font-size:11px;color:${color};font-weight:700">${label}</div>`).join('')}
+  <div style="position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--text2)">→x</div>
+  <div style="position:absolute;left:50%;top:4px;transform:translateX(-50%);font-size:11px;color:var(--text2)">↑y</div>
+</div>
+<div style="margin-top:8px;padding:8px;background:#fffbeb;border-radius:8px;font-size:13px">
+  点(3,4)到原点距离 = √(3²+4²) = √(9+16) = √25 = <strong style="color:var(--p)">5</strong>（勾股定理！）
+</div>` }
     ],
     practice: {
       basic: [
@@ -669,16 +938,42 @@ const TOPICS = [
       { term: '组合 C(n,k)', def: '从n个不同元素中取k个不排序的方案数。C(n,k)=n!/[k!(n-k)!]。如5人选2人组队=10。' }
     ],
     videosCn: [
-      { title: '加法原理和乘法原理(动画讲解)', url: 'https://www.bilibili.com/video/BV1VE411G7M5/' },
-      { title: '排列和组合的区别(一个视频搞懂)', url: 'https://www.bilibili.com/video/BV1J4411R7bF/' },
-      { title: '李永乐 - 密码有多少种组合', url: 'https://www.bilibili.com/video/BV1Gb411v7V3/' }
+      { title: '加法原理和乘法原理(动画讲解)', url: 'https://www.bilibili.com/video/BV1VE411G7M5/', searchUrl: 'https://search.bilibili.com/all?keyword=加法原理+乘法原理+计数+动画&order=click' },
+      { title: '排列和组合的区别(一个视频搞懂)', url: 'https://www.bilibili.com/video/BV1J4411R7bF/', searchUrl: 'https://search.bilibili.com/all?keyword=排列组合+区别+初中数学&order=click' },
+      { title: '李永乐 - 密码有多少种组合', url: 'https://www.bilibili.com/video/BV1Gb411v7V3/', searchUrl: 'https://search.bilibili.com/all?keyword=密码+组合数学+李永乐&order=click' }
     ],
     videosEn: [
       { title: 'Math Antics - Intro to Combinations', url: 'https://www.youtube.com/watch?v=iKy-d5_erhI' },
       { title: 'AoPS - Counting with Restrictions', url: 'https://www.youtube.com/watch?v=3ArQLJ7rzSM' }
     ],
     lessons: [
-      { title: '有几种可能？', story: '🍦3口味×2容器=<strong>6种</strong>(乘法)\n去B或C: 2+3=<strong>5种</strong>(加法)\n\n"先...再..."→乘 | "...或者..."→加', keyPoints: ['乘法：连续步骤相乘','加法：互斥方法相加','P(n,k):有序','C(n,k):无序'] }
+      { title: '有几种可能？', story: '🍦3口味×2容器=<strong>6种</strong>(乘法)\n去B或C: 2+3=<strong>5种</strong>(加法)\n\n"先...再..."→乘 | "...或者..."→加', keyPoints: ['乘法：连续步骤相乘','加法：互斥方法相加','P(n,k):有序','C(n,k):无序'],
+        visual: `<div style="font-weight:700;margin-bottom:12px;color:var(--p)">🖼️ 树状图：3口味 × 2容器 = 6种搭配</div>
+<div style="font-size:13px;overflow-x:auto">
+  <div style="display:flex;gap:0;min-width:280px">
+    <div style="display:flex;flex-direction:column;justify-content:center;padding-right:16px">
+      <div style="padding:6px 12px;background:var(--p);color:#fff;border-radius:6px;font-weight:700;text-align:center">选口味</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;padding-right:16px">
+      ${['🍓草莓','🍫巧克力','🍦香草'].map(f=>`<div style="padding:5px 10px;background:var(--p3);border-radius:6px;font-weight:600">${f}</div>`).join('')}
+    </div>
+    <div style="display:flex;align-items:center;padding-right:8px;color:var(--text2);font-size:20px">×</div>
+    <div style="display:flex;flex-direction:column;justify-content:center;padding-right:16px">
+      <div style="padding:6px 12px;background:#10b981;color:#fff;border-radius:6px;font-weight:700;text-align:center">选容器</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      ${['🍦甜筒','🥤杯子'].map(c=>`<div style="padding:5px 10px;background:#dcfce7;border-radius:6px;font-weight:600">${c}</div>`).join('')}
+    </div>
+    <div style="display:flex;align-items:center;padding:0 8px;color:var(--text2);font-size:20px">=</div>
+    <div style="display:flex;flex-direction:column;justify-content:center">
+      <div style="padding:10px 16px;background:#fef3c7;border-radius:8px;font-size:20px;font-weight:800;color:#92400e">6种</div>
+    </div>
+  </div>
+</div>
+<div style="margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px">
+  <div style="padding:8px;background:#dbeafe;border-radius:8px"><strong>乘法原理</strong><br>"然后" → 相乘<br>3 × 2 = 6</div>
+  <div style="padding:8px;background:#dcfce7;border-radius:8px"><strong>加法原理</strong><br>"或者" → 相加<br>去B或C: 2+3=5</div>
+</div>` }
     ],
     practice: {
       basic: [
@@ -708,13 +1003,27 @@ const TOPICS = [
       { term: '容斥原理 (Inclusion-Exclusion)', def: '计算两个集合的并集大小：|A∪B|=|A|+|B|-|A∩B|。"加上的要减去重复的"。' }
     ],
     videosCn: [
-      { title: '容斥原理(画圈圈秒懂)', url: 'https://www.bilibili.com/video/BV1AE411n7Kz/' }
+      { title: '容斥原理(画圈圈秒懂)', url: 'https://www.bilibili.com/video/BV1AE411n7Kz/', searchUrl: 'https://search.bilibili.com/all?keyword=容斥原理+韦恩图+讲解&order=click' }
     ],
     videosEn: [
       { title: 'AoPS - Inclusion-Exclusion', url: 'https://www.youtube.com/watch?v=YQLUO-h6sSE' }
     ],
     lessons: [
-      { title: '不要数重了！', story: '50人：游泳30骑车25都会15→至少一样30+25-15=40→都不会10', keyPoints: ['|A∪B|=|A|+|B|-|A∩B|','补集：都不=总-至少一个'] }
+      { title: '不要数重了！', story: '50人：游泳30骑车25都会15→至少一样30+25-15=40→都不会10', keyPoints: ['|A∪B|=|A|+|B|-|A∩B|','补集：都不=总-至少一个'],
+        visual: `<div style="font-weight:700;margin-bottom:12px;color:var(--p)">🖼️ 韦恩图：容斥原理</div>
+<div style="position:relative;height:120px;margin-bottom:8px">
+  <div style="position:absolute;left:20px;top:10px;width:100px;height:100px;border:3px solid #4f46e5;border-radius:50%;background:rgba(79,70,229,0.15);display:flex;align-items:center;justify-content:center">
+    <div style="position:absolute;left:18px;font-size:11px;font-weight:700;color:#4f46e5">游泳<br>30人</div>
+  </div>
+  <div style="position:absolute;right:20px;top:10px;width:100px;height:100px;border:3px solid #10b981;border-radius:50%;background:rgba(16,185,129,0.15);display:flex;align-items:center;justify-content:center">
+    <div style="position:absolute;right:18px;font-size:11px;font-weight:700;color:#10b981">骑车<br>25人</div>
+  </div>
+  <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:12px;font-weight:700;color:#7c3aed;text-align:center">两样<br>都会<br>15人</div>
+</div>
+<div style="padding:10px;background:#f8fafc;border-radius:8px;font-size:13px">
+  至少会一样 = 30 + 25 - <strong style="color:var(--p)">15</strong>（减去重复的）= <strong style="color:var(--g)">40人</strong><br>
+  都不会 = 50 - 40 = <strong style="color:var(--r)">10人</strong>
+</div>` }
     ],
     practice: {
       basic: [{ q: '50人数学28英语25都喜欢13,都不喜欢?', options: ['10','12','8','15'], answer: 0, explain: '50-40=10' }],
@@ -737,15 +1046,30 @@ const TOPICS = [
       { term: '补集概率', def: 'P(A发生) = 1 - P(A不发生)。当"至少一个"难以直接算时，用"1-全部都不"更简单。' }
     ],
     videosCn: [
-      { title: '洋葱学园 - 概率入门(动画)', url: 'https://www.bilibili.com/video/BV1PE411n7xP/' },
-      { title: '李永乐 - 生活中的概率(彩票/天气)', url: 'https://www.bilibili.com/video/BV1Wt411Y7Fb/' }
+      { title: '洋葱学园 - 概率入门(动画)', url: 'https://www.bilibili.com/video/BV1PE411n7xP/', searchUrl: 'https://search.bilibili.com/all?keyword=概率入门+小学初中+动画&order=click' },
+      { title: '李永乐 - 生活中的概率(彩票/天气)', url: 'https://www.bilibili.com/video/BV1Wt411Y7Fb/', searchUrl: 'https://search.bilibili.com/all?keyword=概率+生活+彩票+李永乐&order=click' }
     ],
     videosEn: [
       { title: 'Math Antics - Basic Probability', url: 'https://www.youtube.com/watch?v=KzfWUEJjG18' },
       { title: 'Khan Academy - Intro to Probability', url: 'https://www.youtube.com/watch?v=uzkc-qNVoOk' }
     ],
     lessons: [
-      { title: '运气的数学', story: '抛硬币🪙正面P=1/2。概率=想要的÷全部可能。天气60%降水=100次相似条件下60次下雨。', keyPoints: ['P=有利/总数','0≤P≤1','P(不发生)=1-P(发生)','独立事件相乘'] }
+      { title: '运气的数学', story: '抛硬币🪙正面P=1/2。概率=想要的÷全部可能。天气60%降水=100次相似条件下60次下雨。', keyPoints: ['P=有利/总数','0≤P≤1','P(不发生)=1-P(发生)','独立事件相乘'],
+        visual: `<div style="font-weight:700;margin-bottom:12px;color:var(--p)">🖼️ 样本空间：掷骰子的概率</div>
+<div style="display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-bottom:8px">
+  ${[1,2,3,4,5,6].map(n=>`<div style="aspect-ratio:1;background:${n<=2?'#4f46e5':'#f1f5f9'};border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:${n<=2?'#fff':'var(--text2)'};border:1px solid var(--border)">${n}</div>`).join('')}
+</div>
+<div style="font-size:13px;color:var(--text2);margin-bottom:10px">P(点数≤2) = 蓝色格数/总格数 = <strong style="color:var(--p)">2/6 = 1/3</strong></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px">
+  <div style="padding:8px;background:#dbeafe;border-radius:8px;text-align:center">
+    <div style="font-weight:700">直接算</div>
+    <div>P(偶数) = 3/6 = 1/2</div>
+  </div>
+  <div style="padding:8px;background:#dcfce7;border-radius:8px;text-align:center">
+    <div style="font-weight:700">补集法</div>
+    <div>P(≥2) = 1-P(=1) = 5/6</div>
+  </div>
+</div>` }
     ],
     practice: {
       basic: [
@@ -774,13 +1098,27 @@ const TOPICS = [
       { term: '极差 (Range)', def: '最大值减去最小值。反映数据的"分散程度"。' }
     ],
     videosCn: [
-      { title: '乐乐课堂 - 平均数/中位数/众数', url: 'https://www.bilibili.com/video/BV1wb411J7CB/' }
+      { title: '乐乐课堂 - 平均数/中位数/众数', url: 'https://www.bilibili.com/video/BV1wb411J7CB/', searchUrl: 'https://search.bilibili.com/all?keyword=平均数中位数众数+初中数学+讲解&order=click' }
     ],
     videosEn: [
       { title: 'Math Antics - Mean, Median and Mode', url: 'https://www.youtube.com/watch?v=B1HEzNTGeZ4' }
     ],
     lessons: [
-      { title: '数据会说话', story: '成绩72,85,85,90,98:\n平均86, 中位数85, 众数85, 极差26', keyPoints: ['平均=和÷个数','中位数=排序后中间','众数=最多的','极差=最大-最小'] }
+      { title: '数据会说话', story: '成绩72,85,85,90,98:\n平均86, 中位数85, 众数85, 极差26', keyPoints: ['平均=和÷个数','中位数=排序后中间','众数=最多的','极差=最大-最小'],
+        visual: `<div style="font-weight:700;margin-bottom:12px;color:var(--p)">🖼️ 数据集 {72, 85, 85, 90, 98} 的统计量</div>
+<div style="display:flex;gap:4px;margin-bottom:12px;align-items:flex-end">
+  ${[72,85,85,90,98].map((v,i)=>`<div style="display:flex;flex-direction:column;align-items:center;flex:1">
+    <div style="width:100%;background:${i===0?'#fef3c7':i===4?'#fee2e2':i===1||i===2?'#dcfce7':'#dbeafe'};border-radius:4px 4px 0 0" style="height:${v/100*80}px"></div>
+    <div style="height:${v*0.7}px;width:100%;background:${i===0?'#f59e0b':i===4?'#ef4444':i===1||i===2?'#10b981':'#4f46e5'};border-radius:4px 4px 0 0"></div>
+    <div style="font-size:11px;font-weight:700;margin-top:2px">${v}</div>
+  </div>`).join('')}
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px">
+  <div style="padding:6px;background:#dbeafe;border-radius:6px"><strong>平均数</strong><br>(72+85+85+90+98)÷5 = <strong style="color:#1e40af">86</strong></div>
+  <div style="padding:6px;background:#dcfce7;border-radius:6px"><strong>中位数</strong><br>排序后第3个 = <strong style="color:#166534">85</strong></div>
+  <div style="padding:6px;background:#fef3c7;border-radius:6px"><strong>众数</strong><br>出现最多 = <strong style="color:#92400e">85</strong></div>
+  <div style="padding:6px;background:#fee2e2;border-radius:6px"><strong>极差</strong><br>98-72 = <strong style="color:#991b1b">26</strong></div>
+</div>` }
     ],
     practice: {
       basic: [
@@ -808,14 +1146,33 @@ const TOPICS = [
       { term: '逻辑推理 (Logical Reasoning)', def: '根据已知条件，通过严密的推理得出结论。常用方法：排除法、列表法、逆向思维。' }
     ],
     videosCn: [
-      { title: '逻辑推理入门(排除法·小学奥数)', url: 'https://www.bilibili.com/video/BV1ME411E7Wj/' },
-      { title: '数独怎么玩(逻辑思维训练)', url: 'https://www.bilibili.com/video/BV1st411M7hy/' }
+      { title: '逻辑推理入门(排除法·小学奥数)', url: 'https://www.bilibili.com/video/BV1ME411E7Wj/', searchUrl: 'https://search.bilibili.com/all?keyword=逻辑推理+排除法+小学奥数&order=click' },
+      { title: '数独怎么玩(逻辑思维训练)', url: 'https://www.bilibili.com/video/BV1st411M7hy/', searchUrl: 'https://search.bilibili.com/all?keyword=数独玩法+逻辑思维+入门&order=click' }
     ],
     videosEn: [
       { title: 'TED-Ed - Can you solve the riddle?', url: 'https://www.youtube.com/watch?v=1rDVz_Fb6HQ' }
     ],
     lessons: [
-      { title: '像侦探一样思考', story: '每条线索排除一些可能→剩下的就是答案🔍', keyPoints: ['排除法','列表法','逆向思维','极端情况'] }
+      { title: '像侦探一样思考', story: '每条线索排除一些可能→剩下的就是答案🔍', keyPoints: ['排除法','列表法','逆向思维','极端情况'],
+        visual: `<div style="font-weight:700;margin-bottom:12px;color:var(--p)">🖼️ 排除法解题流程</div>
+<div style="display:flex;flex-direction:column;gap:8px;font-size:13px">
+  <div style="display:flex;align-items:center;gap:8px">
+    <div style="width:28px;height:28px;background:var(--p);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">1</div>
+    <div style="padding:8px;background:#f8fafc;border-radius:8px;flex:1">列出<strong>所有可能</strong>的答案选项</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <div style="width:28px;height:28px;background:var(--r);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">2</div>
+    <div style="padding:8px;background:#fef2f2;border-radius:8px;flex:1">用每条<strong>线索排除</strong>不可能的选项</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <div style="width:28px;height:28px;background:var(--g);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">3</div>
+    <div style="padding:8px;background:#ecfdf5;border-radius:8px;flex:1"><strong>剩下的唯一选项</strong>就是答案！</div>
+  </div>
+</div>
+<div style="margin-top:10px;padding:10px;background:#fffbeb;border-radius:8px;font-size:12px">
+  <strong>例题：</strong>甲乙丙三人中一人偷了饼干。甲说"不是我"，乙说"是丙"，丙说"乙在说谎"。只有一人说谎。<br>
+  <span style="color:var(--text2)">→ 假设甲说谎：则偷饼干的是甲，乙和丙都说真话...（逐一验证）</span>
+</div>` }
     ],
     practice: {
       basic: [{ q: '甲"我不是最高",乙"我不是最矮",丙最高。谁最矮?', options: ['甲','乙','丙','不确定'], answer: 0, explain: '丙最高→乙不最矮→甲最矮' }],

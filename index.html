@@ -118,39 +118,99 @@ body{overflow:auto;height:100%}
 .anim-pop{animation:pop .3s ease-out}
 @keyframes slideUp{0%{transform:translateY(20px);opacity:0}100%{transform:translateY(0);opacity:1}}
 .anim-slide{animation:slideUp .4s ease-out}
-/* difficulty stars */
-.diff{color:var(--o);letter-spacing:2px;font-size:12px}
-/* hide scrollbar */
-.nav::-webkit-scrollbar{height:0}
+/* LOGIN */
+.login-overlay{position:fixed;inset:0;background:linear-gradient(135deg,#1e1b4b,#312e81,#4c1d95);z-index:9000;display:flex;align-items:center;justify-content:center;padding:20px}
+.login-card{background:#fff;border-radius:20px;padding:40px 32px;width:100%;max-width:380px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.login-card h2{font-size:22px;font-weight:800;margin:12px 0 4px}
+.login-card p{color:var(--text2);font-size:14px;margin-bottom:24px}
+.login-input{width:100%;padding:12px 16px;border:2px solid var(--border);border-radius:10px;font-size:15px;margin-bottom:12px;outline:none;transition:.2s;font-family:inherit}
+.login-input:focus{border-color:var(--p)}
+.login-btn{width:100%;padding:14px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;transition:.2s;margin-top:4px}
+.login-btn:hover{opacity:.9;transform:translateY(-1px)}
+.login-error{color:var(--r);font-size:13px;margin-top:8px;display:none}
+/* USER PILL in topbar */
+.user-pill{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.2);padding:5px 12px;border-radius:20px;cursor:pointer;font-size:13px;font-weight:600;transition:.2s}
+.user-pill:hover{background:rgba(255,255,255,.3)}
+/* USER MENU */
+.user-menu{position:fixed;top:52px;right:12px;background:#fff;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.15);z-index:200;overflow:hidden;display:none;min-width:160px}
+.user-menu.show{display:block}
+.user-menu-item{padding:12px 16px;cursor:pointer;font-size:14px;transition:.1s}
+.user-menu-item:hover{background:var(--bg)}
+/* PK PAGE */
+.pk-section{margin-bottom:20px}
+.pk-rank-item{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:10px;background:#fff;border:1px solid var(--border);margin-bottom:6px;transition:.2s}
+.pk-rank-item:hover{transform:translateX(2px);border-color:var(--p2)}
+.pk-medal{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;flex-shrink:0}
+.pk-medal.gold{background:#fef9c3;color:#92400e}
+.pk-medal.silver{background:#f1f5f9;color:#475569}
+.pk-medal.bronze{background:#fef3c7;color:#b45309}
+.pk-medal.other{background:var(--bg);color:var(--text2);font-size:14px}
+.pk-bar-wrap{flex:1}
+.pk-bar-label{display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px}
+.today-yes{background:#dcfce7;color:#166534;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700}
+.today-no{background:#f1f5f9;color:#94a3b8;padding:2px 8px;border-radius:10px;font-size:11px}
+/* VIDEO CARD */
+.video-card{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg);border-radius:8px;border:1px solid var(--border);margin-bottom:6px}
+.video-card-info{flex:1;font-size:13px}
+.video-card-btns{display:flex;gap:4px;flex-shrink:0}
+/* VISUAL */
+.visual-block{background:var(--bg);border-radius:10px;padding:16px;margin:12px 0;border:1px solid var(--border)}
 </style>
 </head>
 <body>
 
+<!-- ========== LOGIN OVERLAY ========== -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-card">
+    <div style="font-size:52px">🏆</div>
+    <h2>AMC8 学习基地</h2>
+    <p>冲刺 Top 1% · 2027�?月考试</p>
+    <input class="login-input" id="loginName" placeholder="你的姓名" maxlength="20" />
+    <input class="login-input" id="loginCode" placeholder="专属验证码（联系老师获取�? type="password" maxlength="20"
+      onkeydown="if(event.key==='Enter')doLogin()" />
+    <button class="login-btn" onclick="doLogin()">开始学�?🚀</button>
+    <div class="login-error" id="loginError">验证码错误或姓名不匹配，请联系老师</div>
+  </div>
+</div>
+
+<!-- ========== USER MENU ========== -->
+<div class="user-menu" id="userMenu">
+  <div class="user-menu-item" onclick="showPage('trophy')">🏆 成就 PK</div>
+  <div class="user-menu-item" onclick="doLogout()" style="color:var(--r)">🚪 退出登�?/div>
+</div>
+
 <div class="topbar">
   <h1>AMC8 Learning Hub</h1>
-  <div class="stars" id="totalStars">0 Stars</div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <div class="stars" id="totalStars" style="display:none">0 Stars</div>
+    <div class="user-pill" id="userPill" style="display:none" onclick="toggleUserMenu()">
+      <span id="userAvatar">🐰</span>
+      <span id="userName">小美</span>
+      <span style="font-size:10px;opacity:.7">�?/span>
+    </div>
+  </div>
 </div>
 
 <div class="nav">
   <button class="active" onclick="showPage('home')"><span class="ico">🏠</span>首页</button>
-  <button onclick="showPage('map')"><span class="ico">🗺️</span>知识地图</button>
+  <button onclick="showPage('map')"><span class="ico">🗺�?/span>知识地图</button>
   <button onclick="showPage('learn')"><span class="ico">📚</span>每日学习</button>
   <button onclick="showPage('exam')"><span class="ico">📝</span>真题训练</button>
-  <button onclick="showPage('trophy')"><span class="ico">🏆</span>成就中心</button>
+  <button onclick="showPage('trophy')"><span class="ico">🏆</span>成就PK</button>
 </div>
 
 <!-- ========== HOME PAGE ========== -->
 <div class="page active" id="page-home">
   <div class="card anim-slide" style="background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;text-align:center;">
-    <div style="font-size:14px;opacity:.8">距离 2027年1月 AMC8 考试还有</div>
+    <div style="font-size:14px;opacity:.8">距离 2027�?�?AMC8 考试还有</div>
     <div class="countdown" id="countdown"></div>
-    <div style="font-size:13px;opacity:.7">目标: Top 1% (23-24分/25分)</div>
+    <div style="font-size:13px;opacity:.7">目标: Top 1% (23-24�?25�?</div>
   </div>
 
   <div class="grid3">
     <div class="card stat anim-pop"><div class="num" id="s-streak">0</div><div class="label">连续打卡天数</div></div>
     <div class="card stat anim-pop"><div class="num" id="s-topics">0/16</div><div class="label">已完成知识点</div></div>
-    <div class="card stat anim-pop"><div class="num" id="s-problems">0</div><div class="label">累计做题数</div></div>
+    <div class="card stat anim-pop"><div class="num" id="s-problems">0</div><div class="label">累计做题�?/div></div>
   </div>
 
   <div class="card">
@@ -160,21 +220,21 @@ body{overflow:auto;height:100%}
       <div class="prog-bar"><div class="prog-fill" id="p1-bar" style="width:0%;background:var(--g)"></div></div>
     </div>
     <div style="margin:12px 0">
-      <div style="display:flex;justify-content:space-between;font-size:13px"><span>阶段二: 能力提升</span><span id="p2-pct">0%</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:13px"><span>阶段�? 能力提升</span><span id="p2-pct">0%</span></div>
       <div class="prog-bar"><div class="prog-fill" id="p2-bar" style="width:0%;background:#2980b9"></div></div>
     </div>
     <div style="margin:12px 0">
-      <div style="display:flex;justify-content:space-between;font-size:13px"><span>阶段三: 强化冲刺</span><span id="p3-pct">0%</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:13px"><span>阶段�? 强化冲刺</span><span id="p3-pct">0%</span></div>
       <div class="prog-bar"><div class="prog-fill" id="p3-bar" style="width:0%;background:#8e44ad"></div></div>
     </div>
   </div>
 
   <div class="card">
     <h3>今日推荐</h3>
-    <div id="today-rec" style="font-size:14px;color:var(--text2)">加载中...</div>
+    <div id="today-rec" style="font-size:14px;color:var(--text2)">加载�?..</div>
     <div style="margin-top:12px">
-      <button class="btn btn-p" onclick="showPage('learn')">开始学习</button>
-      <button class="btn btn-ghost" onclick="showPage('exam')" style="margin-left:8px">刷真题</button>
+      <button class="btn btn-p" onclick="showPage('learn')">开始学�?/button>
+      <button class="btn btn-ghost" onclick="showPage('exam')" style="margin-left:8px">刷真�?/button>
     </div>
   </div>
 
@@ -188,7 +248,7 @@ body{overflow:auto;height:100%}
 <!-- ========== MAP PAGE ========== -->
 <div class="page" id="page-map">
   <div id="mapOverview">
-    <div class="card" style="text-align:center;"><h3>知识地图 — 选择一个主题开始探索</h3><p style="font-size:13px;color:var(--text2)">6大主题 · 16个知识点 · 从基础到竞赛</p></div>
+    <div class="card" style="text-align:center;"><h3>知识地图 �?选择一个主题开始探�?/h3><p style="font-size:13px;color:var(--text2)">6大主�?· 16个知识点 · 从基础到竞�?/p></div>
     <div class="grid2" id="themeGrid"></div>
   </div>
   <div id="mapDetail" style="display:none">
@@ -203,7 +263,7 @@ body{overflow:auto;height:100%}
 <div class="page" id="page-learn">
   <div id="learn-select">
     <div class="card">
-      <h3>选择要学习的知识点</h3>
+      <h3>选择要学习的知识�?/h3>
       <div id="learnTopicList"></div>
     </div>
   </div>
@@ -227,78 +287,267 @@ body{overflow:auto;height:100%}
     </div>
     <div class="filter-row">
       <button class="filter-btn active" onclick="filterDiff('all',this)">全部难度</button>
-      <button class="filter-btn" onclick="filterDiff('1',this)">⭐ 送分</button>
+      <button class="filter-btn" onclick="filterDiff('1',this)">�?送分</button>
       <button class="filter-btn" onclick="filterDiff('2',this)">⭐⭐ 基础</button>
-      <button class="filter-btn" onclick="filterDiff('3',this)">⭐⭐⭐ 中等</button>
+      <button class="filter-btn" onclick="filterDiff('3',this)">⭐⭐�?中等</button>
       <button class="filter-btn" onclick="filterDiff('4',this)">⭐⭐⭐⭐ 中难</button>
-      <button class="filter-btn" onclick="filterDiff('5',this)">⭐⭐⭐⭐⭐ 难</button>
+      <button class="filter-btn" onclick="filterDiff('5',this)">⭐⭐⭐⭐�?�?/button>
     </div>
     <div class="filter-row">
       <button class="filter-btn active" onclick="filterType('all',this)">全部类型</button>
-      <button class="filter-btn" onclick="filterType('doable',this)">✅ 可在线做题</button>
+      <button class="filter-btn" onclick="filterType('doable',this)">�?可在线做�?/button>
       <button class="filter-btn" onclick="filterType('visual',this)">📷 需看图(跳转AoPS)</button>
     </div>
   </div>
   <div id="problemList"></div>
 </div>
 
-<!-- ========== TROPHY PAGE ========== -->
+<!-- ========== TROPHY / PK PAGE ========== -->
 <div class="page" id="page-trophy">
-  <div class="card" style="text-align:center;">
-    <div style="font-size:48px" id="trophyStars">0</div>
-    <div style="font-size:14px;color:var(--text2)">累计星星</div>
-    <div class="grid3" style="margin-top:16px">
-      <div class="stat"><div class="num" style="font-size:24px" id="t-streak">0</div><div class="label">最长连续打卡</div></div>
-      <div class="stat"><div class="num" style="font-size:24px" id="t-correct">0%</div><div class="label">总正确率</div></div>
-      <div class="stat"><div class="num" style="font-size:24px" id="t-ach">0</div><div class="label">已解锁成就</div></div>
+  <div class="card" style="background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;text-align:center">
+    <div style="font-size:13px;opacity:.8">你的成绩</div>
+    <div style="font-size:40px;font-weight:800;margin:8px 0" id="trophyStars">0 �?/div>
+    <div class="grid3" style="margin-top:12px">
+      <div class="stat" style="color:#fff"><div class="num" style="font-size:24px;color:#fff" id="t-streak">0</div><div class="label" style="color:rgba(255,255,255,.7)">最长打�?/div></div>
+      <div class="stat" style="color:#fff"><div class="num" style="font-size:24px;color:#fff" id="t-correct">0%</div><div class="label" style="color:rgba(255,255,255,.7)">总正确率</div></div>
+      <div class="stat" style="color:#fff"><div class="num" style="font-size:24px;color:#fff" id="t-ach">0</div><div class="label" style="color:rgba(255,255,255,.7)">已解锁成�?/div></div>
     </div>
   </div>
+  <!-- PK排行�?-->
+  <div class="card pk-section">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <h3>🏅 星星积分排行�?/h3>
+      <button class="btn btn-sm btn-ghost" onclick="loadLeaderboard()">🔄 刷新</button>
+    </div>
+    <div id="pkStarsRank"><div style="color:var(--text2);font-size:13px;text-align:center;padding:20px">加载�?..</div></div>
+    <div style="font-size:11px;color:var(--text2);margin-top:8px;text-align:right" id="pkUpdateTime"></div>
+  </div>
+  <div class="card pk-section">
+    <h3>📅 连续打卡排行</h3>
+    <div id="pkStreakRank"><div style="color:var(--text2);font-size:13px;text-align:center;padding:20px">加载�?..</div></div>
+  </div>
+  <div class="card pk-section">
+    <h3>📚 完成知识点排�?/h3>
+    <div id="pkTopicsRank"><div style="color:var(--text2);font-size:13px;text-align:center;padding:20px">加载�?..</div></div>
+  </div>
+  <!-- 我的成就�?-->
   <div class="card">
-    <h3>成就墙</h3>
+    <h3>🎖�?我的成就�?/h3>
     <div id="achievementList" style="display:flex;flex-direction:column;gap:8px"></div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
+<!-- Firebase SDK (Compat version, works without build tools) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="config.js"></script>
 <script src="data.js"></script>
 <script>
-// ========== STATE MANAGEMENT ==========
+// ===== Firebase Init =====
+let db = null;
+function initFirebase() {
+  try {
+    if (FIREBASE_CONFIG.apiKey && !FIREBASE_CONFIG.apiKey.includes('请填�?)) {
+      firebase.initializeApp(FIREBASE_CONFIG);
+      db = firebase.database();
+    }
+  } catch(e) { console.log('Firebase init skipped:', e.message); }
+}
+initFirebase();
+
+// ========== MULTI-USER STATE MANAGEMENT ==========
 const DEFAULT_STATE = {
   stars: 0, streak: 0, maxStreak: 0,
   totalProblems: 0, correctProblems: 0,
-  completedTopics: [],
-  topicProgress: {},
-  checkins: [],
-  achievements: [],
-  lastVisit: null,
-  loginCount: 0
+  completedTopics: [], topicProgress: {},
+  checkins: [], achievements: [],
+  lastVisit: null, loginCount: 0
 };
 
-function loadState() {
+let currentUserId = null; // 当前登录用户的验证码(作为ID)
+
+function getCurrentUserId() {
+  return localStorage.getItem('amc8hub_current_user');
+}
+
+function loadState(uid) {
+  const id = uid || getCurrentUserId();
+  if (!id) return { ...DEFAULT_STATE };
   try {
-    const s = JSON.parse(localStorage.getItem('amc8hub'));
+    const s = JSON.parse(localStorage.getItem('amc8hub_' + id));
     return s ? { ...DEFAULT_STATE, ...s } : { ...DEFAULT_STATE };
   } catch { return { ...DEFAULT_STATE }; }
 }
-function saveState() { localStorage.setItem('amc8hub', JSON.stringify(state)); }
-let state = loadState();
 
-// Record visit
-state.loginCount++;
-const today = new Date().toISOString().slice(0,10);
-if (state.lastVisit !== today) {
-  if (state.lastVisit) {
-    const last = new Date(state.lastVisit);
-    const diff = Math.floor((new Date(today) - last) / 86400000);
-    if (diff === 1) { state.streak++; }
-    else if (diff > 1) { state.streak = 1; }
-  } else { state.streak = 1; }
-  state.lastVisit = today;
+function saveState() {
+  const id = getCurrentUserId();
+  if (!id) return;
+  localStorage.setItem('amc8hub_' + id, JSON.stringify(state));
+  syncToFirebase();
 }
-if (state.streak > state.maxStreak) state.maxStreak = state.streak;
-checkAchievements();
-saveState();
+
+let state = { ...DEFAULT_STATE };
+
+// ========== LOGIN SYSTEM ==========
+function checkLogin() {
+  const uid = getCurrentUserId();
+  if (uid && INVITE_CODES[uid]) {
+    currentUserId = uid;
+    const profile = INVITE_CODES[uid];
+    state = loadState(uid);
+    recordVisit();
+    showMainUI(profile);
+    renderHome();
+  } else {
+    document.getElementById('loginOverlay').style.display = 'flex';
+  }
+}
+
+function doLogin() {
+  const name = document.getElementById('loginName').value.trim();
+  const code = document.getElementById('loginCode').value.trim().toUpperCase();
+  const errEl = document.getElementById('loginError');
+  if (!name || !code) { errEl.style.display = 'block'; errEl.textContent = '请输入姓名和验证�?; return; }
+  const profile = INVITE_CODES[code];
+  if (!profile || profile.name !== name) {
+    errEl.style.display = 'block';
+    errEl.textContent = '验证码错误或姓名不匹配，请联系老师';
+    return;
+  }
+  // 登录成功
+  localStorage.setItem('amc8hub_current_user', code);
+  currentUserId = code;
+  state = loadState(code);
+  recordVisit();
+  showMainUI(profile);
+  document.getElementById('loginOverlay').style.display = 'none';
+  renderHome();
+  showToast('欢迎回来�? + profile.avatar + ' ' + profile.name + '�?);
+  launchConfetti();
+}
+
+function showMainUI(profile) {
+  document.getElementById('totalStars').style.display = '';
+  document.getElementById('userPill').style.display = '';
+  document.getElementById('userAvatar').textContent = profile.avatar;
+  document.getElementById('userName').textContent = profile.name;
+  document.getElementById('totalStars').textContent = state.stars + ' �?;
+}
+
+function doLogout() {
+  localStorage.removeItem('amc8hub_current_user');
+  currentUserId = null;
+  state = { ...DEFAULT_STATE };
+  document.getElementById('totalStars').style.display = 'none';
+  document.getElementById('userPill').style.display = 'none';
+  document.getElementById('userMenu').classList.remove('show');
+  document.getElementById('loginName').value = '';
+  document.getElementById('loginCode').value = '';
+  document.getElementById('loginError').style.display = 'none';
+  document.getElementById('loginOverlay').style.display = 'flex';
+}
+
+function toggleUserMenu() {
+  document.getElementById('userMenu').classList.toggle('show');
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('.user-pill') && !e.target.closest('.user-menu')) {
+    document.getElementById('userMenu').classList.remove('show');
+  }
+});
+
+function recordVisit() {
+  state.loginCount++;
+  const today = new Date().toISOString().slice(0, 10);
+  if (state.lastVisit !== today) {
+    if (state.lastVisit) {
+      const diff = Math.floor((new Date(today) - new Date(state.lastVisit)) / 86400000);
+      state.streak = diff === 1 ? state.streak + 1 : 1;
+    } else { state.streak = 1; }
+    state.lastVisit = today;
+  }
+  if (state.streak > state.maxStreak) state.maxStreak = state.streak;
+  checkAchievements();
+  saveState();
+}
+
+// ========== FIREBASE SYNC ==========
+function syncToFirebase() {
+  if (!db || !currentUserId) return;
+  const today = new Date().toISOString().slice(0, 10);
+  const profile = INVITE_CODES[currentUserId] || {};
+  const payload = {
+    name: profile.name || '未知',
+    avatar: profile.avatar || '👤',
+    stars: state.stars || 0,
+    streak: state.streak || 0,
+    maxStreak: state.maxStreak || 0,
+    completedCount: (state.completedTopics || []).length,
+    completedTopics: (state.completedTopics || []).join(','),
+    todayCheckin: (state.checkins || []).includes(today),
+    lastActive: today
+  };
+  db.ref('leaderboard/' + currentUserId).set(payload).catch(e => console.log('Sync err:', e));
+}
+
+function loadLeaderboard() {
+  const starsEl = document.getElementById('pkStarsRank');
+  const streakEl = document.getElementById('pkStreakRank');
+  const topicsEl = document.getElementById('pkTopicsRank');
+  const timeEl = document.getElementById('pkUpdateTime');
+  if (!db) {
+    const msg = '<div style="color:var(--text2);font-size:13px;padding:12px;text-align:center">⚠️ 未连接Firebase，排行榜需要配置后使用<br><span style="font-size:11px">当前只显示你自己的数�?/span></div>';
+    starsEl.innerHTML = msg; streakEl.innerHTML = msg; topicsEl.innerHTML = msg;
+    return;
+  }
+  starsEl.innerHTML = '<div style="text-align:center;color:var(--text2);padding:12px">加载�?..</div>';
+  db.ref('leaderboard').once('value').then(snap => {
+    const data = snap.val();
+    if (!data) { starsEl.innerHTML = '<div style="color:var(--text2);padding:12px;text-align:center">暂无数据，学习后自动出现</div>'; return; }
+    const users = Object.entries(data).map(([uid, d]) => ({ uid, ...d }));
+    const today = new Date().toISOString().slice(0, 10);
+    // Stars ranking
+    const byStars = [...users].sort((a, b) => (b.stars||0) - (a.stars||0));
+    starsEl.innerHTML = renderRankList(byStars, u => `<strong>${u.stars||0}</strong> ⭐`, u => (u.stars||0), Math.max(...byStars.map(u=>u.stars||0)||[1]), today, currentUserId);
+    // Streak ranking
+    const byStreak = [...users].sort((a, b) => (b.streak||0) - (a.streak||0));
+    streakEl.innerHTML = renderRankList(byStreak, u => `连续 <strong>${u.streak||0}</strong> �?🔥`, u => (u.streak||0), Math.max(...byStreak.map(u=>u.streak||0)||[1]), today, currentUserId);
+    // Topics ranking
+    const byTopics = [...users].sort((a, b) => (b.completedCount||0) - (a.completedCount||0));
+    topicsEl.innerHTML = renderRankList(byTopics, u => `完成 <strong>${u.completedCount||0}/16</strong> 个`, u => (u.completedCount||0), 16, today, currentUserId);
+    timeEl.textContent = '最后更�? ' + new Date().toLocaleTimeString('zh-CN', {hour:'2-digit',minute:'2-digit'});
+  }).catch(e => {
+    starsEl.innerHTML = '<div style="color:var(--r);padding:12px">加载失败: ' + e.message + '</div>';
+  });
+}
+
+function renderRankList(users, labelFn, valueFn, maxVal, today, myUid) {
+  if (!users.length) return '<div style="color:var(--text2);padding:12px;text-align:center">暂无数据</div>';
+  const medals = ['🥇','🥈','🥉'];
+  return users.map((u, i) => {
+    const val = valueFn(u);
+    const pct = maxVal > 0 ? Math.round(val / maxVal * 100) : 0;
+    const isMe = u.uid === myUid;
+    const medalClass = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : 'other';
+    const medalContent = i < 3 ? medals[i] : String(i + 1);
+    const todayBadge = u.todayCheckin
+      ? '<span class="today-yes">✅今�?/span>'
+      : '<span class="today-no">❌今�?/span>';
+    return `<div class="pk-rank-item" style="${isMe ? 'border-color:var(--p);background:var(--p3)20' : ''}">
+      <div class="pk-medal ${medalClass}">${medalContent}</div>
+      <span style="font-size:22px">${u.avatar||'👤'}</span>
+      <div class="pk-bar-wrap">
+        <div class="pk-bar-label">
+          <span style="font-weight:700">${u.name}${isMe?' (�?':''}</span>
+          <div style="display:flex;align-items:center;gap:6px">${todayBadge}<span>${labelFn(u)}</span></div>
+        </div>
+        <div class="prog-bar"><div class="prog-fill" style="width:${pct}%;background:${i===0?'var(--o)':i===1?'var(--text2)':i===2?'#b45309':'var(--p)'}"></div></div>
+      </div>
+    </div>`;
+  }).join('');
+}
 
 // ========== NAVIGATION ==========
 function showPage(id) {
@@ -310,7 +559,7 @@ function showPage(id) {
   if (id === 'map') renderMap();
   if (id === 'learn') renderLearnSelect();
   if (id === 'exam') renderExam();
-  if (id === 'trophy') renderTrophy();
+  if (id === 'trophy') { renderPK(); loadLeaderboard(); }
 }
 
 // ========== HOME PAGE ==========
@@ -324,14 +573,14 @@ function renderHome() {
   const weeks = Math.floor(days/7);
   document.getElementById('countdown').innerHTML = `
     <div class="cd-item"><div class="cd-num">${months}</div><div class="cd-label">个月</div></div>
-    <div class="cd-item"><div class="cd-num">${weeks}</div><div class="cd-label">周</div></div>
-    <div class="cd-item"><div class="cd-num">${days}</div><div class="cd-label">天</div></div>
+    <div class="cd-item"><div class="cd-num">${weeks}</div><div class="cd-label">�?/div></div>
+    <div class="cd-item"><div class="cd-num">${days}</div><div class="cd-label">�?/div></div>
   `;
   // stats
   document.getElementById('s-streak').textContent = state.streak;
   document.getElementById('s-topics').textContent = state.completedTopics.length + '/'+TOPICS.length;
   document.getElementById('s-problems').textContent = state.totalProblems;
-  document.getElementById('totalStars').textContent = state.stars + ' Stars';
+  document.getElementById('totalStars').textContent = state.stars + ' ?';
 
   // phase progress
   const phase1Topics = TOPICS.filter(t => t.phase === 1);
@@ -361,7 +610,7 @@ function renderCheckinGrid() {
   const startOfWeek = new Date(today);
   startOfWeek.setDate(today.getDate() - today.getDay());
   let html = '';
-  const labels = ['日','一','二','三','四','五','六'];
+  const labels = ['�?,'一','�?,'�?,'�?,'�?,'�?];
   for (let i = 0; i < 7; i++) {
     const d = new Date(startOfWeek);
     d.setDate(startOfWeek.getDate() + i);
@@ -373,7 +622,7 @@ function renderCheckinGrid() {
   grid.innerHTML = html;
   const btn = document.getElementById('checkinBtn');
   if (state.checkins.includes(new Date().toISOString().slice(0,10))) {
-    btn.textContent = '今日已打卡 ✓';
+    btn.textContent = '今日已打�?�?;
     btn.disabled = true;
     btn.style.opacity = '.5';
   }
@@ -411,7 +660,7 @@ function renderMap() {
         <div class="ico" style="font-size:36px">${th.icon}</div>
         <div class="name" style="font-size:16px;color:${th.color}">${th.name}</div>
         <div class="sub">${th.desc}</div>
-        <div style="margin-top:8px;font-size:12px;color:var(--text2)">${topics.length}个知识点 · 已完成${done}个</div>
+        <div style="margin-top:8px;font-size:12px;color:var(--text2)">${topics.length}个知识点 · 已完�?{done}�?/div>
         <div class="prog-bar"><div class="prog-fill" style="width:${topics.length?done/topics.length*100:0}%;background:${th.color}"></div></div>
       </div>`;
   });
@@ -427,7 +676,7 @@ function showThemeDetail(themeId) {
   document.getElementById('themeHeader').innerHTML = `
     <div style="display:flex;justify-content:space-between;align-items:center">
       <h3 style="color:${th.color}">${th.icon} ${th.name}</h3>
-      <button class="btn btn-sm btn-ghost" onclick="renderMap()">← 返回主题列表</button>
+      <button class="btn btn-sm btn-ghost" onclick="renderMap()">�?返回主题列表</button>
     </div>
     <div style="font-size:13px;color:var(--text2);margin-top:4px">${th.desc}</div>`;
 
@@ -469,8 +718,8 @@ function showThemeDetail(themeId) {
       <div style="display:flex;align-items:center;gap:12px">
         <span style="font-size:28px">${t.icon}</span>
         <div style="flex:1">
-          <div style="font-weight:700;font-size:15px">${t.name} ${done?'<span style=\"color:var(--g)\">✅</span>':''}</div>
-          <div style="font-size:12px;color:var(--text2)">${t.grade} · AMC8出现${t.amcFreq}次 · 难度: ${t.difficulty}</div>
+          <div style="font-weight:700;font-size:15px">${t.name} ${done?'<span style=\"color:var(--g)\">�?/span>':''}</div>
+          <div style="font-size:12px;color:var(--text2)">${t.grade} · AMC8出现${t.amcFreq}�?· 难度: ${t.difficulty}</div>
         </div>
         <button class="btn btn-sm ${done?'btn-ghost':'btn-p'}" style="${unlocked?'':'pointer-events:none'}">${done?'复习':'开始学'}</button>
       </div>
@@ -496,7 +745,7 @@ function renderLearnSelect() {
              onclick="${unlocked ? `startLesson('${t.id}')` : ''}">
           <span style="font-size:24px">${t.icon}</span>
           <div style="flex:1">
-            <div style="font-weight:600;font-size:14px">${t.name} ${done?'<span style=\"color:var(--g)\">✓</span>':''}</div>
+            <div style="font-weight:600;font-size:14px">${t.name} ${done?'<span style=\"color:var(--g)\">�?/span>':''}</div>
             <div style="font-size:12px;color:var(--text2)">${t.grade} · ${t.desc}</div>
           </div>
           <button class="btn btn-sm ${done?'btn-ghost':'btn-p'}" style="${unlocked?'':'pointer-events:none'}">${done?'复习':'开始学'}</button>
@@ -521,7 +770,7 @@ function startLesson(topicId, lessonIdx) {
     document.getElementById('lessonHeader').innerHTML = `<h3>${currentTopic.icon} ${currentTopic.name}</h3><p style="color:var(--text2)">教学内容开发中，请先到真题训练中练习相关题目！</p>`;
     document.getElementById('lessonBody').innerHTML = '';
     document.getElementById('quizSection').innerHTML = '';
-    document.getElementById('lessonFooter').innerHTML = '<button class="btn btn-ghost" onclick="renderLearnSelect()">← 返回列表</button>';
+    document.getElementById('lessonFooter').innerHTML = '<button class="btn btn-ghost" onclick="renderLearnSelect()">�?返回列表</button>';
     return;
   }
   const lesson = currentTopic.lessons[currentLessonIdx];
@@ -543,9 +792,9 @@ function startLesson(topicId, lessonIdx) {
   document.getElementById('lessonHeader').innerHTML = `
     <div style="display:flex;justify-content:space-between;align-items:center">
       <h3>${currentTopic.icon} ${currentTopic.name}</h3>
-      <button class="btn btn-sm btn-ghost" onclick="renderLearnSelect()">← 返回</button>
+      <button class="btn btn-sm btn-ghost" onclick="renderLearnSelect()">�?返回</button>
     </div>
-    <div style="font-size:13px;color:var(--text2);margin-top:4px">${currentTopic.grade} · AMC8出现${currentTopic.amcFreq}次 · 共${currentTopic.lessons.length}课</div>
+    <div style="font-size:13px;color:var(--text2);margin-top:4px">${currentTopic.grade} · AMC8出现${currentTopic.amcFreq}�?· �?{currentTopic.lessons.length}�?/div>
     ${lessonNav}
   `;
 
@@ -556,7 +805,7 @@ function startLesson(topicId, lessonIdx) {
   const storyHtml = lesson.story.replace(/\n/g, '<br>');
   body += `<div class="card lesson-box story anim-slide"><strong>📖 ${lesson.title}</strong><p style="margin-top:10px;line-height:2;font-size:14px">${storyHtml}</p></div>`;
 
-  body += `<div class="card lesson-box tip anim-slide"><strong>🔑 核心知识点</strong><ul style="margin-top:8px;padding-left:20px;line-height:2">`;
+  body += `<div class="card lesson-box tip anim-slide"><strong>🔑 核心知识�?/strong><ul style="margin-top:8px;padding-left:20px;line-height:2">`;
   lesson.keyPoints.forEach(kp => { body += `<li style="margin:4px 0">${kp}</li>`; });
   body += `</ul></div>`;
 
@@ -578,7 +827,7 @@ function startLesson(topicId, lessonIdx) {
     }
     if (currentTopic.commonMistakes && currentTopic.commonMistakes.length) {
       body += `<div class="card anim-slide" style="border-left:4px solid var(--r);background:#fef2f2">
-        <strong>⚠️ 易错点警报</strong>
+        <strong>⚠️ 易错点警�?/strong>
         <ul style="margin-top:8px;padding-left:20px;font-size:14px;line-height:2">`;
       currentTopic.commonMistakes.forEach(m => { body += `<li>${m}</li>`; });
       body += `</ul></div>`;
@@ -587,7 +836,7 @@ function startLesson(topicId, lessonIdx) {
 
   // Glossary (中英文术语对照表, show on first lesson)
   if (currentLessonIdx === 0 && currentTopic.glossary && currentTopic.glossary.length) {
-    body += `<div class="card anim-slide"><strong>📝 中英文术语对照 (AMC8为英文考试)</strong>`;
+    body += `<div class="card anim-slide"><strong>📝 中英文术语对�?(AMC8为英文考试)</strong>`;
     body += `<table style="width:100%;border-collapse:collapse;margin-top:10px;font-size:14px">`;
     body += `<thead><tr style="background:var(--p);color:#fff"><th style="padding:8px 12px;text-align:left;border-radius:8px 0 0 0">中文</th><th style="padding:8px 12px;text-align:left">English</th><th style="padding:8px 12px;text-align:left;border-radius:0 8px 0 0">发音提示</th></tr></thead><tbody>`;
     currentTopic.glossary.forEach((g, i) => {
@@ -598,81 +847,86 @@ function startLesson(topicId, lessonIdx) {
 
   // Definitions (关键定义, show on first lesson)
   if (currentLessonIdx === 0 && currentTopic.definitions && currentTopic.definitions.length) {
-    body += `<div class="card anim-slide"><strong>📖 关键定义</strong>`;
+    body += '<div class="card anim-slide"><strong>📖 关键定义</strong>';
     currentTopic.definitions.forEach(d => {
-      body += `<div style="margin:10px 0;padding:12px 14px;background:var(--bg);border-radius:8px;border-left:3px solid var(--g)">
-        <div style="font-weight:700;font-size:14px;color:var(--g)">${d.term}</div>
-        <div style="margin-top:4px;font-size:14px;line-height:1.7">${d.def}</div>
-      </div>`;
+      body += '<div style="margin:10px 0;padding:12px 14px;background:var(--bg);border-radius:8px;border-left:3px solid var(--g)">'
+        + '<div style="font-weight:700;font-size:14px;color:var(--g)">' + d.term + '</div>'
+        + '<div style="margin-top:4px;font-size:14px;line-height:1.7">' + d.def + '</div></div>';
     });
-    body += `</div>`;
+    body += '</div>';
   }
 
-  // Videos (from topic level, split CN/EN, show on first lesson)
+  // Videos (CN + EN, with dual buttons for CN, show on first lesson)
   if (currentLessonIdx === 0) {
     const hasCn = currentTopic.videosCn && currentTopic.videosCn.length;
     const hasEn = currentTopic.videosEn && currentTopic.videosEn.length;
     if (hasCn || hasEn) {
-      body += `<div class="card anim-slide"><strong>🎬 推荐视频</strong>`;
+      body += '<div class="card anim-slide"><strong>🎬 推荐视频</strong>';
       if (hasCn) {
-        body += `<div style="margin-top:10px"><div style="font-weight:600;font-size:13px;color:#00a1d6;margin-bottom:6px">📺 中文视频 (B站)</div>`;
-        body += `<div style="display:flex;flex-direction:column;gap:6px">`;
+        body += '<div style="margin-top:10px"><div style="font-weight:600;font-size:13px;color:#00a1d6;margin-bottom:6px">📺 中文视频 (B站)</div>';
         currentTopic.videosCn.forEach(v => {
-          body += `<a href="${v.url}" target="_blank" style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg);border-radius:8px;text-decoration:none;color:var(--text);border:1px solid var(--border);transition:.2s" onmouseover="this.style.borderColor='#00a1d6'" onmouseout="this.style.borderColor='var(--border)'">
-            <span style="background:#00a1d6;color:#fff;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;flex-shrink:0">B站</span>
-            <span style="font-size:13px">${v.title}</span>
-          </a>`;
+          const searchBtn = v.searchUrl
+            ? '<a href="' + v.searchUrl + '" target="_blank" class="btn btn-sm btn-ghost" style="text-decoration:none;font-size:11px">🔍搜索同类</a>'
+            : '';
+          body += '<div class="video-card">'
+            + '<span style="background:#00a1d6;color:#fff;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;flex-shrink:0">B站</span>'
+            + '<div class="video-card-info">' + v.title + '</div>'
+            + '<div class="video-card-btns">'
+            + '<a href="' + v.url + '" target="_blank" class="btn btn-sm btn-p" style="text-decoration:none;font-size:11px">▶ 观看</a>'
+            + searchBtn
+            + '</div></div>';
         });
-        body += `</div></div>`;
+        body += '</div>';
       }
       if (hasEn) {
-        body += `<div style="margin-top:12px"><div style="font-weight:600;font-size:13px;color:#ff0000;margin-bottom:6px">▶️ English Videos (YouTube)</div>`;
-        body += `<div style="display:flex;flex-direction:column;gap:6px">`;
+        body += '<div style="margin-top:12px"><div style="font-weight:600;font-size:13px;color:#ff0000;margin-bottom:6px">▶️ English Videos (YouTube)</div>';
         currentTopic.videosEn.forEach(v => {
-          body += `<a href="${v.url}" target="_blank" style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg);border-radius:8px;text-decoration:none;color:var(--text);border:1px solid var(--border);transition:.2s" onmouseover="this.style.borderColor='#ff0000'" onmouseout="this.style.borderColor='var(--border)'">
-            <span style="background:#ff0000;color:#fff;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;flex-shrink:0">YouTube</span>
-            <span style="font-size:13px">${v.title}</span>
-          </a>`;
+          body += '<div class="video-card">'
+            + '<span style="background:#ff0000;color:#fff;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;flex-shrink:0">YouTube</span>'
+            + '<div class="video-card-info">' + v.title + '</div>'
+            + '<div class="video-card-btns"><a href="' + v.url + '" target="_blank" class="btn btn-sm" style="background:#ff0000;color:#fff;text-decoration:none;font-size:11px">▶ Watch</a></div>'
+            + '</div>';
         });
-        body += `</div></div>`;
+        body += '</div>';
       }
-      body += `</div>`;
+      body += '</div>';
     }
   }
 
+  // Visual 图文讲解
+  if (lesson.visual) {
+    body += '<div class="card anim-slide"><strong>🖼️ 图文讲解</strong><div class="visual-block">' + lesson.visual + '</div></div>';
+  }
+
   if (lesson.examples && lesson.examples.length) {
-    body += `<div class="card anim-slide"><strong>💡 例题精讲</strong>`;
+    body += '<div class="card anim-slide"><strong>💡 例题精讲</strong>';
     lesson.examples.forEach((ex, i) => {
-      body += `
-        <div style="margin:12px 0;padding:14px;background:#f8fafc;border-radius:8px;border-left:3px solid var(--p)">
-          <div style="font-weight:600;font-size:15px">例${i+1}: ${ex.q}</div>
-          <div style="margin-top:8px;font-size:13px;color:var(--text2)">💭 提示: ${ex.hint}</div>
-          <details style="margin-top:8px">
-            <summary style="cursor:pointer;color:var(--p);font-weight:600;font-size:14px">🔍 点击查看解答</summary>
-            <div style="margin-top:8px;padding:12px;background:#ecfdf5;border-radius:6px;font-size:14px;line-height:1.8">${ex.a}</div>
-          </details>
-        </div>`;
+      body += '<div style="margin:12px 0;padding:14px;background:#f8fafc;border-radius:8px;border-left:3px solid var(--p)">'
+        + '<div style="font-weight:600;font-size:15px">例' + (i+1) + ': ' + ex.q + '</div>'
+        + '<div style="margin-top:8px;font-size:13px;color:var(--text2)">💭 提示: ' + ex.hint + '</div>'
+        + '<details style="margin-top:8px"><summary style="cursor:pointer;color:var(--p);font-weight:600;font-size:14px">🔍 点击查看解答</summary>'
+        + '<div style="margin-top:8px;padding:12px;background:#ecfdf5;border-radius:6px;font-size:14px;line-height:1.8">' + ex.a + '</div></details></div>';
     });
-    body += `</div>`;
+    body += '</div>';
   }
   document.getElementById('lessonBody').innerHTML = body;
 
-  // Quiz section — 3 tiers if it's the last lesson, otherwise just lesson practice
+  // Quiz section — 3 tiers if it's the last lesson
   quizIndex = 0;
   quizCorrect = 0;
   currentQuizData = null;
 
-  // If this is the last lesson or topic has practice tiers, show 3-tier selector
   const isLastLesson = currentLessonIdx === currentTopic.lessons.length - 1;
   if (isLastLesson && currentTopic.practice) {
-    let qhtml = `<div class="card anim-slide"><strong>✏️ 练习题</strong>
-      <div style="display:flex;gap:8px;margin:12px 0;flex-wrap:wrap">
-        <button class="btn btn-sm btn-g" onclick="startPractice('basic')" id="btn-basic">⭐ 基础巩固 (${currentTopic.practice.basic?currentTopic.practice.basic.length:0}题)</button>
-        <button class="btn btn-sm btn-o" onclick="startPractice('advanced')" id="btn-adv">🔥 提高挑战 (${currentTopic.practice.advanced?currentTopic.practice.advanced.length:0}题)</button>
-        <button class="btn btn-sm btn-p" onclick="startPractice('amc')" id="btn-amc">🏆 AMC8真题 (${currentTopic.practice.amc?currentTopic.practice.amc.length:0}题)</button>
-      </div>
-      <div id="practiceArea"></div>
-    </div>`;
+    const bc = currentTopic.practice.basic ? currentTopic.practice.basic.length : 0;
+    const ac = currentTopic.practice.advanced ? currentTopic.practice.advanced.length : 0;
+    const mc = currentTopic.practice.amc ? currentTopic.practice.amc.length : 0;
+    let qhtml = '<div class="card anim-slide"><strong>✏️ 练习题</strong>'
+      + '<div style="display:flex;gap:8px;margin:12px 0;flex-wrap:wrap">'
+      + '<button class="btn btn-sm btn-g" onclick="startPractice(\'basic\')" id="btn-basic">⭐ 基础巩固 (' + bc + '题)</button>'
+      + '<button class="btn btn-sm btn-o" onclick="startPractice(\'advanced\')" id="btn-adv">🔥 提高挑战 (' + ac + '题)</button>'
+      + '<button class="btn btn-sm btn-p" onclick="startPractice(\'amc\')" id="btn-amc">🏆 AMC8真题 (' + mc + '题)</button>'
+      + '</div><div id="practiceArea"></div></div>';
     document.getElementById('quizSection').innerHTML = qhtml;
   } else if (lesson.practice && lesson.practice.length) {
     renderQuiz(lesson.practice);
@@ -690,7 +944,7 @@ function startPractice(level) {
   currentQuizLevel = level;
   const data = currentTopic.practice[level];
   if (!data || !data.length) {
-    document.getElementById('practiceArea').innerHTML = '<p style="color:var(--text2);padding:8px">该级别暂无题目</p>';
+    document.getElementById('practiceArea').innerHTML = '<p style="color:var(--text2);padding:8px">该级别暂无题�?/p>';
     return;
   }
   currentQuizData = data;
@@ -722,20 +976,20 @@ function renderQuizInArea(practice) {
         <div style="font-size:36px;font-weight:800;color:${pct>=80?'var(--g)':pct>=60?'var(--o)':'var(--r)'}">${pct}%</div>
         <div style="color:var(--text2)">答对 ${quizCorrect}/${practice.length} · +${starsEarned} Stars</div>
         <div style="margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-          <button class="btn btn-sm btn-p" onclick="startPractice('${currentQuizLevel}')">重新做</button>
-          ${currentQuizLevel==='basic'?'<button class=\"btn btn-sm btn-o\" onclick=\"startPractice(\'advanced\')\">挑战提高题 →</button>':''}
-          ${currentQuizLevel==='advanced'?'<button class=\"btn btn-sm btn-p\" onclick=\"startPractice(\'amc\')\">挑战AMC8真题 →</button>':''}
+          <button class="btn btn-sm btn-p" onclick="startPractice('${currentQuizLevel}')">重新�?/button>
+          ${currentQuizLevel==='basic'?'<button class=\"btn btn-sm btn-o\" onclick=\"startPractice(\'advanced\')\">挑战提高�?�?/button>':''}
+          ${currentQuizLevel==='advanced'?'<button class=\"btn btn-sm btn-p\" onclick=\"startPractice(\'amc\')\">挑战AMC8真题 �?/button>':''}
         </div>
       </div>`;
     if (pct >= 80) launchConfetti();
-    document.getElementById('totalStars').textContent = state.stars + ' Stars';
+    document.getElementById('totalStars').textContent = state.stars + ' ?';
     return;
   }
   const p = practice[quizIndex];
   const yearTag = p.year ? `<span style="font-size:11px;background:var(--p3);color:var(--p);padding:2px 6px;border-radius:6px;margin-left:4px">${p.year} AMC8 #${p.num}</span>` : '';
   let html = `<div class="anim-slide">
     <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text2)">
-      <span>第 ${quizIndex+1}/${practice.length} 题 ${yearTag}</span><span>正确 ${quizCorrect}</span>
+      <span>�?${quizIndex+1}/${practice.length} �?${yearTag}</span><span>正确 ${quizCorrect}</span>
     </div>
     <div class="prog-bar"><div class="prog-fill" style="width:${quizIndex/practice.length*100}%;background:var(--p)"></div></div>
     <div class="quiz-q">${p.q}</div>
@@ -759,13 +1013,13 @@ function paSelect(selected) {
   if (selected === p.answer) {
     quizCorrect++;
     el.className = 'quiz-explain show correct-ex';
-    el.innerHTML = `<strong>✓ 正确!</strong> ${p.explain}`;
+    el.innerHTML = `<strong>�?正确!</strong> ${p.explain}`;
   } else {
     el.className = 'quiz-explain show wrong-ex';
-    el.innerHTML = `<strong>✗ 正确答案: ${String.fromCharCode(65+p.answer)}</strong> ${p.explain}`;
+    el.innerHTML = `<strong>�?正确答案: ${String.fromCharCode(65+p.answer)}</strong> ${p.explain}`;
   }
   setTimeout(() => {
-    el.innerHTML += `<div style="margin-top:10px"><button class="btn btn-sm btn-p" onclick="quizIndex++;renderQuizInArea(currentQuizData)">下一题 →</button></div>`;
+    el.innerHTML += `<div style="margin-top:10px"><button class="btn btn-sm btn-p" onclick="quizIndex++;renderQuizInArea(currentQuizData)">下一�?�?/button></div>`;
   }, 400);
 }
 
@@ -791,16 +1045,16 @@ function renderQuiz(practice) {
         <div style="font-size:48px;margin:12px 0">${pct >= 80 ? '🎉' : pct >= 60 ? '👍' : '💪'}</div>
         <h3>练习完成!</h3>
         <div style="font-size:36px;font-weight:800;color:${pct>=80?'var(--g)':pct>=60?'var(--o)':'var(--r)'};margin:8px 0">${pct}%</div>
-        <div style="color:var(--text2)">答对 ${quizCorrect}/${practice.length} 题 · 获得 ${starsEarned} Stars</div>
+        <div style="color:var(--text2)">答对 ${quizCorrect}/${practice.length} �?· 获得 ${starsEarned} Stars</div>
         <div style="margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
           <button class="btn btn-p" onclick="quizIndex=0;quizCorrect=0;renderQuiz(currentTopic.lessons[currentLessonIdx].practice)">重新练习</button>
-          ${currentLessonIdx < currentTopic.lessons.length - 1 ? `<button class="btn btn-g" onclick="startLesson('${currentTopic.id}',${currentLessonIdx+1})">下一课 →</button>` : ''}
+          ${currentLessonIdx < currentTopic.lessons.length - 1 ? `<button class="btn btn-g" onclick="startLesson('${currentTopic.id}',${currentLessonIdx+1})">下一�?�?/button>` : ''}
           <button class="btn btn-ghost" onclick="renderLearnSelect()">返回列表</button>
         </div>
       </div>
     `;
     if (pct >= 80) launchConfetti();
-    document.getElementById('totalStars').textContent = state.stars + ' Stars';
+    document.getElementById('totalStars').textContent = state.stars + ' ?';
     return;
   }
 
@@ -835,14 +1089,14 @@ function selectAnswer(selected, correct, explainEncoded) {
   if (selected === correct) {
     quizCorrect++;
     explainEl.className = 'quiz-explain show correct-ex';
-    explainEl.innerHTML = `<strong>✓ 正确!</strong> ${explain}`;
+    explainEl.innerHTML = `<strong>�?正确!</strong> ${explain}`;
   } else {
     explainEl.className = 'quiz-explain show wrong-ex';
-    explainEl.innerHTML = `<strong>✗ 不对哦~</strong> ${explain}`;
+    explainEl.innerHTML = `<strong>�?不对哦~</strong> ${explain}`;
   }
   // next button
   setTimeout(() => {
-    explainEl.innerHTML += `<div style="margin-top:10px"><button class="btn btn-sm btn-p" onclick="quizIndex++;renderQuiz(currentTopic.lessons[currentLessonIdx].practice)">下一题 →</button></div>`;
+    explainEl.innerHTML += `<div style="margin-top:10px"><button class="btn btn-sm btn-p" onclick="quizIndex++;renderQuiz(currentTopic.lessons[currentLessonIdx].practice)">下一�?�?/button></div>`;
   }, 500);
 }
 
@@ -866,8 +1120,8 @@ function renderExam() {
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">
           <div>
             <span style="font-weight:700;color:var(--p)">${p.year} AMC8 #${p.num}</span>
-            <span class="diff">${'★'.repeat(p.difficulty)}${'☆'.repeat(5-p.difficulty)}</span>
-            <span style="font-size:10px;background:#dcfce7;color:#166534;padding:2px 6px;border-radius:8px;font-weight:600;margin-left:4px">可做题</span>
+            <span class="diff">${'�?.repeat(p.difficulty)}${'�?.repeat(5-p.difficulty)}</span>
+            <span style="font-size:10px;background:#dcfce7;color:#166534;padding:2px 6px;border-radius:8px;font-weight:600;margin-left:4px">可做�?/span>
           </div>
           <span style="font-size:12px;background:var(--p3);color:var(--p);padding:2px 8px;border-radius:10px">${topicObj ? topicObj.icon+' '+topicObj.name : p.topic}</span>
         </div>
@@ -880,7 +1134,7 @@ function renderExam() {
         <div class="quiz-explain" id="examExplain-${globalIdx}"></div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
           <span style="font-size:11px;color:var(--text2)">标签: ${p.tags.join(', ')}</span>
-          <a href="${p.aops}" target="_blank" style="font-size:12px;color:var(--p);text-decoration:none">AoPS 详细解析 →</a>
+          <a href="${p.aops}" target="_blank" style="font-size:12px;color:var(--p);text-decoration:none">AoPS 详细解析 �?/a>
         </div>
       </div>`;
     } else {
@@ -889,7 +1143,7 @@ function renderExam() {
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">
           <div>
             <span style="font-weight:700;color:var(--p)">${p.year} AMC8 #${p.num}</span>
-            <span class="diff">${'★'.repeat(p.difficulty)}${'☆'.repeat(5-p.difficulty)}</span>
+            <span class="diff">${'�?.repeat(p.difficulty)}${'�?.repeat(5-p.difficulty)}</span>
             <span style="font-size:10px;background:#fef3c7;color:#92400e;padding:2px 6px;border-radius:8px;font-weight:600;margin-left:4px">需看图</span>
           </div>
           <span style="font-size:12px;background:var(--p3);color:var(--p);padding:2px 8px;border-radius:10px">${topicObj ? topicObj.icon+' '+topicObj.name : p.topic}</span>
@@ -898,7 +1152,7 @@ function renderExam() {
         <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;flex-wrap:wrap;gap:8px">
           <span style="font-size:11px;color:var(--text2)">标签: ${p.tags.join(', ')}</span>
           <div style="display:flex;gap:8px;align-items:center">
-            <a href="${p.aops}" target="_blank" class="btn btn-sm btn-p" style="text-decoration:none;color:#fff">去 AoPS 看图做题 →</a>
+            <a href="${p.aops}" target="_blank" class="btn btn-sm btn-p" style="text-decoration:none;color:#fff">�?AoPS 看图做题 �?/a>
             <details style="font-size:13px">
               <summary style="cursor:pointer;color:var(--g);font-weight:600">答案</summary>
               <span style="color:var(--g)">${p.answer} (${p.answerText})</span>
@@ -908,7 +1162,7 @@ function renderExam() {
       </div>`;
     }
   });
-  if (!filtered.length) html = '<div class="card"><p style="color:var(--text2)">没有匹配的题目</p></div>';
+  if (!filtered.length) html = '<div class="card"><p style="color:var(--text2)">没有匹配的题�?/p></div>';
   document.getElementById('problemList').innerHTML = html;
 }
 
@@ -929,12 +1183,12 @@ function examSelect(probIdx, selected) {
     state.correctProblems++;
   } else {
     el.className = 'quiz-explain show wrong-ex';
-    el.innerHTML = '<strong>正确答案是 '+String.fromCharCode(65+p.answer)+'</strong><br>'+p.explain+'<br><a href="'+p.aops+'" target="_blank" style="color:var(--p);font-size:12px;margin-top:4px;display:inline-block">AoPS 完整解析 &rarr;</a>';
+    el.innerHTML = '<strong>正确答案�?'+String.fromCharCode(65+p.answer)+'</strong><br>'+p.explain+'<br><a href="'+p.aops+'" target="_blank" style="color:var(--p);font-size:12px;margin-top:4px;display:inline-block">AoPS 完整解析 &rarr;</a>';
   }
   state.totalProblems++;
   checkAchievements();
   saveState();
-  document.getElementById('totalStars').textContent = state.stars + ' Stars';
+  document.getElementById('totalStars').textContent = state.stars + ' ?';
 }
 
 function filterProblems(val, btn) {
@@ -956,26 +1210,21 @@ function filterType(val, btn) {
   renderExam();
 }
 
-// ========== TROPHY PAGE ==========
-function renderTrophy() {
-  document.getElementById('trophyStars').textContent = state.stars + ' ⭐';
+// ========== PK PAGE ==========
+function renderPK() {
+  document.getElementById('trophyStars').textContent = state.stars + ' �?;
   document.getElementById('t-streak').textContent = state.maxStreak;
-  document.getElementById('t-correct').textContent = state.totalProblems ? Math.round(state.correctProblems/state.totalProblems*100)+'%' : '0%';
+  document.getElementById('t-correct').textContent = state.totalProblems ? Math.round(state.correctProblems / state.totalProblems * 100) + '%' : '0%';
   document.getElementById('t-ach').textContent = state.achievements.length;
-
   const list = document.getElementById('achievementList');
   let html = '';
   ACHIEVEMENTS.forEach(a => {
     const unlocked = state.achievements.includes(a.id);
-    html += `
-      <div class="ach-card${unlocked?' unlocked':''}">
-        <div class="ach-icon">${a.icon}</div>
-        <div class="ach-info">
-          <div class="ach-name">${a.name}</div>
-          <div class="ach-desc">${a.desc}</div>
-        </div>
-        ${unlocked ? '<span style="margin-left:auto;color:var(--o);font-weight:700">已解锁</span>' : ''}
-      </div>`;
+    html += `<div class="ach-card${unlocked ? ' unlocked' : ''}">
+      <div class="ach-icon">${a.icon}</div>
+      <div class="ach-info"><div class="ach-name">${a.name}</div><div class="ach-desc">${a.desc}</div></div>
+      ${unlocked ? '<span style="margin-left:auto;color:var(--o);font-weight:700;font-size:12px">已解�?/span>' : ''}
+    </div>`;
   });
   list.innerHTML = html;
 }
@@ -1038,7 +1287,7 @@ function launchConfetti() {
 }
 
 // ========== INIT ==========
-renderHome();
+checkLogin();
 
 // ========== REGISTER SERVICE WORKER ==========
 if ('serviceWorker' in navigator) {
