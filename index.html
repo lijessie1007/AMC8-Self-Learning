@@ -407,7 +407,7 @@ function checkLogin() {
 
 function doLogin() {
   const name = document.getElementById('loginName').value.trim();
-  const code = document.getElementById('loginCode').value.trim().toUpperCase();
+  const code = document.getElementById('loginCode').value.trim();
   const errEl = document.getElementById('loginError');
   if (!name || !code) { errEl.style.display = 'block'; errEl.textContent = '请输入姓名和验证�?; return; }
   const profile = INVITE_CODES[code];
