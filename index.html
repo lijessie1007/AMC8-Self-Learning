@@ -339,23 +339,27 @@ body{overflow:auto;height:100%}
 
 <div class="toast" id="toast"></div>
 
-<!-- Firebase SDK (Compat version, works without build tools) -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<!-- Firebase SDK (async, does not block login) -->
+<script defer src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script defer src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script src="config.js"></script>
 <script src="data.js"></script>
 <script>
-// ===== Firebase Init =====
+// ===== Firebase Init (delayed, runs after SDK loads) =====
 let db = null;
 function initFirebase() {
   try {
-    if (FIREBASE_CONFIG.apiKey && !FIREBASE_CONFIG.apiKey.includes('请填�?)) {
-      firebase.initializeApp(FIREBASE_CONFIG);
+    if (typeof firebase !== 'undefined' && FIREBASE_CONFIG.apiKey && !FIREBASE_CONFIG.apiKey.includes('请填入')) {
+      if (!firebase.apps.length) {
+        firebase.initializeApp(FIREBASE_CONFIG);
+      }
       db = firebase.database();
+      console.log('Firebase connected');
     }
   } catch(e) { console.log('Firebase init skipped:', e.message); }
 }
-initFirebase();
+// Try init now, and also after window loads (in case SDK arrives late)
+window.addEventListener('load', () => { setTimeout(initFirebase, 500); });
 
 // ========== MULTI-USER STATE MANAGEMENT ==========
 const DEFAULT_STATE = {
