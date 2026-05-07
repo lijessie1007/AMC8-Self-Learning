@@ -413,14 +413,18 @@ function doLogin() {
   const name = document.getElementById('loginName').value.trim();
   const code = document.getElementById('loginCode').value.trim();
   const errEl = document.getElementById('loginError');
-  if (!name || !code) { errEl.style.display = 'block'; errEl.textContent = '请输入姓名和验证�?; return; }
+  if (!name || !code) {
+    errEl.style.display = 'block';
+    errEl.textContent = 'Please enter your name and invite code';
+    return;
+  }
   const profile = INVITE_CODES[code];
   if (!profile || profile.name !== name) {
     errEl.style.display = 'block';
-    errEl.textContent = '验证码错误或姓名不匹配，请联系老师';
+    errEl.textContent = 'Wrong code or name mismatch - contact your teacher';
     return;
   }
-  // 登录成功
+  // Login success
   localStorage.setItem('amc8hub_current_user', code);
   currentUserId = code;
   state = loadState(code);
@@ -428,7 +432,7 @@ function doLogin() {
   showMainUI(profile);
   document.getElementById('loginOverlay').style.display = 'none';
   renderHome();
-  showToast('欢迎回来�? + profile.avatar + ' ' + profile.name + '�?);
+  showToast('Welcome back ' + profile.avatar + ' ' + profile.name + '!');
   launchConfetti();
 }
 
@@ -437,7 +441,7 @@ function showMainUI(profile) {
   document.getElementById('userPill').style.display = '';
   document.getElementById('userAvatar').textContent = profile.avatar;
   document.getElementById('userName').textContent = profile.name;
-  document.getElementById('totalStars').textContent = state.stars + ' �?;
+  document.getElementById('totalStars').textContent = state.stars + ' Stars';
 }
 
 function doLogout() {
@@ -521,7 +525,7 @@ function loadLeaderboard() {
     // Topics ranking
     const byTopics = [...users].sort((a, b) => (b.completedCount||0) - (a.completedCount||0));
     topicsEl.innerHTML = renderRankList(byTopics, u => `完成 <strong>${u.completedCount||0}/16</strong> 个`, u => (u.completedCount||0), 16, today, currentUserId);
-    timeEl.textContent = '最后更�? ' + new Date().toLocaleTimeString('zh-CN', {hour:'2-digit',minute:'2-digit'});
+    timeEl.textContent = 'Updated: ' + new Date().toLocaleTimeString();
   }).catch(e => {
     starsEl.innerHTML = '<div style="color:var(--r);padding:12px">加载失败: ' + e.message + '</div>';
   });
@@ -537,17 +541,17 @@ function renderRankList(users, labelFn, valueFn, maxVal, today, myUid) {
     const medalClass = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : 'other';
     const medalContent = i < 3 ? medals[i] : String(i + 1);
     const todayBadge = u.todayCheckin
-      ? '<span class="today-yes">✅今�?/span>'
-      : '<span class="today-no">❌今�?/span>';
+      ? '<span class="today-yes">Today ✅</span>'
+      : '<span class="today-no">❌ Not yet</span>';
     return `<div class="pk-rank-item" style="${isMe ? 'border-color:var(--p);background:var(--p3)20' : ''}">
       <div class="pk-medal ${medalClass}">${medalContent}</div>
       <span style="font-size:22px">${u.avatar||'👤'}</span>
       <div class="pk-bar-wrap">
         <div class="pk-bar-label">
-          <span style="font-weight:700">${u.name}${isMe?' (�?':''}</span>
+          <span style="font-weight:700">${u.name}${isMe?' (me)':''}</span>
           <div style="display:flex;align-items:center;gap:6px">${todayBadge}<span>${labelFn(u)}</span></div>
         </div>
-        <div class="prog-bar"><div class="prog-fill" style="width:${pct}%;background:${i===0?'var(--o)':i===1?'var(--text2)':i===2?'#b45309':'var(--p)'}"></div></div>
+        <div class="prog-bar"><div class="prog-fill" style="width:${pct}%;background:${i===0?'#f59e0b':i===1?'#64748b':i===2?'#b45309':'#4f46e5'}"></div></div>
       </div>
     </div>`;
   }).join('');
@@ -575,16 +579,15 @@ function renderHome() {
   const days = Math.floor(diff/86400000);
   const months = Math.floor(days/30);
   const weeks = Math.floor(days/7);
-  document.getElementById('countdown').innerHTML = `
-    <div class="cd-item"><div class="cd-num">${months}</div><div class="cd-label">个月</div></div>
-    <div class="cd-item"><div class="cd-num">${weeks}</div><div class="cd-label">�?/div></div>
-    <div class="cd-item"><div class="cd-num">${days}</div><div class="cd-label">�?/div></div>
-  `;
+  document.getElementById('countdown').innerHTML =
+    '<div class="cd-item"><div class="cd-num">'+months+'</div><div class="cd-label">months</div></div>' +
+    '<div class="cd-item"><div class="cd-num">'+weeks+'</div><div class="cd-label">weeks</div></div>' +
+    '<div class="cd-item"><div class="cd-num">'+days+'</div><div class="cd-label">days</div></div>';
   // stats
   document.getElementById('s-streak').textContent = state.streak;
   document.getElementById('s-topics').textContent = state.completedTopics.length + '/'+TOPICS.length;
   document.getElementById('s-problems').textContent = state.totalProblems;
-  document.getElementById('totalStars').textContent = state.stars + ' ?';
+  document.getElementById('totalStars').textContent = state.stars + ' Stars';
 
   // phase progress
   const phase1Topics = TOPICS.filter(t => t.phase === 1);
@@ -601,8 +604,8 @@ function renderHome() {
   // today recommendation
   const nextTopic = TOPICS.find(t => !state.completedTopics.includes(t.id) && isUnlocked(t));
   document.getElementById('today-rec').innerHTML = nextTopic
-    ? `<strong>${nextTopic.icon} ${nextTopic.name}</strong><br><span style="font-size:13px">${nextTopic.desc}</span>`
-    : '恭喜！所有知识点已完成，去刷真题吧！';
+    ? '<strong>' + nextTopic.icon + ' ' + nextTopic.name + '</strong><br><span style="font-size:13px">' + nextTopic.desc + '</span>'
+    : 'All topics complete! Go practice real AMC8 problems!';
 
   // checkin grid
   renderCheckinGrid();
@@ -614,7 +617,7 @@ function renderCheckinGrid() {
   const startOfWeek = new Date(today);
   startOfWeek.setDate(today.getDate() - today.getDay());
   let html = '';
-  const labels = ['�?,'一','�?,'�?,'�?,'�?,'�?];
+  const labels = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   for (let i = 0; i < 7; i++) {
     const d = new Date(startOfWeek);
     d.setDate(startOfWeek.getDate() + i);
@@ -626,7 +629,7 @@ function renderCheckinGrid() {
   grid.innerHTML = html;
   const btn = document.getElementById('checkinBtn');
   if (state.checkins.includes(new Date().toISOString().slice(0,10))) {
-    btn.textContent = '今日已打�?�?;
+    btn.textContent = 'Checked in today ✓';
     btn.disabled = true;
     btn.style.opacity = '.5';
   }
@@ -638,7 +641,7 @@ function doCheckin() {
     state.checkins.push(today);
     state.stars += 5;
     saveState();
-    showToast('打卡成功! +5 Stars');
+    showToast('Check-in done! +5 Stars');
     launchConfetti();
     renderHome();
     checkAchievements();
@@ -664,7 +667,7 @@ function renderMap() {
         <div class="ico" style="font-size:36px">${th.icon}</div>
         <div class="name" style="font-size:16px;color:${th.color}">${th.name}</div>
         <div class="sub">${th.desc}</div>
-        <div style="margin-top:8px;font-size:12px;color:var(--text2)">${topics.length}个知识点 · 已完�?{done}�?/div>
+        <div style="margin-top:8px;font-size:12px;color:var(--text2)">${topics.length} topics &middot; Completed: ${done}</div>
         <div class="prog-bar"><div class="prog-fill" style="width:${topics.length?done/topics.length*100:0}%;background:${th.color}"></div></div>
       </div>`;
   });
@@ -680,7 +683,7 @@ function showThemeDetail(themeId) {
   document.getElementById('themeHeader').innerHTML = `
     <div style="display:flex;justify-content:space-between;align-items:center">
       <h3 style="color:${th.color}">${th.icon} ${th.name}</h3>
-      <button class="btn btn-sm btn-ghost" onclick="renderMap()">�?返回主题列表</button>
+      <button class="btn btn-sm btn-ghost" onclick="renderMap()">&larr; Back to Themes</button>
     </div>
     <div style="font-size:13px;color:var(--text2);margin-top:4px">${th.desc}</div>`;
 
@@ -722,10 +725,10 @@ function showThemeDetail(themeId) {
       <div style="display:flex;align-items:center;gap:12px">
         <span style="font-size:28px">${t.icon}</span>
         <div style="flex:1">
-          <div style="font-weight:700;font-size:15px">${t.name} ${done?'<span style=\"color:var(--g)\">�?/span>':''}</div>
-          <div style="font-size:12px;color:var(--text2)">${t.grade} · AMC8出现${t.amcFreq}�?· 难度: ${t.difficulty}</div>
+          <div style="font-weight:700;font-size:15px">${t.name} ${done?'<span style="color:var(--g)">&#10003;</span>':''}</div>
+          <div style="font-size:12px;color:var(--text2)">${t.grade} &middot; AMC8 x${t.amcFreq} &middot; ${t.difficulty}</div>
         </div>
-        <button class="btn btn-sm ${done?'btn-ghost':'btn-p'}" style="${unlocked?'':'pointer-events:none'}">${done?'复习':'开始学'}</button>
+        <button class="btn btn-sm ${done?'btn-ghost':'btn-p'}" style="${unlocked?'':'pointer-events:none'}">${done?'Review':'Start'}</button>
       </div>
     </div>`;
   });
@@ -749,10 +752,10 @@ function renderLearnSelect() {
              onclick="${unlocked ? `startLesson('${t.id}')` : ''}">
           <span style="font-size:24px">${t.icon}</span>
           <div style="flex:1">
-            <div style="font-weight:600;font-size:14px">${t.name} ${done?'<span style=\"color:var(--g)\">�?/span>':''}</div>
-            <div style="font-size:12px;color:var(--text2)">${t.grade} · ${t.desc}</div>
+            <div style="font-weight:600;font-size:14px">${t.name} ${done?'<span style="color:var(--g)">&#10003;</span>':''}</div>
+            <div style="font-size:12px;color:var(--text2)">${t.grade} &middot; ${t.desc}</div>
           </div>
-          <button class="btn btn-sm ${done?'btn-ghost':'btn-p'}" style="${unlocked?'':'pointer-events:none'}">${done?'复习':'开始学'}</button>
+          <button class="btn btn-sm ${done?'btn-ghost':'btn-p'}" style="${unlocked?'':'pointer-events:none'}">${done?'Review':'Start'}</button>
         </div>`;
     });
   });
@@ -978,22 +981,22 @@ function renderQuizInArea(practice) {
         <div style="font-size:48px">${pct>=80?'🎉':pct>=60?'👍':'💪'}</div>
         <div style="font-size:13px;color:var(--text2)">${levelName}</div>
         <div style="font-size:36px;font-weight:800;color:${pct>=80?'var(--g)':pct>=60?'var(--o)':'var(--r)'}">${pct}%</div>
-        <div style="color:var(--text2)">答对 ${quizCorrect}/${practice.length} · +${starsEarned} Stars</div>
+        <div style="color:var(--text2)">Correct: ${quizCorrect}/${practice.length} &middot; +${starsEarned} Stars</div>
         <div style="margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-          <button class="btn btn-sm btn-p" onclick="startPractice('${currentQuizLevel}')">重新�?/button>
-          ${currentQuizLevel==='basic'?'<button class=\"btn btn-sm btn-o\" onclick=\"startPractice(\'advanced\')\">挑战提高�?�?/button>':''}
-          ${currentQuizLevel==='advanced'?'<button class=\"btn btn-sm btn-p\" onclick=\"startPractice(\'amc\')\">挑战AMC8真题 �?/button>':''}
+          <button class="btn btn-sm btn-p" onclick="startPractice('${currentQuizLevel}')">Retry</button>
+          ${currentQuizLevel==='basic'?'<button class="btn btn-sm btn-o" onclick="startPractice(\'advanced\')">Try Advanced &rarr;</button>':''}
+          ${currentQuizLevel==='advanced'?'<button class="btn btn-sm btn-p" onclick="startPractice(\'amc\')">Try AMC8 Problems &rarr;</button>':''}
         </div>
       </div>`;
     if (pct >= 80) launchConfetti();
-    document.getElementById('totalStars').textContent = state.stars + ' ?';
+    document.getElementById('totalStars').textContent = state.stars + ' Stars';
     return;
   }
   const p = practice[quizIndex];
   const yearTag = p.year ? `<span style="font-size:11px;background:var(--p3);color:var(--p);padding:2px 6px;border-radius:6px;margin-left:4px">${p.year} AMC8 #${p.num}</span>` : '';
   let html = `<div class="anim-slide">
     <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text2)">
-      <span>�?${quizIndex+1}/${practice.length} �?${yearTag}</span><span>正确 ${quizCorrect}</span>
+      <span>Q ${quizIndex+1}/${practice.length} ${yearTag}</span><span>Correct: ${quizCorrect}</span>
     </div>
     <div class="prog-bar"><div class="prog-fill" style="width:${quizIndex/practice.length*100}%;background:var(--p)"></div></div>
     <div class="quiz-q">${p.q}</div>
@@ -1017,13 +1020,13 @@ function paSelect(selected) {
   if (selected === p.answer) {
     quizCorrect++;
     el.className = 'quiz-explain show correct-ex';
-    el.innerHTML = `<strong>�?正确!</strong> ${p.explain}`;
+    el.innerHTML = '<strong>&#10003; Correct!</strong> ' + p.explain;
   } else {
     el.className = 'quiz-explain show wrong-ex';
-    el.innerHTML = `<strong>�?正确答案: ${String.fromCharCode(65+p.answer)}</strong> ${p.explain}`;
+    el.innerHTML = '<strong>&#10007; Answer: ' + String.fromCharCode(65+p.answer) + '</strong> ' + p.explain;
   }
   setTimeout(() => {
-    el.innerHTML += `<div style="margin-top:10px"><button class="btn btn-sm btn-p" onclick="quizIndex++;renderQuizInArea(currentQuizData)">下一�?�?/button></div>`;
+    el.innerHTML += '<div style="margin-top:10px"><button class="btn btn-sm btn-p" onclick="quizIndex++;renderQuizInArea(currentQuizData)">Next &rarr;</button></div>';
   }, 400);
 }
 
@@ -1049,16 +1052,16 @@ function renderQuiz(practice) {
         <div style="font-size:48px;margin:12px 0">${pct >= 80 ? '🎉' : pct >= 60 ? '👍' : '💪'}</div>
         <h3>练习完成!</h3>
         <div style="font-size:36px;font-weight:800;color:${pct>=80?'var(--g)':pct>=60?'var(--o)':'var(--r)'};margin:8px 0">${pct}%</div>
-        <div style="color:var(--text2)">答对 ${quizCorrect}/${practice.length} �?· 获得 ${starsEarned} Stars</div>
+        <div style="color:var(--text2)">Correct: ${quizCorrect}/${practice.length} &middot; +${starsEarned} Stars</div>
         <div style="margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-          <button class="btn btn-p" onclick="quizIndex=0;quizCorrect=0;renderQuiz(currentTopic.lessons[currentLessonIdx].practice)">重新练习</button>
-          ${currentLessonIdx < currentTopic.lessons.length - 1 ? `<button class="btn btn-g" onclick="startLesson('${currentTopic.id}',${currentLessonIdx+1})">下一�?�?/button>` : ''}
-          <button class="btn btn-ghost" onclick="renderLearnSelect()">返回列表</button>
+          <button class="btn btn-p" onclick="quizIndex=0;quizCorrect=0;renderQuiz(currentTopic.lessons[currentLessonIdx].practice)">Retry</button>
+          ${currentLessonIdx < currentTopic.lessons.length - 1 ? '<button class="btn btn-g" onclick="startLesson(\''+currentTopic.id+'\','+(currentLessonIdx+1)+')">Next Lesson &rarr;</button>' : ''}
+          <button class="btn btn-ghost" onclick="renderLearnSelect()">Back</button>
         </div>
       </div>
     `;
     if (pct >= 80) launchConfetti();
-    document.getElementById('totalStars').textContent = state.stars + ' ?';
+    document.getElementById('totalStars').textContent = state.stars + ' Stars';
     return;
   }
 
@@ -1093,14 +1096,14 @@ function selectAnswer(selected, correct, explainEncoded) {
   if (selected === correct) {
     quizCorrect++;
     explainEl.className = 'quiz-explain show correct-ex';
-    explainEl.innerHTML = `<strong>�?正确!</strong> ${explain}`;
+    explainEl.innerHTML = '<strong>&#10003; Correct!</strong> ' + explain;
   } else {
     explainEl.className = 'quiz-explain show wrong-ex';
-    explainEl.innerHTML = `<strong>�?不对哦~</strong> ${explain}`;
+    explainEl.innerHTML = '<strong>&#10007; Try again~</strong> ' + explain;
   }
   // next button
   setTimeout(() => {
-    explainEl.innerHTML += `<div style="margin-top:10px"><button class="btn btn-sm btn-p" onclick="quizIndex++;renderQuiz(currentTopic.lessons[currentLessonIdx].practice)">下一�?�?/button></div>`;
+    explainEl.innerHTML += '<div style="margin-top:10px"><button class="btn btn-sm btn-p" onclick="quizIndex++;renderQuiz(currentTopic.lessons[currentLessonIdx].practice)">Next &rarr;</button></div>';
   }, 500);
 }
 
@@ -1124,8 +1127,8 @@ function renderExam() {
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">
           <div>
             <span style="font-weight:700;color:var(--p)">${p.year} AMC8 #${p.num}</span>
-            <span class="diff">${'�?.repeat(p.difficulty)}${'�?.repeat(5-p.difficulty)}</span>
-            <span style="font-size:10px;background:#dcfce7;color:#166534;padding:2px 6px;border-radius:8px;font-weight:600;margin-left:4px">可做�?/span>
+            <span class="diff">${'★'.repeat(p.difficulty)}${'☆'.repeat(5-p.difficulty)}</span>
+            <span style="font-size:10px;background:#dcfce7;color:#166534;padding:2px 6px;border-radius:8px;font-weight:600;margin-left:4px">Do it here</span>
           </div>
           <span style="font-size:12px;background:var(--p3);color:var(--p);padding:2px 8px;border-radius:10px">${topicObj ? topicObj.icon+' '+topicObj.name : p.topic}</span>
         </div>
@@ -1138,7 +1141,7 @@ function renderExam() {
         <div class="quiz-explain" id="examExplain-${globalIdx}"></div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
           <span style="font-size:11px;color:var(--text2)">标签: ${p.tags.join(', ')}</span>
-          <a href="${p.aops}" target="_blank" style="font-size:12px;color:var(--p);text-decoration:none">AoPS 详细解析 �?/a>
+          <a href="${p.aops}" target="_blank" style="font-size:12px;color:var(--p);text-decoration:none">AoPS Solution &rarr;</a>
         </div>
       </div>`;
     } else {
@@ -1147,8 +1150,8 @@ function renderExam() {
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">
           <div>
             <span style="font-weight:700;color:var(--p)">${p.year} AMC8 #${p.num}</span>
-            <span class="diff">${'�?.repeat(p.difficulty)}${'�?.repeat(5-p.difficulty)}</span>
-            <span style="font-size:10px;background:#fef3c7;color:#92400e;padding:2px 6px;border-radius:8px;font-weight:600;margin-left:4px">需看图</span>
+            <span class="diff">${'★'.repeat(p.difficulty)}${'☆'.repeat(5-p.difficulty)}</span>
+            <span style="font-size:10px;background:#fef3c7;color:#92400e;padding:2px 6px;border-radius:8px;font-weight:600;margin-left:4px">Needs image</span>
           </div>
           <span style="font-size:12px;background:var(--p3);color:var(--p);padding:2px 8px;border-radius:10px">${topicObj ? topicObj.icon+' '+topicObj.name : p.topic}</span>
         </div>
@@ -1156,7 +1159,7 @@ function renderExam() {
         <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;flex-wrap:wrap;gap:8px">
           <span style="font-size:11px;color:var(--text2)">标签: ${p.tags.join(', ')}</span>
           <div style="display:flex;gap:8px;align-items:center">
-            <a href="${p.aops}" target="_blank" class="btn btn-sm btn-p" style="text-decoration:none;color:#fff">�?AoPS 看图做题 �?/a>
+            <a href="${p.aops}" target="_blank" class="btn btn-sm btn-p" style="text-decoration:none;color:#fff">View on AoPS &rarr;</a>
             <details style="font-size:13px">
               <summary style="cursor:pointer;color:var(--g);font-weight:600">答案</summary>
               <span style="color:var(--g)">${p.answer} (${p.answerText})</span>
@@ -1166,7 +1169,7 @@ function renderExam() {
       </div>`;
     }
   });
-  if (!filtered.length) html = '<div class="card"><p style="color:var(--text2)">没有匹配的题�?/p></div>';
+  if (!filtered.length) html = '<div class="card"><p style="color:var(--text2)">No matching problems</p></div>';
   document.getElementById('problemList').innerHTML = html;
 }
 
@@ -1182,17 +1185,17 @@ function examSelect(probIdx, selected) {
   const el = document.getElementById('examExplain-'+probIdx);
   if (selected === p.answer) {
     el.className = 'quiz-explain show correct-ex';
-    el.innerHTML = '<strong>Correct! +3 Stars</strong><br>'+p.explain+'<br><a href="'+p.aops+'" target="_blank" style="color:var(--p);font-size:12px;margin-top:4px;display:inline-block">AoPS 完整解析 &rarr;</a>';
+    el.innerHTML = '<strong>Correct! +3 Stars</strong><br>'+p.explain+'<br><a href="'+p.aops+'" target="_blank" style="color:var(--p);font-size:12px;margin-top:4px;display:inline-block">AoPS Solution &rarr;</a>';
     state.stars += 3;
     state.correctProblems++;
   } else {
     el.className = 'quiz-explain show wrong-ex';
-    el.innerHTML = '<strong>正确答案�?'+String.fromCharCode(65+p.answer)+'</strong><br>'+p.explain+'<br><a href="'+p.aops+'" target="_blank" style="color:var(--p);font-size:12px;margin-top:4px;display:inline-block">AoPS 完整解析 &rarr;</a>';
+    el.innerHTML = '<strong>Answer: '+String.fromCharCode(65+p.answer)+'</strong><br>'+p.explain+'<br><a href="'+p.aops+'" target="_blank" style="color:var(--p);font-size:12px;margin-top:4px;display:inline-block">AoPS Full Solution &rarr;</a>';
   }
   state.totalProblems++;
   checkAchievements();
   saveState();
-  document.getElementById('totalStars').textContent = state.stars + ' ?';
+  document.getElementById('totalStars').textContent = state.stars + ' Stars';
 }
 
 function filterProblems(val, btn) {
@@ -1216,7 +1219,7 @@ function filterType(val, btn) {
 
 // ========== PK PAGE ==========
 function renderPK() {
-  document.getElementById('trophyStars').textContent = state.stars + ' �?;
+  document.getElementById('trophyStars').textContent = state.stars + ' Stars';
   document.getElementById('t-streak').textContent = state.maxStreak;
   document.getElementById('t-correct').textContent = state.totalProblems ? Math.round(state.correctProblems / state.totalProblems * 100) + '%' : '0%';
   document.getElementById('t-ach').textContent = state.achievements.length;
@@ -1227,7 +1230,7 @@ function renderPK() {
     html += `<div class="ach-card${unlocked ? ' unlocked' : ''}">
       <div class="ach-icon">${a.icon}</div>
       <div class="ach-info"><div class="ach-name">${a.name}</div><div class="ach-desc">${a.desc}</div></div>
-      ${unlocked ? '<span style="margin-left:auto;color:var(--o);font-weight:700;font-size:12px">已解�?/span>' : ''}
+      ${unlocked ? '<span style="margin-left:auto;color:var(--o);font-weight:700;font-size:12px">Unlocked!</span>' : ''}
     </div>`;
   });
   list.innerHTML = html;
@@ -1260,7 +1263,7 @@ function checkAchievements() {
   if (newUnlocks.length) {
     saveState();
     newUnlocks.forEach(a => {
-      setTimeout(() => showToast(`🎉 成就解锁: ${a.icon} ${a.name}!`), 300);
+      setTimeout(() => showToast('Achievement unlocked: ' + a.icon + ' ' + a.name + '!'), 300);
     });
   }
 }
