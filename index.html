@@ -3,77 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>AMC8 Learning Hub - 冲刺 Top 1%</title>
-
-<!-- PWA manifest -->
+<title>AMC8 Learning Hub</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#4f46e5">
-
-<!-- iOS PWA support (iPad/iPhone) -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="AMC8">
 <link rel="apple-touch-icon" href="icon.svg">
-
-<!-- Splash screens for iPad (prevents white flash on launch) -->
-<meta name="apple-mobile-web-app-orientations" content="portrait landscape">
-
 <style>
-:root{--p:#4f46e5;--p2:#818cf8;--p3:#c7d2fe;--g:#10b981;--g2:#34d399;--o:#f59e0b;--r:#ef4444;--bg:#f8fafc;--card:#fff;--text:#1e293b;--text2:#64748b;--border:#e2e8f0;--shadow:0 1px 3px rgba(0,0,0,.08);--radius:12px;--safe-top:env(safe-area-inset-top);--safe-bottom:env(safe-area-inset-bottom)}
+:root{--p:#4f46e5;--p2:#818cf8;--p3:#c7d2fe;--g:#10b981;--o:#f59e0b;--r:#ef4444;--bg:#f8fafc;--card:#fff;--text:#1e293b;--text2:#64748b;--border:#e2e8f0;--shadow:0 1px 3px rgba(0,0,0,.08);--radius:12px;--safe-top:env(safe-area-inset-top)}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;overscroll-behavior:none}
-/* Prevent pull-to-refresh in standalone mode */
-html{overflow:hidden;height:100%}
-body{overflow:auto;height:100%}
-/* NAV */
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-tap-highlight-color:transparent}
 .topbar{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:10px 20px;padding-top:calc(10px + var(--safe-top));display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(79,70,229,.3)}
-.topbar h1{font-size:18px;font-weight:800;letter-spacing:1px}
-.topbar .stars{font-size:15px;background:rgba(255,255,255,.2);padding:4px 14px;border-radius:20px}
-.nav{display:flex;background:var(--card);border-bottom:1px solid var(--border);overflow-x:auto;position:sticky;top:44px;z-index:99}
-.nav button{flex:1;padding:12px 8px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--text2);transition:.2s;border-bottom:3px solid transparent;white-space:nowrap;min-width:80px}
-.nav button:hover{color:var(--p);background:#f5f3ff}
+.topbar h1{font-size:18px;font-weight:800}
+.nav{display:flex;background:var(--card);border-bottom:1px solid var(--border);overflow-x:auto;position:sticky;top:48px;z-index:99}
+.nav button{flex:1;padding:10px 6px;border:none;background:none;cursor:pointer;font-size:12px;font-weight:600;color:var(--text2);transition:.2s;border-bottom:3px solid transparent;white-space:nowrap;min-width:72px}
 .nav button.active{color:var(--p);border-bottom-color:var(--p);background:#f5f3ff}
 .nav button .ico{font-size:18px;display:block;margin-bottom:2px}
-/* PAGE */
 .page{display:none;padding:16px;max-width:900px;margin:0 auto}
 .page.active{display:block}
-/* CARDS */
 .card{background:var(--card);border-radius:var(--radius);padding:20px;margin-bottom:16px;box-shadow:var(--shadow);border:1px solid var(--border)}
 .card h3{font-size:17px;margin-bottom:10px}
-/* GRID */
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-@media(max-width:640px){.grid2,.grid3{grid-template-columns:1fr}}
-/* STAT */
+@media(max-width:600px){.grid2,.grid3{grid-template-columns:1fr}}
 .stat{text-align:center;padding:16px}
 .stat .num{font-size:32px;font-weight:800;color:var(--p)}
 .stat .label{font-size:12px;color:var(--text2)}
-/* PROGRESS */
 .prog-bar{height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin:6px 0}
 .prog-fill{height:100%;border-radius:4px;transition:width .5s}
-/* BTN */
 .btn{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:8px;border:none;font-size:14px;font-weight:600;cursor:pointer;transition:.2s}
 .btn-p{background:var(--p);color:#fff}.btn-p:hover{background:#4338ca}
 .btn-g{background:var(--g);color:#fff}.btn-g:hover{background:#059669}
 .btn-o{background:var(--o);color:#fff}.btn-o:hover{background:#d97706}
 .btn-ghost{background:none;color:var(--p);border:2px solid var(--p3)}.btn-ghost:hover{background:#f5f3ff}
 .btn-sm{padding:6px 14px;font-size:12px}
-/* TOPIC CARDS */
 .topic-card{border-radius:var(--radius);padding:16px;cursor:pointer;transition:.2s;border:2px solid var(--border);position:relative;overflow:hidden}
 .topic-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.1)}
-.topic-card .ico{font-size:28px}
-.topic-card .name{font-size:14px;font-weight:700;margin:6px 0 2px}
-.topic-card .sub{font-size:11px;color:var(--text2)}
-.topic-card .badge{position:absolute;top:8px;right:8px;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:700}
-.badge-done{background:#dcfce7;color:#166534}
-.badge-progress{background:#fef3c7;color:#92400e}
-.badge-locked{background:#f1f5f9;color:#94a3b8}
 .topic-card.locked{opacity:.5;cursor:not-allowed}
-/* LESSON */
 .lesson-box{background:#f8fafc;border-radius:10px;padding:16px;margin:12px 0;border-left:4px solid var(--p)}
 .lesson-box.story{border-left-color:var(--o);background:#fffbeb}
-.lesson-box.tip{border-left-color:var(--g);background:#ecfdf5}
-/* QUIZ */
 .quiz-q{font-size:15px;font-weight:600;margin:12px 0 8px}
 .quiz-opts{display:flex;flex-direction:column;gap:6px}
 .quiz-opt{padding:10px 14px;border:2px solid var(--border);border-radius:8px;cursor:pointer;transition:.2s;font-size:14px;background:var(--card)}
@@ -85,39 +54,40 @@ body{overflow:auto;height:100%}
 .quiz-explain.show{display:block}
 .quiz-explain.correct-ex{background:#ecfdf5;color:#166534}
 .quiz-explain.wrong-ex{background:#fef2f2;color:#991b1b}
-/* ACHIEVEMENT */
 .ach-card{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:var(--card)}
 .ach-card.unlocked{border-color:var(--o);background:#fffbeb}
 .ach-card .ach-icon{font-size:32px;filter:grayscale(100%);opacity:.3}
 .ach-card.unlocked .ach-icon{filter:none;opacity:1}
-.ach-card .ach-info .ach-name{font-weight:700;font-size:14px}
-.ach-card .ach-info .ach-desc{font-size:12px;color:var(--text2)}
-/* COUNTDOWN */
+.ach-card .ach-name{font-weight:700;font-size:14px}
+.ach-card .ach-desc{font-size:12px;color:var(--text2)}
 .countdown{display:flex;gap:10px;justify-content:center;margin:12px 0}
 .cd-item{text-align:center;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:10px 14px;border-radius:10px;min-width:60px}
 .cd-item .cd-num{font-size:24px;font-weight:800}
 .cd-item .cd-label{font-size:10px;opacity:.8}
-/* FILTER */
 .filter-row{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
 .filter-btn{padding:4px 12px;border-radius:16px;border:1px solid var(--border);background:var(--card);font-size:12px;cursor:pointer;transition:.2s}
 .filter-btn:hover,.filter-btn.active{background:var(--p);color:#fff;border-color:var(--p)}
-/* CHECKIN */
 .checkin-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:12px 0}
 .checkin-day{aspect-ratio:1;border-radius:4px;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--text2)}
 .checkin-day.done{background:var(--g);color:#fff}
 .checkin-day.today{border:2px solid var(--p)}
-/* CONFETTI */
 .confetti-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;overflow:hidden}
 .confetti{position:absolute;width:10px;height:10px;border-radius:2px;animation:confetti-fall 3s ease-out forwards}
 @keyframes confetti-fall{0%{transform:translateY(-10vh) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
-/* TOAST */
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#1e293b;color:#fff;padding:12px 24px;border-radius:10px;font-size:14px;font-weight:600;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.show{opacity:1}
-/* ANIMATE */
 @keyframes pop{0%{transform:scale(0.8);opacity:0}100%{transform:scale(1);opacity:1}}
 .anim-pop{animation:pop .3s ease-out}
 @keyframes slideUp{0%{transform:translateY(20px);opacity:0}100%{transform:translateY(0);opacity:1}}
 .anim-slide{animation:slideUp .4s ease-out}
+.diff{color:var(--o);letter-spacing:2px;font-size:12px}
+.nav::-webkit-scrollbar{height:0}
+/* VIDEO */
+.video-card{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg);border-radius:8px;border:1px solid var(--border);margin-bottom:6px}
+.video-card-info{flex:1;font-size:13px}
+.video-card-btns{display:flex;gap:4px;flex-shrink:0}
+/* VISUAL */
+.visual-block{background:var(--bg);border-radius:10px;padding:16px;margin:12px 0;border:1px solid var(--border)}
 /* LOGIN */
 .login-overlay{position:fixed;inset:0;background:linear-gradient(135deg,#1e1b4b,#312e81,#4c1d95);z-index:9000;display:flex;align-items:center;justify-content:center;padding:20px}
 .login-card{background:#fff;border-radius:20px;padding:40px 32px;width:100%;max-width:380px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.4)}
@@ -125,119 +95,88 @@ body{overflow:auto;height:100%}
 .login-card p{color:var(--text2);font-size:14px;margin-bottom:24px}
 .login-input{width:100%;padding:12px 16px;border:2px solid var(--border);border-radius:10px;font-size:15px;margin-bottom:12px;outline:none;transition:.2s;font-family:inherit}
 .login-input:focus{border-color:var(--p)}
-.login-btn{width:100%;padding:14px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;transition:.2s;margin-top:4px}
-.login-btn:hover{opacity:.9;transform:translateY(-1px)}
+.login-btn{width:100%;padding:14px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;margin-top:4px}
 .login-error{color:var(--r);font-size:13px;margin-top:8px;display:none}
-/* USER PILL in topbar */
-.user-pill{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.2);padding:5px 12px;border-radius:20px;cursor:pointer;font-size:13px;font-weight:600;transition:.2s}
+.user-pill{background:rgba(255,255,255,.2);padding:5px 12px;border-radius:20px;cursor:pointer;font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px}
 .user-pill:hover{background:rgba(255,255,255,.3)}
-/* USER MENU */
 .user-menu{position:fixed;top:52px;right:12px;background:#fff;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.15);z-index:200;overflow:hidden;display:none;min-width:160px}
 .user-menu.show{display:block}
-.user-menu-item{padding:12px 16px;cursor:pointer;font-size:14px;transition:.1s}
+.user-menu-item{padding:12px 16px;cursor:pointer;font-size:14px}
 .user-menu-item:hover{background:var(--bg)}
-/* PK PAGE */
-.pk-section{margin-bottom:20px}
-.pk-rank-item{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:10px;background:#fff;border:1px solid var(--border);margin-bottom:6px;transition:.2s}
-.pk-rank-item:hover{transform:translateX(2px);border-color:var(--p2)}
-.pk-medal{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;flex-shrink:0}
-.pk-medal.gold{background:#fef9c3;color:#92400e}
-.pk-medal.silver{background:#f1f5f9;color:#475569}
-.pk-medal.bronze{background:#fef3c7;color:#b45309}
-.pk-medal.other{background:var(--bg);color:var(--text2);font-size:14px}
-.pk-bar-wrap{flex:1}
-.pk-bar-label{display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px}
-.today-yes{background:#dcfce7;color:#166534;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700}
-.today-no{background:#f1f5f9;color:#94a3b8;padding:2px 8px;border-radius:10px;font-size:11px}
-/* VIDEO CARD */
-.video-card{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg);border-radius:8px;border:1px solid var(--border);margin-bottom:6px}
-.video-card-info{flex:1;font-size:13px}
-.video-card-btns{display:flex;gap:4px;flex-shrink:0}
-/* VISUAL */
-.visual-block{background:var(--bg);border-radius:10px;padding:16px;margin:12px 0;border:1px solid var(--border)}
 </style>
 </head>
 <body>
 
-<!-- ========== LOGIN OVERLAY ========== -->
+<!-- LOGIN OVERLAY -->
 <div class="login-overlay" id="loginOverlay">
   <div class="login-card">
-    <div style="font-size:52px">🏆</div>
+    <div style="font-size:52px">&#127942;</div>
     <h2>AMC8 学习基地</h2>
-    <p>冲刺 Top 1% · 2027�?月考试</p>
-    <input class="login-input" id="loginName" placeholder="你的姓名" maxlength="20" />
-    <input class="login-input" id="loginCode" placeholder="专属验证码（联系老师获取�? type="password" maxlength="20"
+    <p>冲刺 Top 1% · 2027年1月</p>
+    <input class="login-input" id="loginName" placeholder="你的名字 (如: josie)" maxlength="20"
+      onkeydown="if(event.key==='Enter')document.getElementById('loginCode').focus()" />
+    <input class="login-input" id="loginCode" placeholder="验证码" type="password" maxlength="20"
       onkeydown="if(event.key==='Enter')doLogin()" />
-    <button class="login-btn" onclick="doLogin()">开始学�?🚀</button>
-    <div class="login-error" id="loginError">验证码错误或姓名不匹配，请联系老师</div>
+    <button class="login-btn" onclick="doLogin()">开始学习 &#128640;</button>
+    <div class="login-error" id="loginError">验证码错误，请联系老师获取</div>
   </div>
 </div>
 
-<!-- ========== USER MENU ========== -->
+<!-- USER MENU -->
 <div class="user-menu" id="userMenu">
-  <div class="user-menu-item" onclick="showPage('trophy')">🏆 成就 PK</div>
-  <div class="user-menu-item" onclick="doLogout()" style="color:var(--r)">🚪 退出登�?/div>
+  <div class="user-menu-item" onclick="doLogout()" style="color:var(--r)">&#x1F6AA; 退出登录</div>
 </div>
 
 <div class="topbar">
   <h1>AMC8 Learning Hub</h1>
   <div style="display:flex;align-items:center;gap:8px">
-    <div class="stars" id="totalStars" style="display:none">0 Stars</div>
-    <div class="user-pill" id="userPill" style="display:none" onclick="toggleUserMenu()">
-      <span id="userAvatar">🐰</span>
-      <span id="userName">小美</span>
-      <span style="font-size:10px;opacity:.7">�?/span>
+    <span id="totalStars" style="background:rgba(255,255,255,.2);padding:4px 12px;border-radius:20px;font-size:13px;font-weight:600">0 &#11088;</span>
+    <div class="user-pill" id="userPill" onclick="toggleUserMenu()">
+      <span id="userAvatar"></span>
+      <span id="userName"></span>
     </div>
   </div>
 </div>
 
 <div class="nav">
-  <button class="active" onclick="showPage('home')"><span class="ico">🏠</span>首页</button>
-  <button onclick="showPage('map')"><span class="ico">🗺�?/span>知识地图</button>
-  <button onclick="showPage('learn')"><span class="ico">📚</span>每日学习</button>
-  <button onclick="showPage('exam')"><span class="ico">📝</span>真题训练</button>
-  <button onclick="showPage('trophy')"><span class="ico">🏆</span>成就PK</button>
+  <button class="active" onclick="showPage('home')"><span class="ico">&#127968;</span>首页</button>
+  <button onclick="showPage('map')"><span class="ico">&#128506;</span>知识地图</button>
+  <button onclick="showPage('learn')"><span class="ico">&#128218;</span>每日学习</button>
+  <button onclick="showPage('exam')"><span class="ico">&#128221;</span>真题训练</button>
+  <button onclick="showPage('trophy')"><span class="ico">&#127942;</span>成就中心</button>
 </div>
 
-<!-- ========== HOME PAGE ========== -->
+<!-- HOME PAGE -->
 <div class="page active" id="page-home">
-  <div class="card anim-slide" style="background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;text-align:center;">
-    <div style="font-size:14px;opacity:.8">距离 2027�?�?AMC8 考试还有</div>
+  <div class="card anim-slide" style="background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;text-align:center">
+    <div style="font-size:14px;opacity:.8">距离 2027年1月 AMC8 考试还有</div>
     <div class="countdown" id="countdown"></div>
-    <div style="font-size:13px;opacity:.7">目标: Top 1% (23-24�?25�?</div>
+    <div style="font-size:13px;opacity:.7">目标: Top 1% (23-24分/25分)</div>
   </div>
-
   <div class="grid3">
     <div class="card stat anim-pop"><div class="num" id="s-streak">0</div><div class="label">连续打卡天数</div></div>
     <div class="card stat anim-pop"><div class="num" id="s-topics">0/16</div><div class="label">已完成知识点</div></div>
-    <div class="card stat anim-pop"><div class="num" id="s-problems">0</div><div class="label">累计做题�?/div></div>
+    <div class="card stat anim-pop"><div class="num" id="s-problems">0</div><div class="label">累计做题数</div></div>
   </div>
-
   <div class="card">
     <h3>学习进度总览</h3>
-    <div style="margin:12px 0">
+    <div style="margin:10px 0">
       <div style="display:flex;justify-content:space-between;font-size:13px"><span>阶段一: 基础补全</span><span id="p1-pct">0%</span></div>
       <div class="prog-bar"><div class="prog-fill" id="p1-bar" style="width:0%;background:var(--g)"></div></div>
     </div>
-    <div style="margin:12px 0">
-      <div style="display:flex;justify-content:space-between;font-size:13px"><span>阶段�? 能力提升</span><span id="p2-pct">0%</span></div>
+    <div style="margin:10px 0">
+      <div style="display:flex;justify-content:space-between;font-size:13px"><span>阶段二: 能力提升</span><span id="p2-pct">0%</span></div>
       <div class="prog-bar"><div class="prog-fill" id="p2-bar" style="width:0%;background:#2980b9"></div></div>
     </div>
-    <div style="margin:12px 0">
-      <div style="display:flex;justify-content:space-between;font-size:13px"><span>阶段�? 强化冲刺</span><span id="p3-pct">0%</span></div>
-      <div class="prog-bar"><div class="prog-fill" id="p3-bar" style="width:0%;background:#8e44ad"></div></div>
-    </div>
   </div>
-
   <div class="card">
     <h3>今日推荐</h3>
-    <div id="today-rec" style="font-size:14px;color:var(--text2)">加载�?..</div>
+    <div id="today-rec" style="font-size:14px;color:var(--text2)">加载中...</div>
     <div style="margin-top:12px">
-      <button class="btn btn-p" onclick="showPage('learn')">开始学�?/button>
-      <button class="btn btn-ghost" onclick="showPage('exam')" style="margin-left:8px">刷真�?/button>
+      <button class="btn btn-p" onclick="showPage('learn')">开始学习</button>
+      <button class="btn btn-ghost" onclick="showPage('exam')" style="margin-left:8px">刷真题</button>
     </div>
   </div>
-
   <div class="card">
     <h3>本周打卡</h3>
     <div class="checkin-grid" id="checkinGrid"></div>
@@ -245,10 +184,13 @@ body{overflow:auto;height:100%}
   </div>
 </div>
 
-<!-- ========== MAP PAGE ========== -->
+<!-- MAP PAGE -->
 <div class="page" id="page-map">
   <div id="mapOverview">
-    <div class="card" style="text-align:center;"><h3>知识地图 �?选择一个主题开始探�?/h3><p style="font-size:13px;color:var(--text2)">6大主�?· 16个知识点 · 从基础到竞�?/p></div>
+    <div class="card" style="text-align:center">
+      <h3>知识地图 — 选择一个主题开始探索</h3>
+      <p style="font-size:13px;color:var(--text2)">6大主题 · 16个知识点 · 从基础到竞赛</p>
+    </div>
     <div class="grid2" id="themeGrid"></div>
   </div>
   <div id="mapDetail" style="display:none">
@@ -259,13 +201,10 @@ body{overflow:auto;height:100%}
   </div>
 </div>
 
-<!-- ========== LEARN PAGE ========== -->
+<!-- LEARN PAGE -->
 <div class="page" id="page-learn">
   <div id="learn-select">
-    <div class="card">
-      <h3>选择要学习的知识�?/h3>
-      <div id="learnTopicList"></div>
-    </div>
+    <div class="card"><h3>选择要学习的知识点</h3><div id="learnTopicList"></div></div>
   </div>
   <div id="learn-content" style="display:none">
     <div class="card" id="lessonHeader"></div>
@@ -275,7 +214,7 @@ body{overflow:auto;height:100%}
   </div>
 </div>
 
-<!-- ========== EXAM PAGE ========== -->
+<!-- EXAM PAGE -->
 <div class="page" id="page-exam">
   <div class="card">
     <h3>真题训练</h3>
@@ -287,612 +226,418 @@ body{overflow:auto;height:100%}
     </div>
     <div class="filter-row">
       <button class="filter-btn active" onclick="filterDiff('all',this)">全部难度</button>
-      <button class="filter-btn" onclick="filterDiff('1',this)">�?送分</button>
-      <button class="filter-btn" onclick="filterDiff('2',this)">⭐⭐ 基础</button>
-      <button class="filter-btn" onclick="filterDiff('3',this)">⭐⭐�?中等</button>
-      <button class="filter-btn" onclick="filterDiff('4',this)">⭐⭐⭐⭐ 中难</button>
-      <button class="filter-btn" onclick="filterDiff('5',this)">⭐⭐⭐⭐�?�?/button>
+      <button class="filter-btn" onclick="filterDiff('1',this)">&#11088; 送分</button>
+      <button class="filter-btn" onclick="filterDiff('2',this)">&#11088;&#11088; 基础</button>
+      <button class="filter-btn" onclick="filterDiff('3',this)">&#11088;&#11088;&#11088; 中等</button>
+      <button class="filter-btn" onclick="filterDiff('4',this)">&#11088;&#11088;&#11088;&#11088; 中难</button>
+      <button class="filter-btn" onclick="filterDiff('5',this)">&#11088;&#11088;&#11088;&#11088;&#11088; 难</button>
     </div>
     <div class="filter-row">
       <button class="filter-btn active" onclick="filterType('all',this)">全部类型</button>
-      <button class="filter-btn" onclick="filterType('doable',this)">�?可在线做�?/button>
-      <button class="filter-btn" onclick="filterType('visual',this)">📷 需看图(跳转AoPS)</button>
+      <button class="filter-btn" onclick="filterType('doable',this)">&#10003; 可在线做题</button>
+      <button class="filter-btn" onclick="filterType('visual',this)">&#128247; 需看图(跳转AoPS)</button>
     </div>
   </div>
   <div id="problemList"></div>
 </div>
 
-<!-- ========== TROPHY / PK PAGE ========== -->
+<!-- TROPHY PAGE -->
 <div class="page" id="page-trophy">
-  <div class="card" style="background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;text-align:center">
-    <div style="font-size:13px;opacity:.8">你的成绩</div>
-    <div style="font-size:40px;font-weight:800;margin:8px 0" id="trophyStars">0 �?/div>
-    <div class="grid3" style="margin-top:12px">
-      <div class="stat" style="color:#fff"><div class="num" style="font-size:24px;color:#fff" id="t-streak">0</div><div class="label" style="color:rgba(255,255,255,.7)">最长打�?/div></div>
-      <div class="stat" style="color:#fff"><div class="num" style="font-size:24px;color:#fff" id="t-correct">0%</div><div class="label" style="color:rgba(255,255,255,.7)">总正确率</div></div>
-      <div class="stat" style="color:#fff"><div class="num" style="font-size:24px;color:#fff" id="t-ach">0</div><div class="label" style="color:rgba(255,255,255,.7)">已解锁成�?/div></div>
+  <div class="card" style="text-align:center">
+    <div style="font-size:48px" id="trophyStars">0</div>
+    <div style="font-size:14px;color:var(--text2)">累计星星</div>
+    <div class="grid3" style="margin-top:16px">
+      <div class="stat"><div class="num" style="font-size:24px" id="t-streak">0</div><div class="label">最长连续打卡</div></div>
+      <div class="stat"><div class="num" style="font-size:24px" id="t-correct">0%</div><div class="label">总正确率</div></div>
+      <div class="stat"><div class="num" style="font-size:24px" id="t-ach">0</div><div class="label">已解锁成就</div></div>
     </div>
   </div>
-  <!-- PK排行�?-->
-  <div class="card pk-section">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-      <h3>🏅 星星积分排行�?/h3>
-      <button class="btn btn-sm btn-ghost" onclick="loadLeaderboard()">🔄 刷新</button>
-    </div>
-    <div id="pkStarsRank"><div style="color:var(--text2);font-size:13px;text-align:center;padding:20px">加载�?..</div></div>
-    <div style="font-size:11px;color:var(--text2);margin-top:8px;text-align:right" id="pkUpdateTime"></div>
-  </div>
-  <div class="card pk-section">
-    <h3>📅 连续打卡排行</h3>
-    <div id="pkStreakRank"><div style="color:var(--text2);font-size:13px;text-align:center;padding:20px">加载�?..</div></div>
-  </div>
-  <div class="card pk-section">
-    <h3>📚 完成知识点排�?/h3>
-    <div id="pkTopicsRank"><div style="color:var(--text2);font-size:13px;text-align:center;padding:20px">加载�?..</div></div>
-  </div>
-  <!-- 我的成就�?-->
   <div class="card">
-    <h3>🎖�?我的成就�?/h3>
+    <h3>&#127942; 成就墙</h3>
     <div id="achievementList" style="display:flex;flex-direction:column;gap:8px"></div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<!-- Firebase SDK (async, does not block login) -->
-<script defer src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script defer src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-<script src="config.js"></script>
 <script src="data.js"></script>
 <script>
-// ===== Firebase Init (delayed, runs after SDK loads) =====
-let db = null;
-function initFirebase() {
-  try {
-    if (typeof firebase !== 'undefined' && FIREBASE_CONFIG.apiKey && !FIREBASE_CONFIG.apiKey.includes('请填入')) {
-      if (!firebase.apps.length) {
-        firebase.initializeApp(FIREBASE_CONFIG);
-      }
-      db = firebase.database();
-      console.log('Firebase connected');
-    }
-  } catch(e) { console.log('Firebase init skipped:', e.message); }
-}
-// Try init now, and also after window loads (in case SDK arrives late)
-window.addEventListener('load', () => { setTimeout(initFirebase, 500); });
-
-// ========== MULTI-USER STATE MANAGEMENT ==========
-const DEFAULT_STATE = {
-  stars: 0, streak: 0, maxStreak: 0,
-  totalProblems: 0, correctProblems: 0,
-  completedTopics: [], topicProgress: {},
-  checkins: [], achievements: [],
-  lastVisit: null, loginCount: 0
+// ===== USERS (add/remove users here) =====
+var USERS = {
+  'josie': { name: 'josie', avatar: '&#127800;' },
+  'ever':  { name: 'ever',  avatar: '&#127775;' },
+  'luc':   { name: 'luc',   avatar: '&#129409;' },
+  'ariel': { name: 'ariel', avatar: '&#128044;' }
 };
 
-let currentUserId = null; // 当前登录用户的验证码(作为ID)
+// ===== STATE =====
+var DEFAULT_STATE = {
+  stars:0, streak:0, maxStreak:0,
+  totalProblems:0, correctProblems:0,
+  completedTopics:[], topicProgress:{},
+  checkins:[], achievements:[],
+  lastVisit:null, loginCount:0
+};
+var state = JSON.parse(JSON.stringify(DEFAULT_STATE));
+var currentUser = null;
 
-function getCurrentUserId() {
-  return localStorage.getItem('amc8hub_current_user');
-}
+function getStateKey(u){ return 'amc8_' + u; }
 
-function loadState(uid) {
-  const id = uid || getCurrentUserId();
-  if (!id) return { ...DEFAULT_STATE };
+function loadState(u){
   try {
-    const s = JSON.parse(localStorage.getItem('amc8hub_' + id));
-    return s ? { ...DEFAULT_STATE, ...s } : { ...DEFAULT_STATE };
-  } catch { return { ...DEFAULT_STATE }; }
+    var s = JSON.parse(localStorage.getItem(getStateKey(u)));
+    return s ? Object.assign({}, DEFAULT_STATE, s) : JSON.parse(JSON.stringify(DEFAULT_STATE));
+  } catch(e){ return JSON.parse(JSON.stringify(DEFAULT_STATE)); }
 }
 
-function saveState() {
-  const id = getCurrentUserId();
-  if (!id) return;
-  localStorage.setItem('amc8hub_' + id, JSON.stringify(state));
-  syncToFirebase();
+function saveState(){
+  if(!currentUser) return;
+  localStorage.setItem(getStateKey(currentUser), JSON.stringify(state));
 }
 
-let state = { ...DEFAULT_STATE };
-
-// ========== LOGIN SYSTEM ==========
-function checkLogin() {
-  const uid = getCurrentUserId();
-  if (uid && INVITE_CODES[uid]) {
-    currentUserId = uid;
-    const profile = INVITE_CODES[uid];
-    state = loadState(uid);
-    recordVisit();
-    showMainUI(profile);
-    renderHome();
+// ===== LOGIN =====
+function initApp(){
+  var saved = localStorage.getItem('amc8_current_user');
+  if(saved && USERS[saved]){
+    loginAs(saved);
   } else {
     document.getElementById('loginOverlay').style.display = 'flex';
   }
 }
 
-function doLogin() {
-  const name = document.getElementById('loginName').value.trim();
-  const code = document.getElementById('loginCode').value.trim();
-  const errEl = document.getElementById('loginError');
-  if (!name || !code) {
-    errEl.style.display = 'block';
-    errEl.textContent = 'Please enter your name and invite code';
-    return;
+function loginAs(u){
+  currentUser = u;
+  state = loadState(u);
+  var profile = USERS[u];
+  // record visit
+  state.loginCount++;
+  var today = new Date().toISOString().slice(0,10);
+  if(state.lastVisit !== today){
+    if(state.lastVisit){
+      var diff = Math.floor((new Date(today)-new Date(state.lastVisit))/86400000);
+      state.streak = (diff===1) ? state.streak+1 : 1;
+    } else { state.streak = 1; }
+    state.lastVisit = today;
   }
-  const profile = INVITE_CODES[code];
-  if (!profile || profile.name !== name) {
-    errEl.style.display = 'block';
-    errEl.textContent = 'Wrong code or name mismatch - contact your teacher';
-    return;
-  }
-  // Login success
-  localStorage.setItem('amc8hub_current_user', code);
-  currentUserId = code;
-  state = loadState(code);
-  recordVisit();
-  showMainUI(profile);
+  if(state.streak > state.maxStreak) state.maxStreak = state.streak;
+  checkAchievements();
+  saveState();
+  // show UI
+  document.getElementById('userAvatar').innerHTML = profile.avatar;
+  document.getElementById('userName').textContent = profile.name;
   document.getElementById('loginOverlay').style.display = 'none';
   renderHome();
-  showToast('Welcome back ' + profile.avatar + ' ' + profile.name + '!');
-  launchConfetti();
 }
 
-function showMainUI(profile) {
-  document.getElementById('totalStars').style.display = '';
-  document.getElementById('userPill').style.display = '';
-  document.getElementById('userAvatar').textContent = profile.avatar;
-  document.getElementById('userName').textContent = profile.name;
-  document.getElementById('totalStars').textContent = state.stars + ' Stars';
+function doLogin(){
+  var name = document.getElementById('loginName').value.trim().toLowerCase();
+  var code = document.getElementById('loginCode').value.trim().toLowerCase();
+  var errEl = document.getElementById('loginError');
+  if(!name || !code){ errEl.style.display='block'; errEl.textContent='请输入名字和验证码'; return; }
+  if(!USERS[code] || USERS[code].name !== name){
+    errEl.style.display='block'; errEl.textContent='验证码错误，请联系老师获取'; return;
+  }
+  localStorage.setItem('amc8_current_user', code);
+  loginAs(code);
+  showToast('欢迎 ' + USERS[code].name + '!');
 }
 
-function doLogout() {
-  localStorage.removeItem('amc8hub_current_user');
-  currentUserId = null;
-  state = { ...DEFAULT_STATE };
-  document.getElementById('totalStars').style.display = 'none';
-  document.getElementById('userPill').style.display = 'none';
+function doLogout(){
+  localStorage.removeItem('amc8_current_user');
+  currentUser = null;
+  state = JSON.parse(JSON.stringify(DEFAULT_STATE));
   document.getElementById('userMenu').classList.remove('show');
   document.getElementById('loginName').value = '';
   document.getElementById('loginCode').value = '';
-  document.getElementById('loginError').style.display = 'none';
-  document.getElementById('loginOverlay').style.display = 'flex';
+  document.getElementById('loginError').style.display='none';
+  document.getElementById('loginOverlay').style.display='flex';
 }
 
-function toggleUserMenu() {
+function toggleUserMenu(){
   document.getElementById('userMenu').classList.toggle('show');
 }
-document.addEventListener('click', e => {
-  if (!e.target.closest('.user-pill') && !e.target.closest('.user-menu')) {
+document.addEventListener('click', function(e){
+  if(!e.target.closest('.user-pill') && !e.target.closest('.user-menu')){
     document.getElementById('userMenu').classList.remove('show');
   }
 });
 
-function recordVisit() {
-  state.loginCount++;
-  const today = new Date().toISOString().slice(0, 10);
-  if (state.lastVisit !== today) {
-    if (state.lastVisit) {
-      const diff = Math.floor((new Date(today) - new Date(state.lastVisit)) / 86400000);
-      state.streak = diff === 1 ? state.streak + 1 : 1;
-    } else { state.streak = 1; }
-    state.lastVisit = today;
-  }
-  if (state.streak > state.maxStreak) state.maxStreak = state.streak;
-  checkAchievements();
-  saveState();
-}
-
-// ========== FIREBASE SYNC ==========
-function syncToFirebase() {
-  if (!db || !currentUserId) return;
-  const today = new Date().toISOString().slice(0, 10);
-  const profile = INVITE_CODES[currentUserId] || {};
-  const payload = {
-    name: profile.name || '未知',
-    avatar: profile.avatar || '👤',
-    stars: state.stars || 0,
-    streak: state.streak || 0,
-    maxStreak: state.maxStreak || 0,
-    completedCount: (state.completedTopics || []).length,
-    completedTopics: (state.completedTopics || []).join(','),
-    todayCheckin: (state.checkins || []).includes(today),
-    lastActive: today
-  };
-  db.ref('leaderboard/' + currentUserId).set(payload).catch(e => console.log('Sync err:', e));
-}
-
-function loadLeaderboard() {
-  const starsEl = document.getElementById('pkStarsRank');
-  const streakEl = document.getElementById('pkStreakRank');
-  const topicsEl = document.getElementById('pkTopicsRank');
-  const timeEl = document.getElementById('pkUpdateTime');
-  if (!db) {
-    const msg = '<div style="color:var(--text2);font-size:13px;padding:12px;text-align:center">⚠️ 未连接Firebase，排行榜需要配置后使用<br><span style="font-size:11px">当前只显示你自己的数�?/span></div>';
-    starsEl.innerHTML = msg; streakEl.innerHTML = msg; topicsEl.innerHTML = msg;
-    return;
-  }
-  starsEl.innerHTML = '<div style="text-align:center;color:var(--text2);padding:12px">加载�?..</div>';
-  db.ref('leaderboard').once('value').then(snap => {
-    const data = snap.val();
-    if (!data) { starsEl.innerHTML = '<div style="color:var(--text2);padding:12px;text-align:center">暂无数据，学习后自动出现</div>'; return; }
-    const users = Object.entries(data).map(([uid, d]) => ({ uid, ...d }));
-    const today = new Date().toISOString().slice(0, 10);
-    // Stars ranking
-    const byStars = [...users].sort((a, b) => (b.stars||0) - (a.stars||0));
-    starsEl.innerHTML = renderRankList(byStars, u => `<strong>${u.stars||0}</strong> ⭐`, u => (u.stars||0), Math.max(...byStars.map(u=>u.stars||0)||[1]), today, currentUserId);
-    // Streak ranking
-    const byStreak = [...users].sort((a, b) => (b.streak||0) - (a.streak||0));
-    streakEl.innerHTML = renderRankList(byStreak, u => `连续 <strong>${u.streak||0}</strong> �?🔥`, u => (u.streak||0), Math.max(...byStreak.map(u=>u.streak||0)||[1]), today, currentUserId);
-    // Topics ranking
-    const byTopics = [...users].sort((a, b) => (b.completedCount||0) - (a.completedCount||0));
-    topicsEl.innerHTML = renderRankList(byTopics, u => `完成 <strong>${u.completedCount||0}/16</strong> 个`, u => (u.completedCount||0), 16, today, currentUserId);
-    timeEl.textContent = 'Updated: ' + new Date().toLocaleTimeString();
-  }).catch(e => {
-    starsEl.innerHTML = '<div style="color:var(--r);padding:12px">加载失败: ' + e.message + '</div>';
-  });
-}
-
-function renderRankList(users, labelFn, valueFn, maxVal, today, myUid) {
-  if (!users.length) return '<div style="color:var(--text2);padding:12px;text-align:center">暂无数据</div>';
-  const medals = ['🥇','🥈','🥉'];
-  return users.map((u, i) => {
-    const val = valueFn(u);
-    const pct = maxVal > 0 ? Math.round(val / maxVal * 100) : 0;
-    const isMe = u.uid === myUid;
-    const medalClass = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : 'other';
-    const medalContent = i < 3 ? medals[i] : String(i + 1);
-    const todayBadge = u.todayCheckin
-      ? '<span class="today-yes">Today ✅</span>'
-      : '<span class="today-no">❌ Not yet</span>';
-    return `<div class="pk-rank-item" style="${isMe ? 'border-color:var(--p);background:var(--p3)20' : ''}">
-      <div class="pk-medal ${medalClass}">${medalContent}</div>
-      <span style="font-size:22px">${u.avatar||'👤'}</span>
-      <div class="pk-bar-wrap">
-        <div class="pk-bar-label">
-          <span style="font-weight:700">${u.name}${isMe?' (me)':''}</span>
-          <div style="display:flex;align-items:center;gap:6px">${todayBadge}<span>${labelFn(u)}</span></div>
-        </div>
-        <div class="prog-bar"><div class="prog-fill" style="width:${pct}%;background:${i===0?'#f59e0b':i===1?'#64748b':i===2?'#b45309':'#4f46e5'}"></div></div>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-// ========== NAVIGATION ==========
-function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+// ===== NAVIGATION =====
+function showPage(id){
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.nav button').forEach(function(b){ b.classList.remove('active'); });
   document.getElementById('page-'+id).classList.add('active');
-  document.querySelectorAll('.nav button')[['home','map','learn','exam','trophy'].indexOf(id)].classList.add('active');
-  if (id === 'home') renderHome();
-  if (id === 'map') renderMap();
-  if (id === 'learn') renderLearnSelect();
-  if (id === 'exam') renderExam();
-  if (id === 'trophy') { renderPK(); loadLeaderboard(); }
+  var idx = ['home','map','learn','exam','trophy'].indexOf(id);
+  document.querySelectorAll('.nav button')[idx].classList.add('active');
+  if(id==='home') renderHome();
+  if(id==='map') renderMap();
+  if(id==='learn') renderLearnSelect();
+  if(id==='exam') renderExam();
+  if(id==='trophy') renderTrophy();
 }
 
-// ========== HOME PAGE ==========
-function renderHome() {
-  // countdown
-  const exam = new Date('2027-01-20');
-  const now = new Date();
-  const diff = exam - now;
-  const days = Math.floor(diff/86400000);
-  const months = Math.floor(days/30);
-  const weeks = Math.floor(days/7);
+// ===== HOME =====
+function renderHome(){
+  var exam = new Date('2027-01-20');
+  var now = new Date();
+  var d = Math.floor((exam-now)/86400000);
   document.getElementById('countdown').innerHTML =
-    '<div class="cd-item"><div class="cd-num">'+months+'</div><div class="cd-label">months</div></div>' +
-    '<div class="cd-item"><div class="cd-num">'+weeks+'</div><div class="cd-label">weeks</div></div>' +
-    '<div class="cd-item"><div class="cd-num">'+days+'</div><div class="cd-label">days</div></div>';
-  // stats
+    '<div class="cd-item"><div class="cd-num">'+Math.floor(d/30)+'</div><div class="cd-label">个月</div></div>'+
+    '<div class="cd-item"><div class="cd-num">'+Math.floor(d/7)+'</div><div class="cd-label">周</div></div>'+
+    '<div class="cd-item"><div class="cd-num">'+d+'</div><div class="cd-label">天</div></div>';
   document.getElementById('s-streak').textContent = state.streak;
-  document.getElementById('s-topics').textContent = state.completedTopics.length + '/'+TOPICS.length;
+  document.getElementById('s-topics').textContent = state.completedTopics.length+'/'+TOPICS.length;
   document.getElementById('s-problems').textContent = state.totalProblems;
-  document.getElementById('totalStars').textContent = state.stars + ' Stars';
-
-  // phase progress
-  const phase1Topics = TOPICS.filter(t => t.phase === 1);
-  const phase2Topics = TOPICS.filter(t => t.phase === 2);
-  const p1Done = phase1Topics.filter(t => state.completedTopics.includes(t.id)).length;
-  const p2Done = phase2Topics.filter(t => state.completedTopics.includes(t.id)).length;
-  const p1p = phase1Topics.length ? Math.round(p1Done/phase1Topics.length*100) : 0;
-  const p2p = phase2Topics.length ? Math.round(p2Done/phase2Topics.length*100) : 0;
+  document.getElementById('totalStars').innerHTML = state.stars + ' &#11088;';
+  var p1 = TOPICS.filter(function(t){return t.phase===1;});
+  var p2 = TOPICS.filter(function(t){return t.phase===2;});
+  var p1d = p1.filter(function(t){return state.completedTopics.indexOf(t.id)>=0;}).length;
+  var p2d = p2.filter(function(t){return state.completedTopics.indexOf(t.id)>=0;}).length;
+  var p1p = p1.length ? Math.round(p1d/p1.length*100) : 0;
+  var p2p = p2.length ? Math.round(p2d/p2.length*100) : 0;
   document.getElementById('p1-pct').textContent = p1p+'%';
   document.getElementById('p1-bar').style.width = p1p+'%';
   document.getElementById('p2-pct').textContent = p2p+'%';
   document.getElementById('p2-bar').style.width = p2p+'%';
-
-  // today recommendation
-  const nextTopic = TOPICS.find(t => !state.completedTopics.includes(t.id) && isUnlocked(t));
-  document.getElementById('today-rec').innerHTML = nextTopic
-    ? '<strong>' + nextTopic.icon + ' ' + nextTopic.name + '</strong><br><span style="font-size:13px">' + nextTopic.desc + '</span>'
-    : 'All topics complete! Go practice real AMC8 problems!';
-
-  // checkin grid
+  var next = TOPICS.find(function(t){ return state.completedTopics.indexOf(t.id)<0 && isUnlocked(t); });
+  document.getElementById('today-rec').innerHTML = next
+    ? '<strong>'+next.icon+' '+next.name+'</strong><br><span style="font-size:13px;color:var(--text2)">'+next.desc+'</span>'
+    : '&#127881; 所有知识点已完成，去刷真题吧！';
   renderCheckinGrid();
 }
 
-function renderCheckinGrid() {
-  const grid = document.getElementById('checkinGrid');
-  const today = new Date();
-  const startOfWeek = new Date(today);
-  startOfWeek.setDate(today.getDate() - today.getDay());
-  let html = '';
-  const labels = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  for (let i = 0; i < 7; i++) {
-    const d = new Date(startOfWeek);
-    d.setDate(startOfWeek.getDate() + i);
-    const ds = d.toISOString().slice(0,10);
-    const done = state.checkins.includes(ds);
-    const isToday = ds === new Date().toISOString().slice(0,10);
-    html += `<div class="checkin-day${done?' done':''}${isToday?' today':''}">${labels[i]}</div>`;
+function renderCheckinGrid(){
+  var grid = document.getElementById('checkinGrid');
+  var today = new Date();
+  var startOfWeek = new Date(today);
+  startOfWeek.setDate(today.getDate()-today.getDay());
+  var labels = ['日','一','二','三','四','五','六'];
+  var html = '';
+  for(var i=0;i<7;i++){
+    var d = new Date(startOfWeek);
+    d.setDate(startOfWeek.getDate()+i);
+    var ds = d.toISOString().slice(0,10);
+    var done = state.checkins.indexOf(ds)>=0;
+    var isToday = ds===new Date().toISOString().slice(0,10);
+    html += '<div class="checkin-day'+(done?' done':'')+(isToday?' today':'')+'">'+labels[i]+'</div>';
   }
   grid.innerHTML = html;
-  const btn = document.getElementById('checkinBtn');
-  if (state.checkins.includes(new Date().toISOString().slice(0,10))) {
-    btn.textContent = 'Checked in today ✓';
+  var btn = document.getElementById('checkinBtn');
+  if(state.checkins.indexOf(new Date().toISOString().slice(0,10))>=0){
+    btn.textContent = '今日已打卡 ✓';
     btn.disabled = true;
     btn.style.opacity = '.5';
+  } else {
+    btn.textContent = '今日打卡';
+    btn.disabled = false;
+    btn.style.opacity = '1';
   }
 }
 
-function doCheckin() {
-  const today = new Date().toISOString().slice(0,10);
-  if (!state.checkins.includes(today)) {
+function doCheckin(){
+  var today = new Date().toISOString().slice(0,10);
+  if(state.checkins.indexOf(today)<0){
     state.checkins.push(today);
     state.stars += 5;
     saveState();
-    showToast('Check-in done! +5 Stars');
+    showToast('打卡成功! +5 星星');
     launchConfetti();
     renderHome();
     checkAchievements();
   }
 }
 
-// ========== MAP PAGE ==========
-function isUnlocked(topic) {
-  if (!topic.prereqs || topic.prereqs.length === 0) return true;
-  return topic.prereqs.every(p => state.completedTopics.includes(p));
+// ===== MAP PAGE =====
+function isUnlocked(topic){
+  if(!topic.prereqs||topic.prereqs.length===0) return true;
+  return topic.prereqs.every(function(p){ return state.completedTopics.indexOf(p)>=0; });
 }
 
-function renderMap() {
-  document.getElementById('mapOverview').style.display = 'block';
-  document.getElementById('mapDetail').style.display = 'none';
-  const grid = document.getElementById('themeGrid');
-  let html = '';
-  THEMES.forEach(th => {
-    const topics = TOPICS.filter(t => t.theme === th.id);
-    const done = topics.filter(t => state.completedTopics.includes(t.id)).length;
-    html += `
-      <div class="topic-card" onclick="showThemeDetail('${th.id}')" style="border-color:${th.color}20">
-        <div class="ico" style="font-size:36px">${th.icon}</div>
-        <div class="name" style="font-size:16px;color:${th.color}">${th.name}</div>
-        <div class="sub">${th.desc}</div>
-        <div style="margin-top:8px;font-size:12px;color:var(--text2)">${topics.length} topics &middot; Completed: ${done}</div>
-        <div class="prog-bar"><div class="prog-fill" style="width:${topics.length?done/topics.length*100:0}%;background:${th.color}"></div></div>
-      </div>`;
+function renderMap(){
+  document.getElementById('mapOverview').style.display='block';
+  document.getElementById('mapDetail').style.display='none';
+  var grid = document.getElementById('themeGrid');
+  var html = '';
+  THEMES.forEach(function(th){
+    var topics = TOPICS.filter(function(t){ return t.theme===th.id; });
+    var done = topics.filter(function(t){ return state.completedTopics.indexOf(t.id)>=0; }).length;
+    var pct = topics.length ? done/topics.length*100 : 0;
+    html += '<div class="topic-card" onclick="showThemeDetail(\''+th.id+'\')" style="border-color:'+th.color+'40">';
+    html += '<div style="font-size:36px">'+th.icon+'</div>';
+    html += '<div style="font-weight:700;font-size:16px;color:'+th.color+';margin:6px 0 4px">'+th.name+'</div>';
+    html += '<div style="font-size:12px;color:var(--text2)">'+th.desc+'</div>';
+    html += '<div style="margin-top:8px;font-size:12px;color:var(--text2)">'+topics.length+'个知识点 · 完成'+done+'个</div>';
+    html += '<div class="prog-bar"><div class="prog-fill" style="width:'+pct+'%;background:'+th.color+'"></div></div>';
+    html += '</div>';
   });
   grid.innerHTML = html;
 }
 
-function showThemeDetail(themeId) {
-  const th = THEMES.find(t => t.id === themeId);
-  document.getElementById('mapOverview').style.display = 'none';
-  document.getElementById('mapDetail').style.display = 'block';
-
-  // Header
-  document.getElementById('themeHeader').innerHTML = `
-    <div style="display:flex;justify-content:space-between;align-items:center">
-      <h3 style="color:${th.color}">${th.icon} ${th.name}</h3>
-      <button class="btn btn-sm btn-ghost" onclick="renderMap()">&larr; Back to Themes</button>
-    </div>
-    <div style="font-size:13px;color:var(--text2);margin-top:4px">${th.desc}</div>`;
-
-  // Mindmap
-  let mm = `<h3 style="font-size:15px;margin-bottom:12px">🧠 知识全景(思维导图)</h3>`;
-  mm += `<div style="text-align:center;margin:12px 0"><span style="display:inline-block;padding:8px 20px;background:${th.color};color:#fff;border-radius:20px;font-weight:700;font-size:15px">${th.mindmap.center}</span></div>`;
-  mm += `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px">`;
-  th.mindmap.branches.forEach(b => {
-    mm += `<div style="border:2px solid ${th.color}30;border-radius:10px;padding:12px">
-      <div style="font-weight:700;color:${th.color};margin-bottom:6px">${b.name}</div>
-      <ul style="padding-left:16px;font-size:13px;color:var(--text2);line-height:1.8">`;
-    b.children.forEach(c => { mm += `<li>${c}</li>`; });
-    mm += `</ul></div>`;
+function showThemeDetail(themeId){
+  var th = THEMES.find(function(t){ return t.id===themeId; });
+  document.getElementById('mapOverview').style.display='none';
+  document.getElementById('mapDetail').style.display='block';
+  document.getElementById('themeHeader').innerHTML =
+    '<div style="display:flex;justify-content:space-between;align-items:center">' +
+    '<h3 style="color:'+th.color+'">'+th.icon+' '+th.name+'</h3>' +
+    '<button class="btn btn-sm btn-ghost" onclick="renderMap()">&larr; 返回</button></div>' +
+    '<div style="font-size:13px;color:var(--text2);margin-top:4px">'+th.desc+'</div>';
+  // mindmap
+  var mm = '<h3 style="font-size:15px;margin-bottom:12px">&#129504; 知识全景</h3>';
+  mm += '<div style="text-align:center;margin:10px 0"><span style="display:inline-block;padding:8px 20px;background:'+th.color+';color:#fff;border-radius:20px;font-weight:700">'+th.mindmap.center+'</span></div>';
+  mm += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px">';
+  th.mindmap.branches.forEach(function(b){
+    mm += '<div style="border:2px solid '+th.color+'30;border-radius:10px;padding:10px"><div style="font-weight:700;color:'+th.color+';margin-bottom:4px">'+b.name+'</div><ul style="padding-left:14px;font-size:12px;color:var(--text2);line-height:1.8">';
+    b.children.forEach(function(c){ mm += '<li>'+c+'</li>'; });
+    mm += '</ul></div>';
   });
-  mm += `</div>`;
+  mm += '</div>';
   document.getElementById('themeMindmap').innerHTML = mm;
-
-  // Formulas
-  let fm = `<h3 style="font-size:15px;margin-bottom:12px">📋 公式速查</h3>`;
-  fm += `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px">`;
-  th.formulas.forEach(f => {
-    fm += `<div style="padding:10px 14px;background:var(--bg);border-radius:8px;border-left:3px solid ${th.color}">
-      <div style="font-weight:600;font-size:13px">${f.name}</div>
-      <div style="font-family:monospace;font-size:15px;font-weight:700;color:${th.color};margin:4px 0">${f.formula}</div>
-      ${f.note ? `<div style="font-size:11px;color:var(--text2)">${f.note}</div>` : ''}
-    </div>`;
+  // formulas
+  var fm = '<h3 style="font-size:15px;margin-bottom:12px">&#128203; 公式速查</h3>';
+  fm += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px">';
+  th.formulas.forEach(function(f){
+    fm += '<div style="padding:10px;background:var(--bg);border-radius:8px;border-left:3px solid '+th.color+'">';
+    fm += '<div style="font-weight:600;font-size:12px">'+f.name+'</div>';
+    fm += '<div style="font-family:monospace;font-size:14px;font-weight:700;color:'+th.color+';margin:4px 0">'+f.formula+'</div>';
+    if(f.note) fm += '<div style="font-size:11px;color:var(--text2)">'+f.note+'</div>';
+    fm += '</div>';
   });
-  fm += `</div>`;
+  fm += '</div>';
   document.getElementById('themeFormulas').innerHTML = fm;
-
-  // Topics list (sorted by grade)
-  const topics = TOPICS.filter(t => t.theme === themeId).sort((a,b) => a.gradeNum - b.gradeNum);
-  let tl = '';
-  topics.forEach(t => {
-    const done = state.completedTopics.includes(t.id);
-    const unlocked = isUnlocked(t);
-    tl += `
-    <div class="card" style="margin-bottom:8px;cursor:${unlocked?'pointer':'not-allowed'};opacity:${unlocked?1:.5};border-left:4px solid ${th.color}" onclick="${unlocked?`startLesson('${t.id}')`:''}" >
-      <div style="display:flex;align-items:center;gap:12px">
-        <span style="font-size:28px">${t.icon}</span>
-        <div style="flex:1">
-          <div style="font-weight:700;font-size:15px">${t.name} ${done?'<span style="color:var(--g)">&#10003;</span>':''}</div>
-          <div style="font-size:12px;color:var(--text2)">${t.grade} &middot; AMC8 x${t.amcFreq} &middot; ${t.difficulty}</div>
-        </div>
-        <button class="btn btn-sm ${done?'btn-ghost':'btn-p'}" style="${unlocked?'':'pointer-events:none'}">${done?'Review':'Start'}</button>
-      </div>
-    </div>`;
+  // topics
+  var topics = TOPICS.filter(function(t){ return t.theme===themeId; }).sort(function(a,b){ return a.gradeNum-b.gradeNum; });
+  var tl = '';
+  topics.forEach(function(t){
+    var done = state.completedTopics.indexOf(t.id)>=0;
+    var unlocked = isUnlocked(t);
+    tl += '<div class="card" style="margin-bottom:8px;cursor:'+(unlocked?'pointer':'not-allowed')+';opacity:'+(unlocked?1:.5)+';border-left:4px solid '+th.color+'"'+
+      (unlocked?' onclick="startLesson(\''+t.id+'\')"':'')+'>'+
+      '<div style="display:flex;align-items:center;gap:12px">'+
+      '<span style="font-size:28px">'+t.icon+'</span>'+
+      '<div style="flex:1"><div style="font-weight:700;font-size:15px">'+t.name+(done?' <span style="color:var(--g)">&#10003;</span>':'')+'</div>'+
+      '<div style="font-size:12px;color:var(--text2)">'+t.grade+' &middot; AMC8出现'+t.amcFreq+'次</div></div>'+
+      '<button class="btn btn-sm '+(done?'btn-ghost':'btn-p')+'" style="'+(unlocked?'':'pointer-events:none')+'">'+(done?'复习':'开始')+'</button>'+
+      '</div></div>';
   });
   document.getElementById('themeTopics').innerHTML = tl;
 }
 
-// ========== LEARN PAGE ==========
-function renderLearnSelect() {
-  document.getElementById('learn-select').style.display = 'block';
-  document.getElementById('learn-content').style.display = 'none';
-  const list = document.getElementById('learnTopicList');
-  let html = '';
-  THEMES.forEach(th => {
-    html += `<div style="font-weight:700;font-size:15px;color:${th.color};margin:16px 0 8px;padding-left:4px">${th.icon} ${th.name}</div>`;
-    const topics = TOPICS.filter(t => t.theme === th.id).sort((a,b) => a.gradeNum - b.gradeNum);
-    topics.forEach(t => {
-      const done = state.completedTopics.includes(t.id);
-      const unlocked = isUnlocked(t);
-      html += `
-        <div style="display:flex;align-items:center;gap:12px;padding:10px;border-radius:8px;margin:4px 0;border:1px solid var(--border);cursor:${unlocked?'pointer':'not-allowed'};opacity:${unlocked?1:.4}"
-             onclick="${unlocked ? `startLesson('${t.id}')` : ''}">
-          <span style="font-size:24px">${t.icon}</span>
-          <div style="flex:1">
-            <div style="font-weight:600;font-size:14px">${t.name} ${done?'<span style="color:var(--g)">&#10003;</span>':''}</div>
-            <div style="font-size:12px;color:var(--text2)">${t.grade} &middot; ${t.desc}</div>
-          </div>
-          <button class="btn btn-sm ${done?'btn-ghost':'btn-p'}" style="${unlocked?'':'pointer-events:none'}">${done?'Review':'Start'}</button>
-        </div>`;
+// ===== LEARN PAGE =====
+function renderLearnSelect(){
+  document.getElementById('learn-select').style.display='block';
+  document.getElementById('learn-content').style.display='none';
+  var list = document.getElementById('learnTopicList');
+  var html = '';
+  THEMES.forEach(function(th){
+    html += '<div style="font-weight:700;font-size:14px;color:'+th.color+';margin:14px 0 6px;padding-left:4px">'+th.icon+' '+th.name+'</div>';
+    var topics = TOPICS.filter(function(t){ return t.theme===th.id; }).sort(function(a,b){ return a.gradeNum-b.gradeNum; });
+    topics.forEach(function(t){
+      var done = state.completedTopics.indexOf(t.id)>=0;
+      var unlocked = isUnlocked(t);
+      html += '<div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;margin:4px 0;border:1px solid var(--border);cursor:'+(unlocked?'pointer':'not-allowed')+';opacity:'+(unlocked?1:.4)+'"'+
+        (unlocked?' onclick="startLesson(\''+t.id+'\')"':'')+'>'+
+        '<span style="font-size:22px">'+t.icon+'</span>'+
+        '<div style="flex:1"><div style="font-weight:600;font-size:14px">'+t.name+(done?' <span style="color:var(--g)">&#10003;</span>':'')+'</div>'+
+        '<div style="font-size:12px;color:var(--text2)">'+t.grade+' &middot; '+t.desc+'</div></div>'+
+        '<button class="btn btn-sm '+(done?'btn-ghost':'btn-p')+'" style="'+(unlocked?'':'pointer-events:none')+'">'+(done?'复习':'学习')+'</button>'+
+        '</div>';
     });
   });
   list.innerHTML = html;
 }
 
-let currentTopic = null;
-let currentLessonIdx = 0;
-let quizIndex = 0;
-let quizCorrect = 0;
+var currentTopic = null;
+var currentLessonIdx = 0;
+var quizIndex = 0;
+var quizCorrect = 0;
+var currentQuizData = null;
+var currentQuizLevel = '';
 
-function startLesson(topicId, lessonIdx) {
+function startLesson(topicId, lessonIdx){
   showPage('learn');
-  currentTopic = TOPICS.find(t => t.id === topicId);
-  currentLessonIdx = lessonIdx || 0;
-  if (!currentTopic || !currentTopic.lessons || !currentTopic.lessons.length) {
-    document.getElementById('learn-select').style.display = 'none';
-    document.getElementById('learn-content').style.display = 'block';
-    document.getElementById('lessonHeader').innerHTML = `<h3>${currentTopic.icon} ${currentTopic.name}</h3><p style="color:var(--text2)">教学内容开发中，请先到真题训练中练习相关题目！</p>`;
-    document.getElementById('lessonBody').innerHTML = '';
-    document.getElementById('quizSection').innerHTML = '';
-    document.getElementById('lessonFooter').innerHTML = '<button class="btn btn-ghost" onclick="renderLearnSelect()">�?返回列表</button>';
+  currentTopic = TOPICS.find(function(t){ return t.id===topicId; });
+  currentLessonIdx = lessonIdx||0;
+  if(!currentTopic||!currentTopic.lessons||!currentTopic.lessons.length){
+    document.getElementById('learn-select').style.display='none';
+    document.getElementById('learn-content').style.display='block';
+    document.getElementById('lessonHeader').innerHTML = '<h3>'+currentTopic.icon+' '+currentTopic.name+'</h3><p style="color:var(--text2)">教学内容开发中，请先刷真题！</p>';
+    document.getElementById('lessonBody').innerHTML='';
+    document.getElementById('quizSection').innerHTML='';
+    document.getElementById('lessonFooter').innerHTML='<button class="btn btn-ghost" onclick="renderLearnSelect()">&#8592; 返回</button>';
     return;
   }
-  const lesson = currentTopic.lessons[currentLessonIdx];
-  if (!lesson) { currentLessonIdx = 0; return startLesson(topicId, 0); }
-  document.getElementById('learn-select').style.display = 'none';
-  document.getElementById('learn-content').style.display = 'block';
-
-  // Header with lesson selector if multiple lessons
-  let lessonNav = '';
-  if (currentTopic.lessons.length > 1) {
+  var lesson = currentTopic.lessons[currentLessonIdx];
+  if(!lesson){ currentLessonIdx=0; startLesson(topicId,0); return; }
+  document.getElementById('learn-select').style.display='none';
+  document.getElementById('learn-content').style.display='block';
+  // header + lesson nav
+  var lessonNav = '';
+  if(currentTopic.lessons.length>1){
     lessonNav = '<div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap">';
-    currentTopic.lessons.forEach((l, i) => {
-      const isActive = i === currentLessonIdx;
-      lessonNav += `<button class="btn btn-sm ${isActive?'btn-p':'btn-ghost'}" onclick="startLesson('${topicId}',${i})" style="font-size:12px">${l.title}</button>`;
+    currentTopic.lessons.forEach(function(l,i){
+      lessonNav += '<button class="btn btn-sm '+(i===currentLessonIdx?'btn-p':'btn-ghost')+'" onclick="startLesson(\''+topicId+'\','+i+')" style="font-size:12px">'+l.title+'</button>';
     });
     lessonNav += '</div>';
   }
+  document.getElementById('lessonHeader').innerHTML =
+    '<div style="display:flex;justify-content:space-between;align-items:center">'+
+    '<h3>'+currentTopic.icon+' '+currentTopic.name+'</h3>'+
+    '<button class="btn btn-sm btn-ghost" onclick="renderLearnSelect()">&#8592; 返回</button></div>'+
+    '<div style="font-size:13px;color:var(--text2);margin-top:4px">'+currentTopic.grade+' &middot; 共'+currentTopic.lessons.length+'课</div>'+lessonNav;
+  // body - NEW ORDER: 生活应用→图文讲解→教材讲解→视频→故事→知识点→定义→练习→易错→考点→中英对照
+  var body = '';
 
-  document.getElementById('lessonHeader').innerHTML = `
-    <div style="display:flex;justify-content:space-between;align-items:center">
-      <h3>${currentTopic.icon} ${currentTopic.name}</h3>
-      <button class="btn btn-sm btn-ghost" onclick="renderLearnSelect()">�?返回</button>
-    </div>
-    <div style="font-size:13px;color:var(--text2);margin-top:4px">${currentTopic.grade} · AMC8出现${currentTopic.amcFreq}�?· �?{currentTopic.lessons.length}�?/div>
-    ${lessonNav}
-  `;
-
-  // Body: story + real life + key points + exam tips + mistakes + videos + examples
-  let body = '';
-
-  // Story
-  const storyHtml = lesson.story.replace(/\n/g, '<br>');
-  body += `<div class="card lesson-box story anim-slide"><strong>📖 ${lesson.title}</strong><p style="margin-top:10px;line-height:2;font-size:14px">${storyHtml}</p></div>`;
-
-  body += `<div class="card lesson-box tip anim-slide"><strong>🔑 核心知识�?/strong><ul style="margin-top:8px;padding-left:20px;line-height:2">`;
-  lesson.keyPoints.forEach(kp => { body += `<li style="margin:4px 0">${kp}</li>`; });
-  body += `</ul></div>`;
-
-  // Real life applications (from topic level, show once on first lesson)
-  if (currentLessonIdx === 0 && currentTopic.realLife) {
-    body += `<div class="card anim-slide" style="border-left:4px solid var(--o);background:#fffbeb">
-      <strong>🌍 生活中的应用</strong>
-      <p style="margin-top:8px;font-size:14px;line-height:1.8">${currentTopic.realLife}</p>
-    </div>`;
-  }
-
-  // Exam tips & Common mistakes (show once on first lesson)
-  if (currentLessonIdx === 0) {
-    if (currentTopic.examTips) {
-      body += `<div class="card anim-slide" style="border-left:4px solid var(--p);background:var(--p3)20">
-        <strong>🎯 AMC8 考点分析</strong>
-        <p style="margin-top:8px;font-size:14px">${currentTopic.examTips}</p>
-      </div>`;
-    }
-    if (currentTopic.commonMistakes && currentTopic.commonMistakes.length) {
-      body += `<div class="card anim-slide" style="border-left:4px solid var(--r);background:#fef2f2">
-        <strong>⚠️ 易错点警�?/strong>
-        <ul style="margin-top:8px;padding-left:20px;font-size:14px;line-height:2">`;
-      currentTopic.commonMistakes.forEach(m => { body += `<li>${m}</li>`; });
-      body += `</ul></div>`;
+  // 1. 生活中的应用 (first lesson only)
+  if(currentLessonIdx===0){
+    if(currentTopic.realLifeHtml){
+      body += '<div class="card anim-slide" style="border-left:4px solid var(--o);background:#fffbeb"><strong>&#127757; 生活中的应用</strong><div style="margin-top:8px">'+currentTopic.realLifeHtml+'</div></div>';
+    } else if(currentTopic.realLife){
+      body += '<div class="card anim-slide" style="border-left:4px solid var(--o);background:#fffbeb"><strong>&#127757; 生活中的应用</strong><p style="margin-top:8px;font-size:14px;line-height:1.8">'+currentTopic.realLife+'</p></div>';
     }
   }
 
-  // Glossary (中英文术语对照表, show on first lesson)
-  if (currentLessonIdx === 0 && currentTopic.glossary && currentTopic.glossary.length) {
-    body += `<div class="card anim-slide"><strong>📝 中英文术语对�?(AMC8为英文考试)</strong>`;
-    body += `<table style="width:100%;border-collapse:collapse;margin-top:10px;font-size:14px">`;
-    body += `<thead><tr style="background:var(--p);color:#fff"><th style="padding:8px 12px;text-align:left;border-radius:8px 0 0 0">中文</th><th style="padding:8px 12px;text-align:left">English</th><th style="padding:8px 12px;text-align:left;border-radius:0 8px 0 0">发音提示</th></tr></thead><tbody>`;
-    currentTopic.glossary.forEach((g, i) => {
-      body += `<tr style="background:${i%2?'var(--bg)':'#fff'}"><td style="padding:6px 12px;font-weight:600">${g.cn}</td><td style="padding:6px 12px;color:var(--p);font-weight:600">${g.en}</td><td style="padding:6px 12px;color:var(--text2);font-size:12px;font-style:italic">${g.pron||'-'}</td></tr>`;
-    });
-    body += `</tbody></table></div>`;
+  // 2. 图文讲解 (diagram part)
+  var visualDiagram = '';
+  var visualTextbook = '';
+  if(lesson.visual){
+    if(typeof lesson.visual === 'object'){
+      visualDiagram = lesson.visual.diagram || '';
+      visualTextbook = lesson.visual.textbook || '';
+    } else {
+      visualDiagram = lesson.visual;
+    }
+  }
+  if(lesson.textbook) visualTextbook = lesson.textbook; // standalone textbook field
+  if(visualDiagram){
+    body += '<div class="card anim-slide"><strong>&#128444; 图文讲解</strong><div class="visual-block">'+visualDiagram+'</div></div>';
   }
 
-  // Definitions (关键定义, show on first lesson)
-  if (currentLessonIdx === 0 && currentTopic.definitions && currentTopic.definitions.length) {
-    body += '<div class="card anim-slide"><strong>📖 关键定义</strong>';
-    currentTopic.definitions.forEach(d => {
-      body += '<div style="margin:10px 0;padding:12px 14px;background:var(--bg);border-radius:8px;border-left:3px solid var(--g)">'
-        + '<div style="font-weight:700;font-size:14px;color:var(--g)">' + d.term + '</div>'
-        + '<div style="margin-top:4px;font-size:14px;line-height:1.7">' + d.def + '</div></div>';
-    });
-    body += '</div>';
+  // 3. 教材讲解 (textbook)
+  if(visualTextbook){
+    body += '<div class="card anim-slide">'+visualTextbook+'</div>';
   }
 
-  // Videos (CN + EN, with dual buttons for CN, show on first lesson)
-  if (currentLessonIdx === 0) {
-    const hasCn = currentTopic.videosCn && currentTopic.videosCn.length;
-    const hasEn = currentTopic.videosEn && currentTopic.videosEn.length;
-    if (hasCn || hasEn) {
-      body += '<div class="card anim-slide"><strong>🎬 推荐视频</strong>';
-      if (hasCn) {
-        body += '<div style="margin-top:10px"><div style="font-weight:600;font-size:13px;color:#00a1d6;margin-bottom:6px">📺 中文视频 (B站)</div>';
-        currentTopic.videosCn.forEach(v => {
-          const searchBtn = v.searchUrl
-            ? '<a href="' + v.searchUrl + '" target="_blank" class="btn btn-sm btn-ghost" style="text-decoration:none;font-size:11px">🔍搜索同类</a>'
-            : '';
-          body += '<div class="video-card">'
-            + '<span style="background:#00a1d6;color:#fff;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;flex-shrink:0">B站</span>'
-            + '<div class="video-card-info">' + v.title + '</div>'
-            + '<div class="video-card-btns">'
-            + '<a href="' + v.url + '" target="_blank" class="btn btn-sm btn-p" style="text-decoration:none;font-size:11px">▶ 观看</a>'
-            + searchBtn
-            + '</div></div>';
+  // 4. 推荐视频 (first lesson only)
+  if(currentLessonIdx===0){
+    var hasCn = currentTopic.videosCn&&currentTopic.videosCn.length;
+    var hasEn = currentTopic.videosEn&&currentTopic.videosEn.length;
+    if(hasCn||hasEn){
+      body += '<div class="card anim-slide"><strong>&#127902; 推荐视频</strong>';
+      if(hasCn){
+        body += '<div style="margin-top:10px"><div style="font-weight:600;font-size:13px;color:#00a1d6;margin-bottom:6px">&#128250; 中文视频 (B站)</div>';
+        currentTopic.videosCn.forEach(function(v){
+          var searchBtn = v.searchUrl ? '<a href="'+v.searchUrl+'" target="_blank" class="btn btn-sm btn-ghost" style="text-decoration:none;font-size:11px">&#128269;搜索</a>' : '';
+          var watchBtn = v.url !== v.searchUrl ? '<a href="'+v.url+'" target="_blank" class="btn btn-sm btn-p" style="text-decoration:none;font-size:11px">&#9654; 观看</a>' : '';
+          body += '<div class="video-card"><span style="background:#00a1d6;color:#fff;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;flex-shrink:0">B站</span><div class="video-card-info">'+v.title+'</div><div class="video-card-btns">'+watchBtn+searchBtn+'</div></div>';
         });
         body += '</div>';
       }
-      if (hasEn) {
-        body += '<div style="margin-top:12px"><div style="font-weight:600;font-size:13px;color:#ff0000;margin-bottom:6px">▶️ English Videos (YouTube)</div>';
-        currentTopic.videosEn.forEach(v => {
-          body += '<div class="video-card">'
-            + '<span style="background:#ff0000;color:#fff;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;flex-shrink:0">YouTube</span>'
-            + '<div class="video-card-info">' + v.title + '</div>'
-            + '<div class="video-card-btns"><a href="' + v.url + '" target="_blank" class="btn btn-sm" style="background:#ff0000;color:#fff;text-decoration:none;font-size:11px">▶ Watch</a></div>'
-            + '</div>';
+      if(hasEn){
+        body += '<div style="margin-top:12px"><div style="font-weight:600;font-size:13px;color:#ff0000;margin-bottom:6px">&#9654; English Videos (YouTube)</div>';
+        currentTopic.videosEn.forEach(function(v){
+          var searchBtn = v.searchUrl ? '<a href="'+v.searchUrl+'" target="_blank" class="btn btn-sm btn-ghost" style="text-decoration:none;font-size:11px">&#128269;Search</a>' : '';
+          body += '<div class="video-card"><span style="background:#ff0000;color:#fff;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;flex-shrink:0">YT</span><div class="video-card-info">'+v.title+'</div><div class="video-card-btns"><a href="'+v.url+'" target="_blank" class="btn btn-sm" style="background:#ff0000;color:#fff;text-decoration:none;font-size:11px">Watch</a>'+searchBtn+'</div></div>';
         });
         body += '</div>';
       }
@@ -900,409 +645,336 @@ function startLesson(topicId, lessonIdx) {
     }
   }
 
-  // Visual 图文讲解
-  if (lesson.visual) {
-    body += '<div class="card anim-slide"><strong>🖼️ 图文讲解</strong><div class="visual-block">' + lesson.visual + '</div></div>';
+  // 5. 故事引入 + 核心知识点
+  var storyHtml = lesson.story.replace(/\n/g,'<br>');
+  body += '<div class="card lesson-box story anim-slide"><strong>&#128214; '+lesson.title+'</strong><p style="margin-top:10px;line-height:2;font-size:14px">'+storyHtml+'</p></div>';
+  body += '<div class="card anim-slide" style="border-left:4px solid var(--g);background:#ecfdf5"><strong>&#128273; 核心知识点</strong><ul style="margin-top:8px;padding-left:20px;line-height:2">';
+  lesson.keyPoints.forEach(function(kp){ body += '<li style="margin:4px 0">'+kp+'</li>'; });
+  body += '</ul></div>';
+
+  // 6. 关键定义 (first lesson only)
+  if(currentLessonIdx===0 && currentTopic.definitions&&currentTopic.definitions.length){
+    body += '<div class="card anim-slide"><strong>&#128218; 关键定义</strong>';
+    currentTopic.definitions.forEach(function(d){
+      body += '<div style="margin:10px 0;padding:12px;background:var(--bg);border-radius:8px;border-left:3px solid var(--g)"><div style="font-weight:700;font-size:14px;color:var(--g)">'+d.term+'</div><div style="margin-top:4px;font-size:14px;line-height:1.7">'+d.def+'</div></div>';
+    });
+    body += '</div>';
   }
 
-  if (lesson.examples && lesson.examples.length) {
-    body += '<div class="card anim-slide"><strong>💡 例题精讲</strong>';
-    lesson.examples.forEach((ex, i) => {
-      body += '<div style="margin:12px 0;padding:14px;background:#f8fafc;border-radius:8px;border-left:3px solid var(--p)">'
-        + '<div style="font-weight:600;font-size:15px">例' + (i+1) + ': ' + ex.q + '</div>'
-        + '<div style="margin-top:8px;font-size:13px;color:var(--text2)">💭 提示: ' + ex.hint + '</div>'
-        + '<details style="margin-top:8px"><summary style="cursor:pointer;color:var(--p);font-weight:600;font-size:14px">🔍 点击查看解答</summary>'
-        + '<div style="margin-top:8px;padding:12px;background:#ecfdf5;border-radius:6px;font-size:14px;line-height:1.8">' + ex.a + '</div></details></div>';
+  // examples
+  if(lesson.examples&&lesson.examples.length){
+    body += '<div class="card anim-slide"><strong>&#128161; 例题精讲</strong>';
+    lesson.examples.forEach(function(ex,i){
+      body += '<div style="margin:12px 0;padding:14px;background:#f8fafc;border-radius:8px;border-left:3px solid var(--p)">'+
+        '<div style="font-weight:600;font-size:15px">例'+(i+1)+': '+ex.q+'</div>'+
+        '<div style="margin-top:8px;font-size:13px;color:var(--text2)">&#128161; 提示: '+ex.hint+'</div>'+
+        '<details style="margin-top:8px"><summary style="cursor:pointer;color:var(--p);font-weight:600">&#128270; 查看解答</summary>'+
+        '<div style="margin-top:8px;padding:12px;background:#ecfdf5;border-radius:6px;font-size:14px;line-height:1.8">'+ex.a+'</div></details></div>';
     });
     body += '</div>';
   }
   document.getElementById('lessonBody').innerHTML = body;
 
-  // Quiz section — 3 tiers if it's the last lesson
-  quizIndex = 0;
-  quizCorrect = 0;
-  currentQuizData = null;
-
-  const isLastLesson = currentLessonIdx === currentTopic.lessons.length - 1;
-  if (isLastLesson && currentTopic.practice) {
-    const bc = currentTopic.practice.basic ? currentTopic.practice.basic.length : 0;
-    const ac = currentTopic.practice.advanced ? currentTopic.practice.advanced.length : 0;
-    const mc = currentTopic.practice.amc ? currentTopic.practice.amc.length : 0;
-    let qhtml = '<div class="card anim-slide"><strong>✏️ 练习题</strong>'
-      + '<div style="display:flex;gap:8px;margin:12px 0;flex-wrap:wrap">'
-      + '<button class="btn btn-sm btn-g" onclick="startPractice(\'basic\')" id="btn-basic">⭐ 基础巩固 (' + bc + '题)</button>'
-      + '<button class="btn btn-sm btn-o" onclick="startPractice(\'advanced\')" id="btn-adv">🔥 提高挑战 (' + ac + '题)</button>'
-      + '<button class="btn btn-sm btn-p" onclick="startPractice(\'amc\')" id="btn-amc">🏆 AMC8真题 (' + mc + '题)</button>'
-      + '</div><div id="practiceArea"></div></div>';
-    document.getElementById('quizSection').innerHTML = qhtml;
-  } else if (lesson.practice && lesson.practice.length) {
+  // quiz (练习题 - after content)
+  quizIndex=0; quizCorrect=0; currentQuizData=null;
+  var isLast = currentLessonIdx===currentTopic.lessons.length-1;
+  if(isLast&&currentTopic.practice){
+    var bc=currentTopic.practice.basic?currentTopic.practice.basic.length:0;
+    var ac=currentTopic.practice.advanced?currentTopic.practice.advanced.length:0;
+    var mc=currentTopic.practice.amc?currentTopic.practice.amc.length:0;
+    document.getElementById('quizSection').innerHTML =
+      '<div class="card anim-slide"><strong>&#9999; 练习题</strong>'+
+      '<div style="display:flex;gap:8px;margin:12px 0;flex-wrap:wrap">'+
+      '<button class="btn btn-sm btn-g" onclick="startPractice(\'basic\')" id="btn-basic">&#11088; 基础巩固 ('+bc+'题)</button>'+
+      '<button class="btn btn-sm btn-o" onclick="startPractice(\'advanced\')" id="btn-adv">&#128293; 提高挑战 ('+ac+'题)</button>'+
+      '<button class="btn btn-sm btn-p" onclick="startPractice(\'amc\')" id="btn-amc">&#127942; AMC8真题 ('+mc+'题)</button>'+
+      '</div><div id="practiceArea"></div></div>';
+  } else if(lesson.practice&&lesson.practice.length){
     renderQuiz(lesson.practice);
   } else {
-    document.getElementById('quizSection').innerHTML = '<div class="card" style="text-align:center;color:var(--text2)"><p>本课暂无练习，学完所有课时后会解锁三级练习！</p></div>';
+    document.getElementById('quizSection').innerHTML='<div class="card" style="text-align:center;color:var(--text2)">学完所有课时后解锁三级练习！</div>';
   }
-
-  document.getElementById('lessonFooter').innerHTML = '';
-}
-
-let currentQuizData = null;
-let currentQuizLevel = '';
-
-function startPractice(level) {
-  currentQuizLevel = level;
-  const data = currentTopic.practice[level];
-  if (!data || !data.length) {
-    document.getElementById('practiceArea').innerHTML = '<p style="color:var(--text2);padding:8px">该级别暂无题�?/p>';
-    return;
-  }
-  currentQuizData = data;
-  quizIndex = 0;
-  quizCorrect = 0;
-  // Highlight selected button
-  ['btn-basic','btn-adv','btn-amc'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.style.opacity = id === 'btn-'+{basic:'basic',advanced:'adv',amc:'amc'}[level] ? '1' : '0.4';
-  });
-  renderQuizInArea(data);
-}
-
-function renderQuizInArea(practice) {
-  if (quizIndex >= practice.length) {
-    const pct = Math.round(quizCorrect / practice.length * 100);
-    const starsEarned = quizCorrect * (currentQuizLevel === 'amc' ? 5 : currentQuizLevel === 'advanced' ? 4 : 3);
-    state.stars += starsEarned;
-    state.totalProblems += practice.length;
-    state.correctProblems += quizCorrect;
-    if (!state.topicProgress[currentTopic.id] || state.topicProgress[currentTopic.id] < 100) state.topicProgress[currentTopic.id] = 100;
-    if (!state.completedTopics.includes(currentTopic.id)) state.completedTopics.push(currentTopic.id);
-    checkAchievements(); saveState();
-    const levelName = {basic:'基础巩固',advanced:'提高挑战',amc:'AMC8真题'}[currentQuizLevel];
-    document.getElementById('practiceArea').innerHTML = `
-      <div style="text-align:center;padding:16px" class="anim-pop">
-        <div style="font-size:48px">${pct>=80?'🎉':pct>=60?'👍':'💪'}</div>
-        <div style="font-size:13px;color:var(--text2)">${levelName}</div>
-        <div style="font-size:36px;font-weight:800;color:${pct>=80?'var(--g)':pct>=60?'var(--o)':'var(--r)'}">${pct}%</div>
-        <div style="color:var(--text2)">Correct: ${quizCorrect}/${practice.length} &middot; +${starsEarned} Stars</div>
-        <div style="margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-          <button class="btn btn-sm btn-p" onclick="startPractice('${currentQuizLevel}')">Retry</button>
-          ${currentQuizLevel==='basic'?'<button class="btn btn-sm btn-o" onclick="startPractice(\'advanced\')">Try Advanced &rarr;</button>':''}
-          ${currentQuizLevel==='advanced'?'<button class="btn btn-sm btn-p" onclick="startPractice(\'amc\')">Try AMC8 Problems &rarr;</button>':''}
-        </div>
-      </div>`;
-    if (pct >= 80) launchConfetti();
-    document.getElementById('totalStars').textContent = state.stars + ' Stars';
-    return;
-  }
-  const p = practice[quizIndex];
-  const yearTag = p.year ? `<span style="font-size:11px;background:var(--p3);color:var(--p);padding:2px 6px;border-radius:6px;margin-left:4px">${p.year} AMC8 #${p.num}</span>` : '';
-  let html = `<div class="anim-slide">
-    <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text2)">
-      <span>Q ${quizIndex+1}/${practice.length} ${yearTag}</span><span>Correct: ${quizCorrect}</span>
-    </div>
-    <div class="prog-bar"><div class="prog-fill" style="width:${quizIndex/practice.length*100}%;background:var(--p)"></div></div>
-    <div class="quiz-q">${p.q}</div>
-    <div class="quiz-opts" id="paOpts">`;
-  p.options.forEach((opt,i) => {
-    html += `<div class="quiz-opt" data-idx="${i}" onclick="paSelect(${i})">${String.fromCharCode(65+i)}. ${opt}</div>`;
-  });
-  html += `</div><div class="quiz-explain" id="paExplain"></div></div>`;
-  document.getElementById('practiceArea').innerHTML = html;
-}
-
-function paSelect(selected) {
-  const p = currentQuizData[quizIndex];
-  document.querySelectorAll('#paOpts .quiz-opt').forEach(o => {
-    o.classList.add('disabled');
-    const idx = parseInt(o.dataset.idx);
-    if (idx === p.answer) o.classList.add('correct');
-    if (idx === selected && idx !== p.answer) o.classList.add('wrong');
-  });
-  const el = document.getElementById('paExplain');
-  if (selected === p.answer) {
-    quizCorrect++;
-    el.className = 'quiz-explain show correct-ex';
-    el.innerHTML = '<strong>&#10003; Correct!</strong> ' + p.explain;
-  } else {
-    el.className = 'quiz-explain show wrong-ex';
-    el.innerHTML = '<strong>&#10007; Answer: ' + String.fromCharCode(65+p.answer) + '</strong> ' + p.explain;
-  }
-  setTimeout(() => {
-    el.innerHTML += '<div style="margin-top:10px"><button class="btn btn-sm btn-p" onclick="quizIndex++;renderQuizInArea(currentQuizData)">Next &rarr;</button></div>';
-  }, 400);
-}
-
-function renderQuiz(practice) {
-  if (quizIndex >= practice.length) {
-    // Quiz done!
-    const pct = Math.round(quizCorrect / practice.length * 100);
-    const starsEarned = quizCorrect * 3;
-    state.stars += starsEarned;
-    state.totalProblems += practice.length;
-    state.correctProblems += quizCorrect;
-    if (!state.topicProgress[currentTopic.id] || state.topicProgress[currentTopic.id] < 100) {
-      state.topicProgress[currentTopic.id] = 100;
+  document.getElementById('lessonFooter').innerHTML='';
+  // 7-10: append to lessonBody AFTER quiz section - 易错点 + 考点 + 中英对照 (first lesson only)
+  if(currentLessonIdx===0){
+    var footer = '';
+    if(currentTopic.commonMistakes&&currentTopic.commonMistakes.length){
+      footer += '<div class="card anim-slide" style="border-left:4px solid var(--r);background:#fef2f2"><strong>&#9888;&#65039; 易错点警报</strong><ul style="margin-top:8px;padding-left:20px;font-size:14px;line-height:2">';
+      currentTopic.commonMistakes.forEach(function(m){ footer += '<li>'+m+'</li>'; });
+      footer += '</ul></div>';
     }
-    if (!state.completedTopics.includes(currentTopic.id)) {
-      state.completedTopics.push(currentTopic.id);
+    if(currentTopic.examTips){
+      footer += '<div class="card anim-slide" style="border-left:4px solid var(--p);background:var(--p3)"><strong>&#127919; AMC8考点分析</strong><p style="margin-top:8px;font-size:14px">'+currentTopic.examTips+'</p></div>';
     }
-    checkAchievements();
-    saveState();
-
-    document.getElementById('quizSection').innerHTML = `
-      <div class="card anim-pop" style="text-align:center;">
-        <div style="font-size:48px;margin:12px 0">${pct >= 80 ? '🎉' : pct >= 60 ? '👍' : '💪'}</div>
-        <h3>练习完成!</h3>
-        <div style="font-size:36px;font-weight:800;color:${pct>=80?'var(--g)':pct>=60?'var(--o)':'var(--r)'};margin:8px 0">${pct}%</div>
-        <div style="color:var(--text2)">Correct: ${quizCorrect}/${practice.length} &middot; +${starsEarned} Stars</div>
-        <div style="margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-          <button class="btn btn-p" onclick="quizIndex=0;quizCorrect=0;renderQuiz(currentTopic.lessons[currentLessonIdx].practice)">Retry</button>
-          ${currentLessonIdx < currentTopic.lessons.length - 1 ? '<button class="btn btn-g" onclick="startLesson(\''+currentTopic.id+'\','+(currentLessonIdx+1)+')">Next Lesson &rarr;</button>' : ''}
-          <button class="btn btn-ghost" onclick="renderLearnSelect()">Back</button>
-        </div>
-      </div>
-    `;
-    if (pct >= 80) launchConfetti();
-    document.getElementById('totalStars').textContent = state.stars + ' Stars';
-    return;
-  }
-
-  const p = practice[quizIndex];
-  let html = `
-    <div class="card anim-slide">
-      <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text2)">
-        <span>练习 ${quizIndex+1}/${practice.length}</span>
-        <span>正确 ${quizCorrect}</span>
-      </div>
-      <div class="prog-bar"><div class="prog-fill" style="width:${quizIndex/practice.length*100}%;background:var(--p)"></div></div>
-      <div class="quiz-q">${p.q}</div>
-      <div class="quiz-opts" id="quizOpts">
-  `;
-  p.options.forEach((opt, i) => {
-    html += `<div class="quiz-opt" data-idx="${i}" onclick="selectAnswer(${i},${p.answer},'${encodeURIComponent(p.explain)}')">${String.fromCharCode(65+i)}. ${opt}</div>`;
-  });
-  html += `</div><div class="quiz-explain" id="quizExplain"></div></div>`;
-  document.getElementById('quizSection').innerHTML = html;
-}
-
-function selectAnswer(selected, correct, explainEncoded) {
-  const explain = decodeURIComponent(explainEncoded);
-  const opts = document.querySelectorAll('#quizOpts .quiz-opt');
-  opts.forEach(o => {
-    o.classList.add('disabled');
-    const idx = parseInt(o.dataset.idx);
-    if (idx === correct) o.classList.add('correct');
-    if (idx === selected && idx !== correct) o.classList.add('wrong');
-  });
-  const explainEl = document.getElementById('quizExplain');
-  if (selected === correct) {
-    quizCorrect++;
-    explainEl.className = 'quiz-explain show correct-ex';
-    explainEl.innerHTML = '<strong>&#10003; Correct!</strong> ' + explain;
-  } else {
-    explainEl.className = 'quiz-explain show wrong-ex';
-    explainEl.innerHTML = '<strong>&#10007; Try again~</strong> ' + explain;
-  }
-  // next button
-  setTimeout(() => {
-    explainEl.innerHTML += '<div style="margin-top:10px"><button class="btn btn-sm btn-p" onclick="quizIndex++;renderQuiz(currentTopic.lessons[currentLessonIdx].practice)">Next &rarr;</button></div>';
-  }, 500);
-}
-
-// ========== EXAM PAGE ==========
-let examYearFilter = 'all', examDiffFilter = 'all', examTypeFilter = 'all';
-
-function renderExam() {
-  let filtered = PROBLEMS;
-  if (examYearFilter !== 'all') filtered = filtered.filter(p => String(p.year) === examYearFilter);
-  if (examDiffFilter !== 'all') filtered = filtered.filter(p => String(p.difficulty) === examDiffFilter);
-  if (examTypeFilter !== 'all') filtered = filtered.filter(p => p.type === examTypeFilter);
-
-  let html = '';
-  filtered.forEach((p) => {
-    const topicObj = TOPICS.find(t => t.id === p.topic);
-    const globalIdx = PROBLEMS.indexOf(p);
-
-    if (p.type === 'doable') {
-      html += `
-      <div class="card" style="margin-bottom:10px" id="prob-${globalIdx}">
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">
-          <div>
-            <span style="font-weight:700;color:var(--p)">${p.year} AMC8 #${p.num}</span>
-            <span class="diff">${'★'.repeat(p.difficulty)}${'☆'.repeat(5-p.difficulty)}</span>
-            <span style="font-size:10px;background:#dcfce7;color:#166534;padding:2px 6px;border-radius:8px;font-weight:600;margin-left:4px">Do it here</span>
-          </div>
-          <span style="font-size:12px;background:var(--p3);color:var(--p);padding:2px 8px;border-radius:10px">${topicObj ? topicObj.icon+' '+topicObj.name : p.topic}</span>
-        </div>
-        <div style="margin:10px 0;font-size:14px;line-height:1.8">${p.q}</div>
-        <div class="quiz-opts" id="examOpts-${globalIdx}">`;
-      p.options.forEach((opt, oi) => {
-        html += `<div class="quiz-opt" data-idx="${oi}" onclick="examSelect(${globalIdx},${oi})">${String.fromCharCode(65+oi)}. ${opt}</div>`;
+    if(currentTopic.glossary&&currentTopic.glossary.length){
+      footer += '<div class="card anim-slide"><strong>&#128221; 中英文术语对照 (AMC8为英文考试)</strong><table style="width:100%;border-collapse:collapse;margin-top:10px;font-size:14px">';
+      footer += '<thead><tr style="background:var(--p);color:#fff"><th style="padding:8px;text-align:left">中文</th><th style="padding:8px;text-align:left">English</th><th style="padding:8px;text-align:left">发音</th></tr></thead><tbody>';
+      currentTopic.glossary.forEach(function(g,i){
+        footer += '<tr style="background:'+(i%2?'var(--bg)':'#fff')+'"><td style="padding:6px 8px;font-weight:600">'+g.cn+'</td><td style="padding:6px 8px;color:var(--p);font-weight:600">'+g.en+'</td><td style="padding:6px 8px;color:var(--text2);font-size:12px;font-style:italic">'+(g.pron||'-')+'</td></tr>';
       });
-      html += `</div>
-        <div class="quiz-explain" id="examExplain-${globalIdx}"></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
-          <span style="font-size:11px;color:var(--text2)">标签: ${p.tags.join(', ')}</span>
-          <a href="${p.aops}" target="_blank" style="font-size:12px;color:var(--p);text-decoration:none">AoPS Solution &rarr;</a>
-        </div>
-      </div>`;
-    } else {
-      html += `
-      <div class="card" style="margin-bottom:10px;border-left:4px solid var(--o)">
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">
-          <div>
-            <span style="font-weight:700;color:var(--p)">${p.year} AMC8 #${p.num}</span>
-            <span class="diff">${'★'.repeat(p.difficulty)}${'☆'.repeat(5-p.difficulty)}</span>
-            <span style="font-size:10px;background:#fef3c7;color:#92400e;padding:2px 6px;border-radius:8px;font-weight:600;margin-left:4px">Needs image</span>
-          </div>
-          <span style="font-size:12px;background:var(--p3);color:var(--p);padding:2px 8px;border-radius:10px">${topicObj ? topicObj.icon+' '+topicObj.name : p.topic}</span>
-        </div>
-        <div style="margin:10px 0;font-size:14px;color:var(--text2)">${p.q}</div>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;flex-wrap:wrap;gap:8px">
-          <span style="font-size:11px;color:var(--text2)">标签: ${p.tags.join(', ')}</span>
-          <div style="display:flex;gap:8px;align-items:center">
-            <a href="${p.aops}" target="_blank" class="btn btn-sm btn-p" style="text-decoration:none;color:#fff">View on AoPS &rarr;</a>
-            <details style="font-size:13px">
-              <summary style="cursor:pointer;color:var(--g);font-weight:600">答案</summary>
-              <span style="color:var(--g)">${p.answer} (${p.answerText})</span>
-            </details>
-          </div>
-        </div>
-      </div>`;
+      footer += '</tbody></table></div>';
     }
-  });
-  if (!filtered.length) html = '<div class="card"><p style="color:var(--text2)">No matching problems</p></div>';
-  document.getElementById('problemList').innerHTML = html;
+    if(footer) document.getElementById('lessonFooter').innerHTML = footer;
+  }
 }
 
-function examSelect(probIdx, selected) {
-  const p = PROBLEMS[probIdx];
-  const opts = document.querySelectorAll('#examOpts-'+probIdx+' .quiz-opt');
-  opts.forEach(o => {
+function startPractice(level){
+  currentQuizLevel=level;
+  var data=currentTopic.practice[level];
+  if(!data||!data.length){ document.getElementById('practiceArea').innerHTML='<p style="color:var(--text2)">暂无题目</p>'; return; }
+  currentQuizData=data; quizIndex=0; quizCorrect=0;
+  renderPracticeQuiz();
+}
+
+function renderPracticeQuiz(){
+  var practice=currentQuizData;
+  if(quizIndex>=practice.length){
+    var pct=Math.round(quizCorrect/practice.length*100);
+    var stars=quizCorrect*(currentQuizLevel==='amc'?5:currentQuizLevel==='advanced'?4:3);
+    state.stars+=stars; state.totalProblems+=practice.length; state.correctProblems+=quizCorrect;
+    if((state.topicProgress[currentTopic.id]||0)<100) state.topicProgress[currentTopic.id]=100;
+    if(state.completedTopics.indexOf(currentTopic.id)<0) state.completedTopics.push(currentTopic.id);
+    checkAchievements(); saveState();
+    document.getElementById('totalStars').innerHTML=state.stars+' &#11088;';
+    document.getElementById('practiceArea').innerHTML=
+      '<div style="text-align:center;padding:16px">'+
+      '<div style="font-size:48px">'+(pct>=80?'&#127881;':pct>=60?'&#128077;':'&#128170;')+'</div>'+
+      '<div style="font-size:36px;font-weight:800;color:'+(pct>=80?'var(--g)':pct>=60?'var(--o)':'var(--r)')+'">'+pct+'%</div>'+
+      '<div style="color:var(--text2)">答对 '+quizCorrect+'/'+practice.length+' 题 &middot; +'+stars+' 星星</div>'+
+      '<div style="margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">'+
+      '<button class="btn btn-sm btn-p" onclick="startPractice(\''+currentQuizLevel+'\')">再来一次</button>'+
+      (currentQuizLevel==='basic'?'<button class="btn btn-sm btn-o" onclick="startPractice(\'advanced\')">挑战提高题 &rarr;</button>':'')+
+      (currentQuizLevel==='advanced'?'<button class="btn btn-sm btn-p" onclick="startPractice(\'amc\')">AMC8真题 &rarr;</button>':'')+
+      '</div></div>';
+    if(pct>=80) launchConfetti();
+    return;
+  }
+  var p=practice[quizIndex];
+  var yearTag=p.year?'<span style="font-size:11px;background:var(--p3);color:var(--p);padding:2px 6px;border-radius:6px;margin-left:4px">'+p.year+' #'+p.num+'</span>':'';
+  var html='<div><div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text2)"><span>第'+(quizIndex+1)+'/'+practice.length+'题 '+yearTag+'</span><span>正确 '+quizCorrect+'</span></div>'+
+    '<div class="prog-bar"><div class="prog-fill" style="width:'+(quizIndex/practice.length*100)+'%;background:var(--p)"></div></div>'+
+    '<div class="quiz-q">'+p.q+'</div><div class="quiz-opts" id="paOpts">';
+  p.options.forEach(function(opt,i){
+    html+='<div class="quiz-opt" data-idx="'+i+'" onclick="paSelect('+i+')">'+String.fromCharCode(65+i)+'. '+opt+'</div>';
+  });
+  html+='</div><div class="quiz-explain" id="paExplain"></div></div>';
+  document.getElementById('practiceArea').innerHTML=html;
+}
+
+function paSelect(selected){
+  var p=currentQuizData[quizIndex];
+  document.querySelectorAll('#paOpts .quiz-opt').forEach(function(o){
     o.classList.add('disabled');
-    const idx = parseInt(o.dataset.idx);
-    if (idx === p.answer) o.classList.add('correct');
-    if (idx === selected && idx !== p.answer) o.classList.add('wrong');
+    var idx=parseInt(o.dataset.idx);
+    if(idx===p.answer) o.classList.add('correct');
+    if(idx===selected&&idx!==p.answer) o.classList.add('wrong');
   });
-  const el = document.getElementById('examExplain-'+probIdx);
-  if (selected === p.answer) {
-    el.className = 'quiz-explain show correct-ex';
-    el.innerHTML = '<strong>Correct! +3 Stars</strong><br>'+p.explain+'<br><a href="'+p.aops+'" target="_blank" style="color:var(--p);font-size:12px;margin-top:4px;display:inline-block">AoPS Solution &rarr;</a>';
-    state.stars += 3;
-    state.correctProblems++;
+  var el=document.getElementById('paExplain');
+  if(selected===p.answer){
+    quizCorrect++;
+    el.className='quiz-explain show correct-ex';
+    el.innerHTML='<strong>&#10003; 正确！</strong> '+p.explain;
   } else {
-    el.className = 'quiz-explain show wrong-ex';
-    el.innerHTML = '<strong>Answer: '+String.fromCharCode(65+p.answer)+'</strong><br>'+p.explain+'<br><a href="'+p.aops+'" target="_blank" style="color:var(--p);font-size:12px;margin-top:4px;display:inline-block">AoPS Full Solution &rarr;</a>';
+    el.className='quiz-explain show wrong-ex';
+    el.innerHTML='<strong>&#10007; 正确答案: '+String.fromCharCode(65+p.answer)+'</strong> '+p.explain;
   }
-  state.totalProblems++;
-  checkAchievements();
-  saveState();
-  document.getElementById('totalStars').textContent = state.stars + ' Stars';
+  setTimeout(function(){
+    el.innerHTML+='<div style="margin-top:10px"><button class="btn btn-sm btn-p" onclick="quizIndex++;renderPracticeQuiz()">下一题 &rarr;</button></div>';
+  },400);
 }
 
-function filterProblems(val, btn) {
-  examYearFilter = val;
-  btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderExam();
-}
-function filterDiff(val, btn) {
-  examDiffFilter = val;
-  btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderExam();
-}
-function filterType(val, btn) {
-  examTypeFilter = val;
-  btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderExam();
-}
-
-// ========== PK PAGE ==========
-function renderPK() {
-  document.getElementById('trophyStars').textContent = state.stars + ' Stars';
-  document.getElementById('t-streak').textContent = state.maxStreak;
-  document.getElementById('t-correct').textContent = state.totalProblems ? Math.round(state.correctProblems / state.totalProblems * 100) + '%' : '0%';
-  document.getElementById('t-ach').textContent = state.achievements.length;
-  const list = document.getElementById('achievementList');
-  let html = '';
-  ACHIEVEMENTS.forEach(a => {
-    const unlocked = state.achievements.includes(a.id);
-    html += `<div class="ach-card${unlocked ? ' unlocked' : ''}">
-      <div class="ach-icon">${a.icon}</div>
-      <div class="ach-info"><div class="ach-name">${a.name}</div><div class="ach-desc">${a.desc}</div></div>
-      ${unlocked ? '<span style="margin-left:auto;color:var(--o);font-weight:700;font-size:12px">Unlocked!</span>' : ''}
-    </div>`;
+function renderQuiz(practice){
+  if(quizIndex>=practice.length){
+    var pct=Math.round(quizCorrect/practice.length*100);
+    var stars=quizCorrect*3;
+    state.stars+=stars; state.totalProblems+=practice.length; state.correctProblems+=quizCorrect;
+    if((state.topicProgress[currentTopic.id]||0)<100) state.topicProgress[currentTopic.id]=100;
+    if(state.completedTopics.indexOf(currentTopic.id)<0) state.completedTopics.push(currentTopic.id);
+    checkAchievements(); saveState();
+    document.getElementById('totalStars').innerHTML=state.stars+' &#11088;';
+    document.getElementById('quizSection').innerHTML=
+      '<div class="card" style="text-align:center">'+
+      '<div style="font-size:48px">'+(pct>=80?'&#127881;':pct>=60?'&#128077;':'&#128170;')+'</div>'+
+      '<div style="font-size:36px;font-weight:800;color:'+(pct>=80?'var(--g)':pct>=60?'var(--o)':'var(--r)')+'">'+pct+'%</div>'+
+      '<div style="color:var(--text2)">答对 '+quizCorrect+'/'+practice.length+' &middot; +'+stars+' 星星</div>'+
+      '<div style="margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">'+
+      '<button class="btn btn-p" onclick="quizIndex=0;quizCorrect=0;renderQuiz(currentTopic.lessons[currentLessonIdx].practice)">再来一次</button>'+
+      (currentLessonIdx<currentTopic.lessons.length-1?'<button class="btn btn-g" onclick="startLesson(\''+currentTopic.id+'\','+(currentLessonIdx+1)+')">下一课 &rarr;</button>':'')+
+      '<button class="btn btn-ghost" onclick="renderLearnSelect()">返回列表</button>'+
+      '</div></div>';
+    if(pct>=80) launchConfetti();
+    return;
+  }
+  var p=practice[quizIndex];
+  var html='<div class="card anim-slide">'+
+    '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text2)"><span>第'+(quizIndex+1)+'/'+practice.length+'题</span><span>正确 '+quizCorrect+'</span></div>'+
+    '<div class="prog-bar"><div class="prog-fill" style="width:'+(quizIndex/practice.length*100)+'%;background:var(--p)"></div></div>'+
+    '<div class="quiz-q">'+p.q+'</div><div class="quiz-opts" id="quizOpts">';
+  p.options.forEach(function(opt,i){
+    html+='<div class="quiz-opt" data-idx="'+i+'" onclick="selectAnswer('+i+','+p.answer+',\''+encodeURIComponent(p.explain)+'\')">'+String.fromCharCode(65+i)+'. '+opt+'</div>';
   });
-  list.innerHTML = html;
+  html+='</div><div class="quiz-explain" id="quizExplain"></div></div>';
+  document.getElementById('quizSection').innerHTML=html;
 }
 
-// ========== ACHIEVEMENTS CHECK ==========
-function checkAchievements() {
-  let newUnlocks = [];
-  ACHIEVEMENTS.forEach(a => {
-    if (state.achievements.includes(a.id)) return;
-    let unlocked = false;
-    if (a.id === 'first_login') unlocked = state.loginCount >= 1;
-    else if (a.id === 'streak_3') unlocked = state.streak >= 3;
-    else if (a.id === 'streak_7') unlocked = state.streak >= 7;
-    else if (a.id === 'streak_30') unlocked = state.streak >= 30;
-    else if (a.id === 'streak_100') unlocked = state.streak >= 100;
-    else if (a.id === 'topic_1') unlocked = state.completedTopics.length >= 1;
-    else if (a.id === 'topic_5') unlocked = state.completedTopics.length >= 5;
-    else if (a.id === 'topic_all') unlocked = state.completedTopics.length >= TOPICS.length;
-    else if (a.id === 'problems_10') unlocked = state.totalProblems >= 10;
-    else if (a.id === 'problems_50') unlocked = state.totalProblems >= 50;
-    else if (a.id === 'problems_200') unlocked = state.totalProblems >= 200;
-    else if (a.id === 'star_50') unlocked = state.stars >= 50;
-    if (unlocked) {
-      state.achievements.push(a.id);
-      state.stars += 10;
-      newUnlocks.push(a);
+function selectAnswer(selected,correct,explainEncoded){
+  var explain=decodeURIComponent(explainEncoded);
+  document.querySelectorAll('#quizOpts .quiz-opt').forEach(function(o){
+    o.classList.add('disabled');
+    var idx=parseInt(o.dataset.idx);
+    if(idx===correct) o.classList.add('correct');
+    if(idx===selected&&idx!==correct) o.classList.add('wrong');
+  });
+  var el=document.getElementById('quizExplain');
+  if(selected===correct){ quizCorrect++; el.className='quiz-explain show correct-ex'; el.innerHTML='<strong>&#10003; 正确！</strong> '+explain; }
+  else { el.className='quiz-explain show wrong-ex'; el.innerHTML='<strong>&#10007; 正确答案: '+String.fromCharCode(65+correct)+'</strong> '+explain; }
+  setTimeout(function(){
+    el.innerHTML+='<div style="margin-top:10px"><button class="btn btn-sm btn-p" onclick="quizIndex++;renderQuiz(currentTopic.lessons[currentLessonIdx].practice)">下一题 &rarr;</button></div>';
+  },500);
+}
+
+// ===== EXAM PAGE =====
+var examYearFilter='all', examDiffFilter='all', examTypeFilter='all';
+function renderExam(){
+  var filtered=PROBLEMS.filter(function(p){
+    if(examYearFilter!=='all'&&String(p.year)!==examYearFilter) return false;
+    if(examDiffFilter!=='all'&&String(p.difficulty)!==examDiffFilter) return false;
+    if(examTypeFilter!=='all'&&p.type!==examTypeFilter) return false;
+    return true;
+  });
+  var html='';
+  filtered.forEach(function(p){
+    var topicObj=TOPICS.find(function(t){ return t.id===p.topic; });
+    var globalIdx=PROBLEMS.indexOf(p);
+    var stars='★'.repeat(p.difficulty)+'☆'.repeat(5-p.difficulty);
+    if(p.type==='doable'){
+      html+='<div class="card" style="margin-bottom:10px" id="prob-'+globalIdx+'">'+
+        '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">'+
+        '<div><span style="font-weight:700;color:var(--p)">'+p.year+' AMC8 #'+p.num+'</span> <span class="diff">'+stars+'</span> <span style="font-size:10px;background:#dcfce7;color:#166534;padding:2px 6px;border-radius:8px;font-weight:600;margin-left:4px">可做题</span></div>'+
+        '<span style="font-size:12px;background:var(--p3);color:var(--p);padding:2px 8px;border-radius:10px">'+(topicObj?topicObj.icon+' '+topicObj.name:p.topic)+'</span></div>'+
+        '<div style="margin:10px 0;font-size:14px;line-height:1.8">'+p.q+'</div>'+
+        '<div class="quiz-opts" id="examOpts-'+globalIdx+'">';
+      p.options.forEach(function(opt,oi){
+        html+='<div class="quiz-opt" data-idx="'+oi+'" onclick="examSelect('+globalIdx+','+oi+')">'+String.fromCharCode(65+oi)+'. '+opt+'</div>';
+      });
+      html+='</div><div class="quiz-explain" id="examExplain-'+globalIdx+'"></div>'+
+        '<div style="display:flex;justify-content:space-between;margin-top:8px"><span style="font-size:11px;color:var(--text2)">'+p.tags.join(', ')+'</span>'+
+        '<a href="'+p.aops+'" target="_blank" style="font-size:12px;color:var(--p);text-decoration:none">AoPS &rarr;</a></div></div>';
+    } else {
+      html+='<div class="card" style="margin-bottom:10px;border-left:4px solid var(--o)">'+
+        '<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px">'+
+        '<div><span style="font-weight:700;color:var(--p)">'+p.year+' AMC8 #'+p.num+'</span> <span class="diff">'+stars+'</span> <span style="font-size:10px;background:#fef3c7;color:#92400e;padding:2px 6px;border-radius:8px;font-weight:600;margin-left:4px">需看图</span></div>'+
+        '<span style="font-size:12px;background:var(--p3);color:var(--p);padding:2px 8px;border-radius:10px">'+(topicObj?topicObj.icon+' '+topicObj.name:p.topic)+'</span></div>'+
+        '<div style="margin:10px 0;font-size:14px;color:var(--text2)">'+p.q+'</div>'+
+        '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">'+
+        '<span style="font-size:11px;color:var(--text2)">'+p.tags.join(', ')+'</span>'+
+        '<div style="display:flex;gap:8px;align-items:center">'+
+        '<a href="'+p.aops+'" target="_blank" class="btn btn-sm btn-p" style="text-decoration:none;color:#fff">去 AoPS 做题 &rarr;</a>'+
+        '<details style="font-size:13px"><summary style="cursor:pointer;color:var(--g);font-weight:600">答案</summary>'+
+        '<span style="color:var(--g)">'+p.answer+' ('+p.answerText+')</span></details>'+
+        '</div></div></div>';
     }
   });
-  if (newUnlocks.length) {
-    saveState();
-    newUnlocks.forEach(a => {
-      setTimeout(() => showToast('Achievement unlocked: ' + a.icon + ' ' + a.name + '!'), 300);
-    });
+  if(!filtered.length) html='<div class="card"><p style="color:var(--text2)">没有匹配的题目</p></div>';
+  document.getElementById('problemList').innerHTML=html;
+}
+
+function examSelect(probIdx,selected){
+  var p=PROBLEMS[probIdx];
+  document.querySelectorAll('#examOpts-'+probIdx+' .quiz-opt').forEach(function(o){
+    o.classList.add('disabled');
+    var idx=parseInt(o.dataset.idx);
+    if(idx===p.answer) o.classList.add('correct');
+    if(idx===selected&&idx!==p.answer) o.classList.add('wrong');
+  });
+  var el=document.getElementById('examExplain-'+probIdx);
+  if(selected===p.answer){
+    el.className='quiz-explain show correct-ex';
+    el.innerHTML='<strong>&#10003; 正确! +3 Stars</strong><br>'+p.explain+'<br><a href="'+p.aops+'" target="_blank" style="color:var(--p);font-size:12px">AoPS 完整解析 &rarr;</a>';
+    state.stars+=3; state.correctProblems++;
+  } else {
+    el.className='quiz-explain show wrong-ex';
+    el.innerHTML='<strong>&#10007; 正确答案: '+String.fromCharCode(65+p.answer)+'</strong><br>'+p.explain+'<br><a href="'+p.aops+'" target="_blank" style="color:var(--p);font-size:12px">AoPS 完整解析 &rarr;</a>';
   }
+  state.totalProblems++; checkAchievements(); saveState();
+  document.getElementById('totalStars').innerHTML=state.stars+' &#11088;';
 }
 
-// ========== UTILITIES ==========
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
+function filterProblems(val,btn){ examYearFilter=val; btn.parentElement.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');}); btn.classList.add('active'); renderExam(); }
+function filterDiff(val,btn){ examDiffFilter=val; btn.parentElement.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');}); btn.classList.add('active'); renderExam(); }
+function filterType(val,btn){ examTypeFilter=val; btn.parentElement.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');}); btn.classList.add('active'); renderExam(); }
+
+// ===== TROPHY PAGE =====
+function renderTrophy(){
+  document.getElementById('trophyStars').textContent=state.stars;
+  document.getElementById('t-streak').textContent=state.maxStreak;
+  document.getElementById('t-correct').textContent=state.totalProblems?Math.round(state.correctProblems/state.totalProblems*100)+'%':'0%';
+  document.getElementById('t-ach').textContent=state.achievements.length;
+  var list=document.getElementById('achievementList');
+  var html='';
+  ACHIEVEMENTS.forEach(function(a){
+    var unlocked=state.achievements.indexOf(a.id)>=0;
+    html+='<div class="ach-card'+(unlocked?' unlocked':'')+'">'+
+      '<div class="ach-icon">'+a.icon+'</div>'+
+      '<div style="flex:1"><div class="ach-name">'+a.name+'</div><div class="ach-desc">'+a.desc+'</div></div>'+
+      (unlocked?'<span style="color:var(--o);font-weight:700;font-size:12px">已解锁</span>':'')+
+      '</div>';
+  });
+  list.innerHTML=html;
 }
 
-function launchConfetti() {
-  const container = document.createElement('div');
-  container.className = 'confetti-container';
+// ===== ACHIEVEMENTS =====
+function checkAchievements(){
+  var changed=false;
+  ACHIEVEMENTS.forEach(function(a){
+    if(state.achievements.indexOf(a.id)>=0) return;
+    var ok=false;
+    if(a.id==='first_login') ok=state.loginCount>=1;
+    else if(a.id==='streak_3') ok=state.streak>=3;
+    else if(a.id==='streak_7') ok=state.streak>=7;
+    else if(a.id==='streak_30') ok=state.streak>=30;
+    else if(a.id==='streak_100') ok=state.streak>=100;
+    else if(a.id==='topic_1') ok=state.completedTopics.length>=1;
+    else if(a.id==='topic_5') ok=state.completedTopics.length>=5;
+    else if(a.id==='topic_all') ok=state.completedTopics.length>=TOPICS.length;
+    else if(a.id==='problems_10') ok=state.totalProblems>=10;
+    else if(a.id==='problems_50') ok=state.totalProblems>=50;
+    else if(a.id==='problems_200') ok=state.totalProblems>=200;
+    else if(a.id==='star_50') ok=state.stars>=50;
+    if(ok){ state.achievements.push(a.id); state.stars+=10; changed=true; setTimeout(function(){ showToast('成就解锁: '+a.icon+' '+a.name+'!'); },300); }
+  });
+  if(changed) saveState();
+}
+
+// ===== UTILITIES =====
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); },2500);
+}
+
+function launchConfetti(){
+  var container=document.createElement('div');
+  container.className='confetti-container';
   document.body.appendChild(container);
-  const colors = ['#4f46e5','#ef4444','#10b981','#f59e0b','#ec4899','#8b5cf6'];
-  for (let i = 0; i < 60; i++) {
-    const c = document.createElement('div');
-    c.className = 'confetti';
-    c.style.left = Math.random()*100+'%';
-    c.style.background = colors[Math.floor(Math.random()*colors.length)];
-    c.style.animationDelay = Math.random()*2+'s';
-    c.style.animationDuration = (2+Math.random()*2)+'s';
+  var colors=['#4f46e5','#ef4444','#10b981','#f59e0b','#ec4899','#8b5cf6'];
+  for(var i=0;i<60;i++){
+    var c=document.createElement('div');
+    c.className='confetti';
+    c.style.left=Math.random()*100+'%';
+    c.style.background=colors[Math.floor(Math.random()*colors.length)];
+    c.style.animationDelay=Math.random()*2+'s';
+    c.style.animationDuration=(2+Math.random()*2)+'s';
     container.appendChild(c);
   }
-  setTimeout(() => container.remove(), 5000);
+  setTimeout(function(){ container.remove(); },5000);
 }
 
-// ========== INIT ==========
-checkLogin();
+// ===== INIT =====
+initApp();
 
-// ========== REGISTER SERVICE WORKER ==========
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js').then(reg => {
-    console.log('SW registered:', reg.scope);
-  }).catch(err => {
-    console.log('SW registration failed (this is fine for local file access):', err);
-  });
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('./sw.js').catch(function(){});
 }
 </script>
 </body>

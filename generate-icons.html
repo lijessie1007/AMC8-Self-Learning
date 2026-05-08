@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<body>
+<canvas id="c192" width="192" height="192"></canvas>
+<canvas id="c512" width="512" height="512"></canvas>
+<script>
+function drawIcon(canvas) {
+  const ctx = canvas.getContext('2d');
+  const s = canvas.width;
+  // Background gradient
+  const grad = ctx.createLinearGradient(0, 0, s, s);
+  grad.addColorStop(0, '#4f46e5');
+  grad.addColorStop(1, '#7c3aed');
+  // Rounded rect
+  const r = s * 0.18;
+  ctx.beginPath();
+  ctx.moveTo(r, 0); ctx.lineTo(s-r, 0); ctx.quadraticCurveTo(s, 0, s, r);
+  ctx.lineTo(s, s-r); ctx.quadraticCurveTo(s, s, s-r, s);
+  ctx.lineTo(r, s); ctx.quadraticCurveTo(0, s, 0, s-r);
+  ctx.lineTo(0, r); ctx.quadraticCurveTo(0, 0, r, 0);
+  ctx.closePath();
+  ctx.fillStyle = grad;
+  ctx.fill();
+  // Text
+  ctx.fillStyle = '#ffffff';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  // AMC
+  ctx.font = `bold ${s*0.22}px -apple-system, sans-serif`;
+  ctx.fillText('AMC', s/2, s*0.35);
+  // 8
+  ctx.font = `900 ${s*0.38}px -apple-system, sans-serif`;
+  ctx.fillText('8', s/2, s*0.68);
+  // Star
+  ctx.font = `${s*0.09}px sans-serif`;
+  ctx.fillText('⭐', s*0.78, s*0.18);
+}
+
+function download(canvas, name) {
+  drawIcon(canvas);
+  const a = document.createElement('a');
+  a.download = name;
+  a.href = canvas.toDataURL('image/png');
+  a.click();
+}
+
+// Auto download both
+drawIcon(document.getElementById('c192'));
+drawIcon(document.getElementById('c512'));
+
+document.getElementById('c192').toBlob(blob => {
+  const url = URL.createObjectURL(blob);
+  document.body.innerHTML += `<p>192: <a href="${url}" download="icon-192.png">Download icon-192.png</a></p>`;
+});
+document.getElementById('c512').toBlob(blob => {
+  const url = URL.createObjectURL(blob);
+  document.body.innerHTML += `<p>512: <a href="${url}" download="icon-512.png">Download icon-512.png</a></p>`;
+});
+</script>
+</body>
+</html>
